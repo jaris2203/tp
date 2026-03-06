@@ -431,11 +431,42 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Non-Functional Requirements
 
-1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+**Environment Requirements**
+* The system should work on any _mainstream OS_ with Java `17` or above installed. 
+* The system should work without requiring an installer. 
+* The system should not depend on any remote server maintained by the development team.
 
-*{More to be added}*
+**Performance & Capacity Requirements**
+* The system should manage up to 1000 persons without noticeable performance degradation. 
+* The system should respond to user commands within 1 second when managing up to 1000 persons.
+
+**Usability & Accessibility Requirements**
+* Users should be able to complete most tasks faster using commands than using a mouse. 
+* New users should be able to perform basic commands after reading the User Guide without external assistance. 
+* The GUI should display correctly without layout distortion at 1920×1080 (scaling 100 - 125%), and remain fully functional at 1280×720 (scaling up to 150%).
+
+**Data Requirements**
+* The system should support persistent local storage of user data. 
+* The system should restore previously saved data upon restart. 
+* The system should prevent corruption of stored data during unexpected shutdown. 
+* The system should save data automatically after each modifying command.
+
+**Reliability & Error Handling**
+* The system should operate continuously without failure during normal usage sessions. 
+* Invalid commands should not cause the system to crash. 
+* The system should display informative error messages for invalid user inputs. 
+* The system should handle unexpected or malformed input gracefully.
+
+**Maintainability & Extensibility**
+* The codebase should follow standard Java coding conventions.
+* The system should be modular to allow future feature extensions.
+
+**Security & Privacy**
+* User data should be stored locally and not transmitted externally without user action.
+
+**Documentation**
+* A User Guide describing all commands should be provided.
+* A Developer Guide describing the system architecture should be provided to facilitate maintenance.
 
 ### Glossary
 
