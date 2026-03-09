@@ -3,18 +3,17 @@ package seedu.address.model.person;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 /**
  * Represents a Person's expiry date in the address book.
  */
 public class ExpiryDate {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Expiry date should be in YYYY-MM-DD format, or blank.";
-
-    /*
-     * Accepts blank string, or dates in ISO format yyyy-MM-dd.
-     */
-    public static final String VALIDATION_REGEX = "^$|\\d{4}-\\d{2}-\\d{2}$";
+            "Expiry date should be a valid date in the format yyyy-MM-dd, "
+                    + "for example, 2026-12-31.";
 
     public final String value;
 
@@ -33,7 +32,13 @@ public class ExpiryDate {
      * Returns true if a given string is a valid expiry date.
      */
     public static boolean isValidExpiryDate(String test) {
-        return test.matches(VALIDATION_REGEX);
+        requireNonNull(test);
+        try {
+            LocalDate.parse(test);
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
     }
 
     @Override
@@ -43,9 +48,17 @@ public class ExpiryDate {
 
     @Override
     public boolean equals(Object other) {
-        return other == this
-                || (other instanceof ExpiryDate
-                && value.equals(((ExpiryDate) other).value));
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof ExpiryDate)) {
+            return false;
+        }
+
+        ExpiryDate otherExpiryDate = (ExpiryDate) other;
+        return value.equals(otherExpiryDate.value);
     }
 
     @Override
