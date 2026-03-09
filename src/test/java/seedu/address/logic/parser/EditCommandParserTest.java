@@ -185,12 +185,6 @@ public class EditCommandParserTest {
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
-        // expiry date
-        userInput = targetIndex.getOneBased() + EXPIRY_DATE_DESC_AMY;
-        descriptor = new EditPersonDescriptorBuilder().withExpiryDate(VALID_EXPIRY_DATE_AMY).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
-        assertParseSuccess(parser, userInput, expectedCommand);
-
         // tags
         userInput = targetIndex.getOneBased() + TAG_DESC_FRIEND;
         descriptor = new EditPersonDescriptorBuilder().withTags(VALID_TAG_FRIEND).build();

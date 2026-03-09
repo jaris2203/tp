@@ -108,6 +108,7 @@ public class Person {
                 && email.equals(otherPerson.email)
                 && address.equals(otherPerson.address)
                 && orderDescription.equals(otherPerson.orderDescription)
+                && expiryDate.equals(otherPerson.expiryDate)
                 && tags.equals(otherPerson.tags);
     }
 
@@ -126,7 +127,7 @@ public class Person {
                 .add("address", address)
                 .add("tags", tags)
                 .add("orderDescription", orderDescription)
-                .add("expiry_date", expiryDate)
+                .add("expiryDate", expiryDate)
                 .toString();
     }
 
