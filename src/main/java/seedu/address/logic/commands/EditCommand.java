@@ -3,11 +3,11 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPIRY_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ORDER_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPIRY_DATE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
@@ -206,7 +206,9 @@ public class EditCommand extends Command {
             return Optional.ofNullable(address);
         }
 
-        public void setExpiryDate(ExpiryDate expiryDate) { this.expiryDate = expiryDate; }
+        public void setExpiryDate(ExpiryDate expiryDate) {
+            this.expiryDate = expiryDate;
+        }
 
         public Optional<ExpiryDate> getExpiryDate() {
             return Optional.ofNullable(expiryDate);
