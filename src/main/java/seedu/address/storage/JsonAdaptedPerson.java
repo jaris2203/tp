@@ -10,13 +10,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.DeliveryStatus;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.OrderDescription;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
+import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -30,6 +24,7 @@ class JsonAdaptedPerson {
     private final String phone;
     private final String email;
     private final String address;
+    private final List<JsonAdaptedBox> boxes = new ArrayList<>();
     private final String orderDescription;
     private final String deliveryStatus;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
@@ -76,8 +71,12 @@ class JsonAdaptedPerson {
      */
     public Person toModelType() throws IllegalValueException {
         final List<Tag> personTags = new ArrayList<>();
+        final List<Box> personBoxes = new ArrayList<>();
         for (JsonAdaptedTag tag : tags) {
             personTags.add(tag.toModelType());
+        }
+        for (JsonAdaptedBox box : boxes) {
+            personBoxes.add(box.toModelType());
         }
 
         if (name == null) {
@@ -130,9 +129,10 @@ class JsonAdaptedPerson {
         }
         final DeliveryStatus modelDeliveryStatus = new DeliveryStatus(deliveryStatus);
 
+        final Set<Box> modelBoxes = new HashSet<>(personBoxes);
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelOrderDescription,
-                modelDeliveryStatus, modelTags);
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelBoxes,
+                modelOrderDescription, modelDeliveryStatus, modelTags);
     }
 
 }
