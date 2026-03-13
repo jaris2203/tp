@@ -10,6 +10,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.Box;
 import seedu.address.model.person.DeliveryStatus;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -153,4 +154,32 @@ public class ParserUtil {
         }
         return tagSet;
     }
+
+    /**
+     * Parses a {@code String box} into a {@code Box}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code box} is invalid.
+     */
+    public static Box parseBox(String box) throws ParseException {
+        requireNonNull(box);
+        String trimmedBox = box.trim();
+        if (!Box.isValidBoxName(trimmedBox)) {
+            throw new ParseException(Box.MESSAGE_CONSTRAINTS);
+        }
+        return new Box(trimmedBox);
+    }
+
+    /**
+     * Parses {@code Collection<String> boxes} into a {@code Set<Box>}
+     */
+    public static Set<Box> parseBoxes(Collection<String> boxes) throws ParseException {
+        requireNonNull(boxes);
+        final Set<Box> boxSet = new HashSet<>();
+        for (String boxName: boxes) {
+            boxSet.add(parseBox(boxName));
+        }
+        return boxSet;
+    }
 }
+
