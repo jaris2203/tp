@@ -52,10 +52,10 @@ public class EditCommand extends Command {
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_BOX + "BOX] "
             + "[" + PREFIX_ORDER_DESCRIPTION + "ORDER_DESCRIPTION] "
             + "[" + PREFIX_EXPIRY_DATE + "EXPIRY_DATE] "
             + "[" + PREFIX_DELIVERY_STATUS + "DELIVERY STATUS] "
+            + "[" + PREFIX_BOX + "BOX] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
@@ -112,15 +112,16 @@ public class EditCommand extends Command {
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
-        Set<Box> updatedBoxes = editPersonDescriptor.getBoxes().orElse(personToEdit.getBoxes());
         OrderDescription updatedOrderDescription = editPersonDescriptor.getOrderDescription()
                 .orElse(personToEdit.getOrderDescription());
         DeliveryStatus updatedDeliveryStatus = editPersonDescriptor.getDeliveryStatus()
                 .orElse(personToEdit.getDeliveryStatus());
+
+        Set<Box> updatedBoxes = editPersonDescriptor.getBoxes().orElse(personToEdit.getBoxes());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
         ExpiryDate updatedExpiry = editPersonDescriptor.getExpiryDate().orElse(personToEdit.getExpiryDate());
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedBoxes,
-                updatedOrderDescription, updatedExpiry, updatedDeliveryStatus, updatedTags);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedOrderDescription,
+                updatedExpiry, updatedDeliveryStatus, updatedBoxes, updatedTags);
 
     }
 
@@ -157,10 +158,10 @@ public class EditCommand extends Command {
         private Phone phone;
         private Email email;
         private Address address;
-        private Set<Box> boxes;
         private OrderDescription orderDescription;
         private ExpiryDate expiryDate;
         private DeliveryStatus deliveryStatus;
+        private Set<Box> boxes;
         private Set<Tag> tags;
 
         public EditPersonDescriptor() {}
@@ -175,9 +176,9 @@ public class EditCommand extends Command {
             setEmail(toCopy.email);
             setAddress(toCopy.address);
             setExpiryDate(toCopy.expiryDate);
-            setBoxes(toCopy.boxes);
             setOrderDescription(toCopy.orderDescription);
             setDeliveryStatus(toCopy.deliveryStatus);
+            setBoxes(toCopy.boxes);
             setTags(toCopy.tags);
         }
 
@@ -229,6 +230,22 @@ public class EditCommand extends Command {
             return Optional.ofNullable(expiryDate);
         }
 
+        public void setOrderDescription(OrderDescription orderDescription) {
+            this.orderDescription = orderDescription;
+        }
+
+        public Optional<OrderDescription> getOrderDescription() {
+            return Optional.ofNullable(orderDescription);
+        }
+
+        public void setDeliveryStatus(DeliveryStatus deliveryStatus) {
+            this.deliveryStatus = deliveryStatus;
+        }
+
+        public Optional<DeliveryStatus> getDeliveryStatus() {
+            return Optional.ofNullable(deliveryStatus);
+        }
+
         /**
          * Sets {@code boxes} to this object's {@code boxes}.
          * A defensive copy of {@code boxes} is used internally.
@@ -244,22 +261,6 @@ public class EditCommand extends Command {
          */
         public Optional<Set<Box>> getBoxes() {
             return (boxes != null) ? Optional.of(Collections.unmodifiableSet(boxes)) : Optional.empty();
-        }
-
-        public void setOrderDescription(OrderDescription orderDescription) {
-            this.orderDescription = orderDescription;
-        }
-
-        public Optional<OrderDescription> getOrderDescription() {
-            return Optional.ofNullable(orderDescription);
-        }
-
-        public void setDeliveryStatus(DeliveryStatus deliveryStatus) {
-            this.deliveryStatus = deliveryStatus;
-        }
-
-        public Optional<DeliveryStatus> getDeliveryStatus() {
-            return Optional.ofNullable(deliveryStatus);
         }
 
         /**
@@ -296,9 +297,9 @@ public class EditCommand extends Command {
                     && Objects.equals(email, otherEditPersonDescriptor.email)
                     && Objects.equals(address, otherEditPersonDescriptor.address)
                     && Objects.equals(expiryDate, otherEditPersonDescriptor.expiryDate)
-                    && Objects.equals(boxes, otherEditPersonDescriptor.boxes)
                     && Objects.equals(orderDescription, otherEditPersonDescriptor.orderDescription)
                     && Objects.equals(deliveryStatus, otherEditPersonDescriptor.deliveryStatus)
+                    && Objects.equals(boxes, otherEditPersonDescriptor.boxes)
                     && Objects.equals(tags, otherEditPersonDescriptor.tags);
         }
 
@@ -309,10 +310,10 @@ public class EditCommand extends Command {
                     .add("phone", phone)
                     .add("email", email)
                     .add("address", address)
-                    .add("boxes", boxes)
                     .add("orderDescription", orderDescription)
                     .add("expiryDate", expiryDate)
                     .add("deliveryStatus", deliveryStatus)
+                    .add("boxes", boxes)
                     .add("tags", tags)
                     .toString();
         }
