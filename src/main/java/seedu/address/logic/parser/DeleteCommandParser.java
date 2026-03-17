@@ -27,6 +27,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE), pe);
             }
         } else {
+            // Delete by Index
             try {
                 Index index = ParserUtil.parseIndex(args);
                 return new DeleteCommand(index);
