@@ -138,12 +138,13 @@ public class ParserUtil {
     public static DeliveryStatus parseDeliveryStatus(String deliveryStatus) throws ParseException {
         requireNonNull(deliveryStatus);
         String trimmedDeliveryStatus = deliveryStatus.trim();
-        if (!DeliveryStatus.isValidDeliveryStatus(trimmedDeliveryStatus)) {
+
+        try {
+            return DeliveryStatus.fromString(trimmedDeliveryStatus);
+        } catch (IllegalArgumentException e) {
             throw new ParseException(DeliveryStatus.MESSAGE_CONSTRAINTS);
         }
-        return new DeliveryStatus(trimmedDeliveryStatus);
     }
-
     /**
      * Parses a {@code String tag} into a {@code Tag}.
      * Leading and trailing whitespaces will be trimmed.
