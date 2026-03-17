@@ -5,70 +5,70 @@
     "phone" : "94351253",
     "email" : "alice@example.com",
     "address" : "123, Jurong West Ave 6, #08-111",
-    "orderDescription" : "1 cake",
+    "remark" : "1 cake",
     "expiryDate": "2026-11-11",
     "deliveryStatus": "pending",
     "tags" : [ "friends" ],
-    "boxes" : [ "Box1" ]
+    "boxes" : [ "box-1" ]
   }, {
     "name" : "Benson Meier",
     "phone" : "98765432",
     "email" : "johnd@example.com",
     "address" : "311, Clementi Ave 2, #02-25",
-    "orderDescription" : "1 cake",
+    "remark" : "1 cake",
     "expiryDate": "2026-11-11",
     "deliveryStatus": "pending",
     "tags" : [ "owesMoney", "friends" ],
-    "boxes" : [ "Box1", "Box2" ]
+    "boxes" : [ "box-1", "box-2" ]
   }, {
     "name" : "Carl Kurz",
     "phone" : "95352563",
     "email" : "heinz@example.com",
     "address" : "wall street",
-    "orderDescription" : "1 cake",
+    "remark" : "1 cake",
     "expiryDate": "2026-11-11",
     "deliveryStatus": "pending",
     "tags" : [ ],
-    "boxes" : [ "Box3" ]
+    "boxes" : [ "box-3" ]
   }, {
     "name" : "Daniel Meier",
     "phone" : "87652533",
     "email" : "cornelia@example.com",
     "address" : "10th street",
-    "orderDescription" : "1 cake",
+    "remark" : "1 cake",
     "expiryDate": "2026-11-11",
     "deliveryStatus": "pending",
     "tags" : [ "friends" ],
-    "boxes" : [ "Box2", "Box3" ]
+    "boxes" : [ "box-2", "box-3" ]
   }, {
     "name" : "Elle Meyer",
     "phone" : "9482224",
     "email" : "werner@example.com",
     "address" : "michegan ave",
-    "orderDescription" : "1 cake",
+    "remark" : "1 cake",
     "expiryDate": "2026-11-11",
     "deliveryStatus": "pending",
     "tags" : [ ],
-    "boxes" : [ "Box2" ]
+    "boxes" : [ "box-2" ]
   }, {
     "name" : "Fiona Kunz",
     "phone" : "9482427",
     "email" : "lydia@example.com",
     "address" : "little tokyo",
-    "orderDescription" : "1 cake",
+    "remark" : "1 cake",
     "expiryDate": "2026-11-11",
     "deliveryStatus": "pending",
     "tags" : [ ],
-    "boxes" : [ "Box1", "Box3" ]
+    "boxes" : [ "box-1", "box-3" ]
   }, {
     "name" : "George Best",
     "phone" : "9482442",
     "email" : "anna@example.com",
     "address" : "4th street",
-    "orderDescription" : "1 cake",
+    "remark" : "1 cake",
     "expiryDate": "2026-11-11",
     "deliveryStatus": "pending",
     "tags" : [ ],
-    "boxes" : [ "Box3" ]
+    "boxes" : [ "box-3" ]
   } ]
 }

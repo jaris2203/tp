@@ -20,7 +20,7 @@ public class Person {
     private final Name name;
     private final Phone phone;
     private final Email email;
-    private final OrderDescription orderDescription;
+    private final Remark remark;
     private final DeliveryStatus deliveryStatus;
 
     // Data fields
@@ -33,16 +33,16 @@ public class Person {
      * Every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, Address address, Set<Box> boxes,
-                  OrderDescription orderDescription, ExpiryDate expiryDate,
+                  Remark remark, ExpiryDate expiryDate,
                   DeliveryStatus deliveryStatus, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, orderDescription, deliveryStatus, tags);
+        requireAllNonNull(name, phone, email, address, remark, deliveryStatus, tags);
 
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.boxes.addAll(boxes);
-        this.orderDescription = orderDescription;
+        this.remark = remark;
         this.expiryDate = expiryDate;
         this.deliveryStatus = deliveryStatus;
         this.tags.addAll(tags);
@@ -72,8 +72,8 @@ public class Person {
         return Collections.unmodifiableSet(boxes);
     }
 
-    public OrderDescription getOrderDescription() {
-        return orderDescription;
+    public Remark getRemark() {
+        return remark;
     }
 
     public ExpiryDate getExpiryDate() {
@@ -126,7 +126,7 @@ public class Person {
                 && email.equals(otherPerson.email)
                 && address.equals(otherPerson.address)
                 && boxes.equals(otherPerson.boxes)
-                && orderDescription.equals(otherPerson.orderDescription)
+                && remark.equals(otherPerson.remark)
                 && expiryDate.equals(otherPerson.expiryDate)
                 && deliveryStatus.equals(otherPerson.deliveryStatus)
                 && tags.equals(otherPerson.tags);
@@ -135,7 +135,7 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, boxes, orderDescription, expiryDate, deliveryStatus, tags);
+        return Objects.hash(name, phone, email, address, boxes, remark, expiryDate, deliveryStatus, tags);
     }
 
     @Override
@@ -146,7 +146,7 @@ public class Person {
                 .add("email", email)
                 .add("address", address)
                 .add("boxes", boxes)
-                .add("orderDescription", orderDescription)
+                .add("remark", remark)
                 .add("expiryDate", expiryDate)
                 .add("deliveryStatus", deliveryStatus)
                 .add("tags", tags)

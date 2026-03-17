@@ -15,8 +15,8 @@ import seedu.address.model.person.DeliveryStatus;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.ExpiryDate;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.OrderDescription;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Remark;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -119,18 +119,18 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String orderDescription} into an {@code OrderDescription}.
+     * Parses a {@code String Remark} into an {@code Remark}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code orderDescription} is invalid.
+     * @throws ParseException if the given {@code Remark} is invalid.
      */
-    public static OrderDescription parseOrderDescription(String orderDescription) throws ParseException {
-        requireNonNull(orderDescription);
-        String trimmedOrderDescription = orderDescription.trim();
-        if (!OrderDescription.isValidOrderDescription(trimmedOrderDescription)) {
-            throw new ParseException(OrderDescription.MESSAGE_CONSTRAINTS);
+    public static Remark parseRemark(String remark) throws ParseException {
+        requireNonNull(remark);
+        String trimmedRemark = remark.trim();
+        if (!Remark.isValidRemark(trimmedRemark)) {
+            throw new ParseException(Remark.MESSAGE_CONSTRAINTS);
         }
-        return new OrderDescription(trimmedOrderDescription);
+        return new Remark(trimmedRemark);
     }
 
     /**
@@ -202,4 +202,3 @@ public class ParserUtil {
         return boxSet;
     }
 }
-

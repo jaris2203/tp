@@ -8,8 +8,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DELIVERY_STATUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPIRY_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ORDER_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARKS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Collection;
@@ -38,7 +38,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_BOX,
-                        PREFIX_ORDER_DESCRIPTION, PREFIX_EXPIRY_DATE, PREFIX_DELIVERY_STATUS, PREFIX_TAG);
+                        PREFIX_REMARKS, PREFIX_EXPIRY_DATE, PREFIX_DELIVERY_STATUS, PREFIX_TAG);
 
         Index index;
 
@@ -49,7 +49,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
-                PREFIX_ORDER_DESCRIPTION, PREFIX_EXPIRY_DATE, PREFIX_DELIVERY_STATUS);
+                PREFIX_REMARKS, PREFIX_EXPIRY_DATE, PREFIX_DELIVERY_STATUS);
 
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
 
@@ -65,9 +65,9 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
             editPersonDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
         }
-        if (argMultimap.getValue(PREFIX_ORDER_DESCRIPTION).isPresent()) {
-            editPersonDescriptor.setOrderDescription(
-                    ParserUtil.parseOrderDescription(argMultimap.getValue(PREFIX_ORDER_DESCRIPTION).get()));
+        if (argMultimap.getValue(PREFIX_REMARKS).isPresent()) {
+            editPersonDescriptor.setRemark(
+                    ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARKS).get()));
         }
         if (argMultimap.getValue(PREFIX_EXPIRY_DATE).isPresent()) {
             editPersonDescriptor

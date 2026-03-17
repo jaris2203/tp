@@ -59,8 +59,8 @@ public class EditPersonDescriptorTest {
         editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withExpiryDate(VALID_EXPIRY_DATE_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
-        // different order description -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withOrderDescription(VALID_ORDER_DESCRIPTION_BOB).build();
+        // different Remark -> returns false
+        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withRemark(VALID_ORDER_DESCRIPTION_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different delivery status -> returns false
@@ -80,9 +80,9 @@ public class EditPersonDescriptorTest {
                 + editPersonDescriptor.getPhone().orElse(null) + ", email="
                 + editPersonDescriptor.getEmail().orElse(null) + ", address="
                 + editPersonDescriptor.getAddress().orElse(null) + ", boxes="
-                + editPersonDescriptor.getBoxes().orElse(null) + ", orderDescription="
-                + editPersonDescriptor.getExpiryDate().orElse(null) + ", expiryDate="
-                + editPersonDescriptor.getOrderDescription().orElse(null) + ", deliveryStatus="
+                + editPersonDescriptor.getBoxes().orElse(null) + ", remark="
+                + editPersonDescriptor.getRemark().orElse(null) + ", expiryDate="
+                + editPersonDescriptor.getExpiryDate().orElse(null) + ", deliveryStatus="
                 + editPersonDescriptor.getDeliveryStatus().orElse(null) + ", tags="
                 + editPersonDescriptor.getTags().orElse(null) + "}";
         assertEquals(expected, editPersonDescriptor.toString());

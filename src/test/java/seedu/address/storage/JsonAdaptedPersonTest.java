@@ -18,8 +18,8 @@ import seedu.address.model.person.DeliveryStatus;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.ExpiryDate;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.OrderDescription;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Remark;
 
 public class JsonAdaptedPersonTest {
     private static final String INVALID_NAME = "R@chel";
@@ -36,7 +36,7 @@ public class JsonAdaptedPersonTest {
     private static final String VALID_PHONE = BENSON.getPhone().toString();
     private static final String VALID_EMAIL = BENSON.getEmail().toString();
     private static final String VALID_ADDRESS = BENSON.getAddress().toString();
-    private static final String VALID_ORDER_DESCRIPTION = BENSON.getOrderDescription().toString();
+    private static final String VALID_ORDER_DESCRIPTION = BENSON.getRemark().toString();
     private static final String VALID_EXPIRY_DATE = BENSON.getExpiryDate().toString();
     private static final String VALID_DELIVERY_STATUS = BENSON.getDeliveryStatus().toString();
     private static final List<JsonAdaptedTag> VALID_TAGS = BENSON.getTags().stream()
@@ -123,19 +123,19 @@ public class JsonAdaptedPersonTest {
     }
 
     @Test
-    public void toModelType_invalidOrderDescription_throwsIllegalValueException() {
+    public void toModelType_invalidRemark_throwsIllegalValueException() {
         JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
                 VALID_TAGS, INVALID_ORDER_DESCRIPTION, VALID_EXPIRY_DATE, VALID_DELIVERY_STATUS, VALID_BOXES);
 
-        String expectedMessage = OrderDescription.MESSAGE_CONSTRAINTS;
+        String expectedMessage = Remark.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 
     @Test
-    public void toModelType_nullOrderDescription_throwsIllegalValueException() {
+    public void toModelType_nullRemark_throwsIllegalValueException() {
         JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
                 VALID_TAGS, null, VALID_EXPIRY_DATE, VALID_DELIVERY_STATUS, VALID_BOXES);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, OrderDescription.class.getSimpleName());
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Remark.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 

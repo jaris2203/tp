@@ -7,8 +7,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DELIVERY_STATUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPIRY_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ORDER_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARKS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
@@ -22,9 +22,9 @@ import seedu.address.model.person.DeliveryStatus;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.ExpiryDate;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.OrderDescription;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Remark;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -40,31 +40,33 @@ public class AddCommandParser implements Parser<AddCommand> {
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
-                        PREFIX_BOX, PREFIX_ORDER_DESCRIPTION, PREFIX_EXPIRY_DATE, PREFIX_DELIVERY_STATUS, PREFIX_TAG);
+                        PREFIX_REMARKS, PREFIX_EXPIRY_DATE, PREFIX_DELIVERY_STATUS, PREFIX_BOX, PREFIX_TAG);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL,
-                PREFIX_BOX, PREFIX_ORDER_DESCRIPTION, PREFIX_EXPIRY_DATE, PREFIX_DELIVERY_STATUS)
+                PREFIX_EXPIRY_DATE, PREFIX_DELIVERY_STATUS, PREFIX_BOX)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
-                PREFIX_ORDER_DESCRIPTION, PREFIX_EXPIRY_DATE, PREFIX_DELIVERY_STATUS);
+                PREFIX_REMARKS, PREFIX_EXPIRY_DATE, PREFIX_DELIVERY_STATUS);
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Set<Box> boxList = ParserUtil.parseBoxes(argMultimap.getAllValues(PREFIX_BOX));
-        OrderDescription orderDescription =
-                ParserUtil.parseOrderDescription(argMultimap.getValue(PREFIX_ORDER_DESCRIPTION).get());
+        Remark remark = new Remark(Remark.DEFAULT_REMARK);
+        if (argMultimap.getValue(PREFIX_REMARKS).isPresent()) {
+            remark = ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARKS).get());
+        }
         ExpiryDate expiryDate = ParserUtil.parseExpiryDate(argMultimap.getValue(PREFIX_EXPIRY_DATE).get());
         DeliveryStatus deliveryStatus =
                 ParserUtil.parseDeliveryStatus(argMultimap.getValue(PREFIX_DELIVERY_STATUS).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         Person person = new Person(name, phone, email, address,
-                boxList, orderDescription, expiryDate,
+                boxList, remark, expiryDate,
                 deliveryStatus, tagList);
 
         return new AddCommand(person);

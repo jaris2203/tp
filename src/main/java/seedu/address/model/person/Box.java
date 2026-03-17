@@ -8,8 +8,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Box {
 
-    public static final String MESSAGE_CONSTRAINTS = "Box names should be alphanumeric";
-    public static final String VALIDATION_REGEX = "\\p{Alnum}+";
+    public static final String MESSAGE_CONSTRAINTS = "Box names should follow the format '[type]-[number]', where"
+            + "type consists of only lowercase letters and number is a single digit number";
+    public static final String VALIDATION_REGEX = "^[a-z]+-\\d{1}$";
 
     public final String boxName;
 
