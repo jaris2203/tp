@@ -16,9 +16,9 @@ import seedu.address.model.person.DeliveryStatus;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.ExpiryDate;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.OrderDescription;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Remark;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -32,7 +32,12 @@ class JsonAdaptedPerson {
     private final String phone;
     private final String email;
     private final String address;
+<<<<<<< HEAD
     private final String orderDescription;
+=======
+    private final List<JsonAdaptedBox> boxes;
+    private final String remark;
+>>>>>>> da280918 (Refactor order description)
     private final String expiryDate;
     private final String deliveryStatus;
     private final List<JsonAdaptedBox> boxes;
@@ -47,7 +52,7 @@ class JsonAdaptedPerson {
             @JsonProperty("email") String email,
             @JsonProperty("address") String address,
             @JsonProperty("tags") List<JsonAdaptedTag> tags,
-            @JsonProperty("orderDescription") String orderDescription,
+            @JsonProperty("remark") String remark,
             @JsonProperty("expiryDate") String expiryDate,
             @JsonProperty("deliveryStatus") String deliveryStatus,
             @JsonProperty("boxes") List<JsonAdaptedBox> boxes) {
@@ -57,7 +62,7 @@ class JsonAdaptedPerson {
         this.phone = phone;
         this.email = email;
         this.address = address;
-        this.orderDescription = orderDescription;
+        this.remark = remark;
         this.expiryDate = expiryDate;
         this.deliveryStatus = deliveryStatus;
         this.boxes = boxes;
@@ -74,7 +79,7 @@ class JsonAdaptedPerson {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
-        orderDescription = source.getOrderDescription().value;
+        remark = source.getRemark().value;
         expiryDate = source.getExpiryDate().value;
         deliveryStatus = source.getDeliveryStatus().deliveryStatus;
         boxes = source.getBoxes().stream()
@@ -137,14 +142,14 @@ class JsonAdaptedPerson {
         }
         final ExpiryDate modelExpiryDate = new ExpiryDate(expiryDate);
 
-        if (orderDescription == null) {
+        if (remark == null) {
             throw new IllegalValueException(
-                    String.format(MISSING_FIELD_MESSAGE_FORMAT, OrderDescription.class.getSimpleName()));
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Remark.class.getSimpleName()));
         }
-        if (!OrderDescription.isValidOrderDescription(orderDescription)) {
-            throw new IllegalValueException(OrderDescription.MESSAGE_CONSTRAINTS);
+        if (!Remark.isValidRemark(remark)) {
+            throw new IllegalValueException(Remark.MESSAGE_CONSTRAINTS);
         }
-        final OrderDescription modelOrderDescription = new OrderDescription(orderDescription);
+        final Remark modelRemark = new Remark(remark);
 
         if (deliveryStatus == null) {
             throw new IllegalValueException(
@@ -166,8 +171,13 @@ class JsonAdaptedPerson {
 
         final Set<Box> modelBoxes = new HashSet<>(personBoxes);
         final Set<Tag> modelTags = new HashSet<>(personTags);
+<<<<<<< HEAD
         return new Person(modelName, modelPhone, modelEmail, modelAddress, modelOrderDescription, modelExpiryDate,
                 modelDeliveryStatus, modelBoxes, modelTags);
+=======
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelBoxes,
+                modelRemark, modelExpiryDate, modelDeliveryStatus, modelTags);
+>>>>>>> da280918 (Refactor order description)
     }
 
 }

@@ -59,8 +59,8 @@ public class EditPersonDescriptorTest {
         editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withExpiryDate(VALID_EXPIRY_DATE_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
-        // different order description -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withOrderDescription(VALID_ORDER_DESCRIPTION_BOB).build();
+        // different Remark -> returns false
+        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withRemark(VALID_ORDER_DESCRIPTION_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different delivery status -> returns false
@@ -79,10 +79,17 @@ public class EditPersonDescriptorTest {
                 + editPersonDescriptor.getName().orElse(null) + ", phone="
                 + editPersonDescriptor.getPhone().orElse(null) + ", email="
                 + editPersonDescriptor.getEmail().orElse(null) + ", address="
+<<<<<<< HEAD
                 + editPersonDescriptor.getBoxes().orElse(null) + ", orderDescription="
                 + editPersonDescriptor.getExpiryDate().orElse(null) + ", expiryDate="
                 + editPersonDescriptor.getOrderDescription().orElse(null) + ", deliveryStatus="
                 + editPersonDescriptor.getAddress().orElse(null) + ", boxes="
+=======
+                + editPersonDescriptor.getAddress().orElse(null) + ", boxes="
+                + editPersonDescriptor.getBoxes().orElse(null) + ", Remark="
+                + editPersonDescriptor.getExpiryDate().orElse(null) + ", expiryDate="
+                + editPersonDescriptor.getRemark().orElse(null) + ", deliveryStatus="
+>>>>>>> da280918 (Refactor order description)
                 + editPersonDescriptor.getDeliveryStatus().orElse(null) + ", tags="
                 + editPersonDescriptor.getTags().orElse(null) + "}";
         assertEquals(expected, editPersonDescriptor.toString());

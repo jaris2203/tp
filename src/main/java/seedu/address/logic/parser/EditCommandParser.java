@@ -66,8 +66,8 @@ public class EditCommandParser implements Parser<EditCommand> {
             editPersonDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
         }
         if (argMultimap.getValue(PREFIX_ORDER_DESCRIPTION).isPresent()) {
-            editPersonDescriptor.setOrderDescription(
-                    ParserUtil.parseOrderDescription(argMultimap.getValue(PREFIX_ORDER_DESCRIPTION).get()));
+            editPersonDescriptor.setRemark(
+                    ParserUtil.parseRemark(argMultimap.getValue(PREFIX_ORDER_DESCRIPTION).get()));
         }
         if (argMultimap.getValue(PREFIX_EXPIRY_DATE).isPresent()) {
             editPersonDescriptor

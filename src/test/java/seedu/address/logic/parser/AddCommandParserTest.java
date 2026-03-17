@@ -64,7 +64,7 @@ import seedu.address.model.person.DeliveryStatus;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.ExpiryDate;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.OrderDescription;
+import seedu.address.model.person.Remark;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
@@ -77,7 +77,7 @@ public class AddCommandParserTest {
     public void parse_allFieldsPresent_success() {
 
         Person expectedPerson = new PersonBuilder(BOB)
-                .withOrderDescription(VALID_ORDER_DESCRIPTION_BOB)
+                .withRemark(VALID_ORDER_DESCRIPTION_BOB)
                 .withExpiryDate(VALID_EXPIRY_DATE_BOB)
                 .withDeliveryStatus(VALID_DELIVERY_STATUS_BOB)
                 .withTags(VALID_TAG_FRIEND)
@@ -91,7 +91,7 @@ public class AddCommandParserTest {
 
         // multiple tags - all accepted
         Person expectedPersonMultipleTags = new PersonBuilder(BOB)
-                .withOrderDescription(VALID_ORDER_DESCRIPTION_BOB)
+                .withRemark(VALID_ORDER_DESCRIPTION_BOB)
                 .withExpiryDate(VALID_EXPIRY_DATE_BOB)
                 .withDeliveryStatus(VALID_DELIVERY_STATUS_BOB)
                 .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
@@ -161,7 +161,7 @@ public class AddCommandParserTest {
         assertParseFailure(parser, INVALID_ADDRESS_DESC + validExpectedPersonString,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_ADDRESS));
 
-        // invalid order description
+        // invalid Remark
         assertParseFailure(parser, INVALID_ORDER_DESCRIPTION_DESC + validExpectedPersonString,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_ORDER_DESCRIPTION));
 
@@ -187,7 +187,7 @@ public class AddCommandParserTest {
         assertParseFailure(parser, validExpectedPersonString + INVALID_ADDRESS_DESC,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_ADDRESS));
 
-        // invalid order description
+        // invalid Remark
         assertParseFailure(parser, validExpectedPersonString + INVALID_ORDER_DESCRIPTION_DESC,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_ORDER_DESCRIPTION));
 
@@ -206,7 +206,7 @@ public class AddCommandParserTest {
         // zero tags
 
         Person expectedPerson = new PersonBuilder(AMY)
-                .withOrderDescription(VALID_ORDER_DESCRIPTION_AMY)
+                .withRemark(VALID_ORDER_DESCRIPTION_AMY)
                 .withTags()
                 .withBoxes(VALID_BOX_BOX1)
                 .build();
@@ -243,7 +243,7 @@ public class AddCommandParserTest {
                         + ORDER_DESCRIPTION_DESC_BOB + EXPIRY_DATE_DESC_BOB,
                 expectedMessage);
 
-        // missing order description prefix
+        // missing Remark prefix
         assertParseFailure(parser,
                 NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
                         + VALID_ORDER_DESCRIPTION_BOB + EXPIRY_DATE_DESC_BOB,
@@ -286,10 +286,10 @@ public class AddCommandParserTest {
                 + ORDER_DESCRIPTION_DESC_BOB + EXPIRY_DATE_DESC_BOB + DELIVERY_STATUS_DESC_BOB + TAG_DESC_HUSBAND
                 + TAG_DESC_FRIEND + BOX_DESC_BOX1, Address.MESSAGE_CONSTRAINTS);
 
-        // invalid order description
+        // invalid Remark
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
                 + INVALID_ORDER_DESCRIPTION_DESC + EXPIRY_DATE_DESC_BOB + DELIVERY_STATUS_DESC_BOB + TAG_DESC_HUSBAND
-                + TAG_DESC_FRIEND + BOX_DESC_BOX1, OrderDescription.MESSAGE_CONSTRAINTS);
+                + TAG_DESC_FRIEND + BOX_DESC_BOX1, Remark.MESSAGE_CONSTRAINTS);
 
         // invalid expiry date
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB

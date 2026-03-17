@@ -40,7 +40,7 @@ public class PersonTest {
                 .withPhone(VALID_PHONE_BOB)
                 .withEmail(VALID_EMAIL_BOB)
                 .withAddress(VALID_ADDRESS_BOB)
-                .withOrderDescription(VALID_ORDER_DESCRIPTION_BOB)
+                .withRemark(VALID_ORDER_DESCRIPTION_BOB)
                 .withExpiryDate(VALID_EXPIRY_DATE_BOB)
                 .withTags(VALID_TAG_HUSBAND)
                 .build();
@@ -94,8 +94,8 @@ public class PersonTest {
         editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different order description -> returns false
-        editedAlice = new PersonBuilder(ALICE).withOrderDescription(VALID_ORDER_DESCRIPTION_BOB).build();
+        // different Remark -> returns false
+        editedAlice = new PersonBuilder(ALICE).withRemark(VALID_ORDER_DESCRIPTION_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different expiry date -> returns false
@@ -118,8 +118,8 @@ public class PersonTest {
     }
 
     @Test
-    public void hashCode_differentOrderDescription_differentHashCode() {
-        Person editedAlice = new PersonBuilder(ALICE).withOrderDescription(VALID_ORDER_DESCRIPTION_BOB)
+    public void hashCode_differentRemark_differentHashCode() {
+        Person editedAlice = new PersonBuilder(ALICE).withRemark(VALID_ORDER_DESCRIPTION_BOB)
                 .withDeliveryStatus(VALID_DELIVERY_STATUS_BOB).build();
         assertFalse(ALICE.hashCode() == editedAlice.hashCode());
     }
@@ -134,7 +134,12 @@ public class PersonTest {
     public void toStringMethod() {
         String expected = Person.class.getCanonicalName() + "{name=" + ALICE.getName() + ", phone=" + ALICE.getPhone()
                 + ", email=" + ALICE.getEmail() + ", address=" + ALICE.getAddress()
+<<<<<<< HEAD
                 + ", orderDescription=" + ALICE.getOrderDescription()
+=======
+                + ", boxes=" + ALICE.getBoxes()
+                + ", Remark=" + ALICE.getRemark()
+>>>>>>> da280918 (Refactor order description)
                 + ", expiryDate=" + ALICE.getExpiryDate()
                 + ", deliveryStatus=" + ALICE.getDeliveryStatus()
                 + ", boxes=" + ALICE.getBoxes()

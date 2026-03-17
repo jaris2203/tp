@@ -22,9 +22,9 @@ import seedu.address.model.person.DeliveryStatus;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.ExpiryDate;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.OrderDescription;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Remark;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -55,16 +55,28 @@ public class AddCommandParser implements Parser<AddCommand> {
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
+<<<<<<< HEAD
         OrderDescription orderDescription =
                 ParserUtil.parseOrderDescription(argMultimap.getValue(PREFIX_ORDER_DESCRIPTION).get());
+=======
+        Set<Box> boxList = ParserUtil.parseBoxes(argMultimap.getAllValues(PREFIX_BOX));
+        Remark remark =
+                ParserUtil.parseRemark(argMultimap.getValue(PREFIX_ORDER_DESCRIPTION).get());
+>>>>>>> da280918 (Refactor order description)
         ExpiryDate expiryDate = ParserUtil.parseExpiryDate(argMultimap.getValue(PREFIX_EXPIRY_DATE).get());
         DeliveryStatus deliveryStatus =
                 ParserUtil.parseDeliveryStatus(argMultimap.getValue(PREFIX_DELIVERY_STATUS).get());
         Set<Box> boxList = ParserUtil.parseBoxes(argMultimap.getAllValues(PREFIX_BOX));
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
+<<<<<<< HEAD
         Person person = new Person(name, phone, email, address, orderDescription, expiryDate, deliveryStatus, boxList,
                 tagList);
+=======
+        Person person = new Person(name, phone, email, address,
+                boxList, remark, expiryDate,
+                deliveryStatus, tagList);
+>>>>>>> da280918 (Refactor order description)
 
         return new AddCommand(person);
     }
