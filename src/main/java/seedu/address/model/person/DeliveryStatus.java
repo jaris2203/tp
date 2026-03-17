@@ -28,6 +28,14 @@ public enum DeliveryStatus {
         return deliveryStatus;
     }
 
+    /**
+     * Converts a given string to a corresponding {@code DeliveryStatus} enum.
+     * The input string is case-insensitive and leading/trailing whitespace is ignored.
+     *
+     * @param deliveryStatus the string representation of the delivery status
+     * @return the corresponding {@code DeliveryStatus} enum
+     * @throws IllegalArgumentException if the input string does not match any valid delivery status
+     */
     public static DeliveryStatus fromString(String deliveryStatus) {
         try {
             return DeliveryStatus.valueOf(deliveryStatus.toUpperCase().trim());
