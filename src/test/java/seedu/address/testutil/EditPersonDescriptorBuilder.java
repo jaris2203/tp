@@ -11,9 +11,9 @@ import seedu.address.model.person.DeliveryStatus;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.ExpiryDate;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.OrderDescription;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Remark;
 import seedu.address.model.tag.Tag;
 /**
  * A utility class to help with building EditPersonDescriptor objects.
@@ -39,7 +39,7 @@ public class EditPersonDescriptorBuilder {
         descriptor.setPhone(person.getPhone());
         descriptor.setEmail(person.getEmail());
         descriptor.setAddress(person.getAddress());
-        descriptor.setOrderDescription(person.getOrderDescription());
+        descriptor.setRemark(person.getRemark());
         descriptor.setDeliveryStatus(person.getDeliveryStatus());
         descriptor.setTags(person.getTags());
         descriptor.setExpiryDate(person.getExpiryDate());
@@ -88,10 +88,10 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code OrderDescription} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code Remark} of the {@code EditPersonDescriptor} that we are building.
      */
-    public EditPersonDescriptorBuilder withOrderDescription(String orderDescription) {
-        descriptor.setOrderDescription(new OrderDescription(orderDescription));
+    public EditPersonDescriptorBuilder withRemark(String remark) {
+        descriptor.setRemark(new Remark(remark));
         return this;
     }
 

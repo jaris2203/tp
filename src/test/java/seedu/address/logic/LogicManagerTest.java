@@ -175,7 +175,7 @@ public class LogicManagerTest {
         String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
                 + ORDER_DESCRIPTION_DESC_AMY + EXPIRY_DATE_DESC_AMY + DELIVERY_STATUS_DESC_AMY + BOX_DESC_BOX1;
         Person expectedPerson = new PersonBuilder(AMY)
-                .withOrderDescription(VALID_ORDER_DESCRIPTION_AMY)
+                .withRemark(VALID_ORDER_DESCRIPTION_AMY)
                 .withExpiryDate(VALID_EXPIRY_DATE_AMY)
                 .withBoxes(VALID_BOX_BOX1)
                 .withTags().build();

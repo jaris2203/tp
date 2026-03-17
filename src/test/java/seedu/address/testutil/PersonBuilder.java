@@ -9,9 +9,9 @@ import seedu.address.model.person.DeliveryStatus;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.ExpiryDate;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.OrderDescription;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Remark;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -32,7 +32,7 @@ public class PersonBuilder {
     private Phone phone;
     private Email email;
     private Address address;
-    private OrderDescription orderDescription;
+    private Remark remark;
     private ExpiryDate expiryDate;
     private DeliveryStatus deliveryStatus;
     private Set<Tag> tags;
@@ -46,7 +46,7 @@ public class PersonBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
-        orderDescription = new OrderDescription(DEFAULT_ORDER_DESCRIPTION);
+        remark = new Remark(DEFAULT_ORDER_DESCRIPTION);
         expiryDate = new ExpiryDate(DEFAULT_EXPIRY_DATE);
         deliveryStatus = new DeliveryStatus(DEFAULT_DELIVERY_STATUS);
         tags = new HashSet<>();
@@ -61,7 +61,7 @@ public class PersonBuilder {
         phone = personToCopy.getPhone();
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
-        orderDescription = personToCopy.getOrderDescription();
+        remark = personToCopy.getRemark();
         expiryDate = personToCopy.getExpiryDate();
         deliveryStatus = personToCopy.getDeliveryStatus();
         tags = new HashSet<>(personToCopy.getTags());
@@ -117,10 +117,10 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code OrderDescription} of the {@code Person} that we are building.
+     * Sets the {@code Remark} of the {@code Person} that we are building.
      */
-    public PersonBuilder withOrderDescription(String orderDescription) {
-        this.orderDescription = new OrderDescription(orderDescription);
+    public PersonBuilder withRemark(String remark) {
+        this.remark = new Remark(remark);
         return this;
     }
 
@@ -141,7 +141,7 @@ public class PersonBuilder {
     }
 
     public Person build() {
-        return new Person(name, phone, email, address, orderDescription, expiryDate, deliveryStatus, boxes, tags);
+        return new Person(name, phone, email, address, boxes, remark, expiryDate, deliveryStatus, tags);
     }
 
 }

@@ -19,8 +19,8 @@ import seedu.address.model.person.DeliveryStatus;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.ExpiryDate;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.OrderDescription;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Remark;
 import seedu.address.model.tag.Tag;
 
 public class ParserUtilTest {
@@ -158,26 +158,26 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseOrderDescription_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseOrderDescription(null));
+    public void parseRemark_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseRemark(null));
     }
 
     @Test
-    public void parseOrderDescription_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseOrderDescription(INVALID_ORDER_DESCRIPTION));
+    public void parseRemark_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseRemark(INVALID_ORDER_DESCRIPTION));
     }
 
     @Test
-    public void parseOrderDescription_validValueWithoutWhitespace_returnsOrderDescription() throws Exception {
-        OrderDescription expectedOrderDescription = new OrderDescription(VALID_ORDER_DESCRIPTION);
-        assertEquals(expectedOrderDescription, ParserUtil.parseOrderDescription(VALID_ORDER_DESCRIPTION));
+    public void parseRemark_validValueWithoutWhitespace_returnsRemark() throws Exception {
+        Remark expectedRemark = new Remark(VALID_ORDER_DESCRIPTION);
+        assertEquals(expectedRemark, ParserUtil.parseRemark(VALID_ORDER_DESCRIPTION));
     }
 
     @Test
-    public void parseOrderDescription_validValueWithWhitespace_returnsTrimmedOrderDescription() throws Exception {
-        String orderDescriptionWithWhitespace = WHITESPACE + VALID_ORDER_DESCRIPTION + WHITESPACE;
-        OrderDescription expectedOrderDescription = new OrderDescription(VALID_ORDER_DESCRIPTION);
-        assertEquals(expectedOrderDescription, ParserUtil.parseOrderDescription(orderDescriptionWithWhitespace));
+    public void parseRemark_validValueWithWhitespace_returnsTrimmedRemark() throws Exception {
+        String remarkWithWhitespace = WHITESPACE + VALID_ORDER_DESCRIPTION + WHITESPACE;
+        Remark expectedRemark = new Remark(VALID_ORDER_DESCRIPTION);
+        assertEquals(expectedRemark, ParserUtil.parseRemark(remarkWithWhitespace));
     }
 
     @Test

@@ -8,8 +8,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DELIVERY_STATUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPIRY_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ORDER_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARKS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.Assert.assertThrows;
 
@@ -58,9 +58,9 @@ public class CommandTestUtil {
     public static final String ADDRESS_DESC_AMY = " " + PREFIX_ADDRESS + VALID_ADDRESS_AMY;
     public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
     public static final String ORDER_DESCRIPTION_DESC_AMY =
-            " " + PREFIX_ORDER_DESCRIPTION + VALID_ORDER_DESCRIPTION_AMY;
+            " " + PREFIX_REMARKS + VALID_ORDER_DESCRIPTION_AMY;
     public static final String ORDER_DESCRIPTION_DESC_BOB =
-            " " + PREFIX_ORDER_DESCRIPTION + VALID_ORDER_DESCRIPTION_BOB;
+            " " + PREFIX_REMARKS + VALID_ORDER_DESCRIPTION_BOB;
     public static final String EXPIRY_DATE_DESC_AMY = " " + PREFIX_EXPIRY_DATE + VALID_EXPIRY_DATE_AMY;
     public static final String EXPIRY_DATE_DESC_BOB = " " + PREFIX_EXPIRY_DATE + VALID_EXPIRY_DATE_BOB;
     public static final String DELIVERY_STATUS_DESC_AMY =
@@ -76,7 +76,7 @@ public class CommandTestUtil {
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
-    public static final String INVALID_ORDER_DESCRIPTION_DESC = " " + PREFIX_ORDER_DESCRIPTION + "#cake";
+    public static final String INVALID_ORDER_DESCRIPTION_DESC = " " + PREFIX_REMARKS + "#cake";
     public static final String INVALID_EXPIRY_DATE_DESC = " " + PREFIX_EXPIRY_DATE;
     public static final String INVALID_DELIVERY_STATUS_DESC = " " + PREFIX_DELIVERY_STATUS + "maybe";
     public static final String INVALID_BOX_DESC = " " + PREFIX_BOX + "box*"; // '*' not allowed in boxes
@@ -92,14 +92,14 @@ public class CommandTestUtil {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
                 .withExpiryDate(VALID_EXPIRY_DATE_AMY)
-                .withOrderDescription(VALID_ORDER_DESCRIPTION_AMY)
+                .withRemark(VALID_ORDER_DESCRIPTION_AMY)
                 .withDeliveryStatus(VALID_DELIVERY_STATUS_AMY)
                 .withBoxes(VALID_BOX_BOX1)
                 .withTags(VALID_TAG_FRIEND).build();
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withExpiryDate(VALID_EXPIRY_DATE_BOB)
-                .withOrderDescription(VALID_ORDER_DESCRIPTION_BOB)
+                .withRemark(VALID_ORDER_DESCRIPTION_BOB)
                 .withDeliveryStatus(VALID_DELIVERY_STATUS_BOB)
                 .withBoxes(VALID_BOX_BOX1)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();

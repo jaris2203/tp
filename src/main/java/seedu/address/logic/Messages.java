@@ -43,10 +43,10 @@ public class Messages {
                 .append(person.getEmail())
                 .append("; Address: ")
                 .append(person.getAddress())
-                .append("; Order Description: ")
+                .append("; Remark: ")
                 .append("; Subscription End Date: ")
                 .append(person.getExpiryDate())
-                .append(person.getOrderDescription())
+                .append(person.getRemark())
                 .append("; Delivery Status: ")
                 .append(person.getDeliveryStatus())
                 .append("; Tags: ");

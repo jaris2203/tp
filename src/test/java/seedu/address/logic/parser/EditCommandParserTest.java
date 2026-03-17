@@ -38,8 +38,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DELIVERY_STATUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPIRY_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ORDER_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARKS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -58,8 +58,8 @@ import seedu.address.model.person.DeliveryStatus;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.ExpiryDate;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.OrderDescription;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Remark;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
@@ -106,7 +106,7 @@ public class EditCommandParserTest {
         assertParseFailure(parser, "1" + INVALID_EMAIL_DESC, Email.MESSAGE_CONSTRAINTS); // invalid email
         assertParseFailure(parser, "1" + INVALID_ADDRESS_DESC, Address.MESSAGE_CONSTRAINTS); // invalid address
         assertParseFailure(parser, "1" + INVALID_ORDER_DESCRIPTION_DESC,
-                OrderDescription.MESSAGE_CONSTRAINTS); // invalid order description
+                Remark.MESSAGE_CONSTRAINTS); // invalid Remark
         assertParseFailure(parser, "1" + INVALID_EXPIRY_DATE_DESC,
                 ExpiryDate.MESSAGE_CONSTRAINTS); // invalid expiry date
         assertParseFailure(parser, "1" + INVALID_DELIVERY_STATUS_DESC,
@@ -138,7 +138,7 @@ public class EditCommandParserTest {
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
-                .withOrderDescription(VALID_ORDER_DESCRIPTION_AMY)
+                .withRemark(VALID_ORDER_DESCRIPTION_AMY)
                 .withExpiryDate(VALID_EXPIRY_DATE_AMY)
                 .withDeliveryStatus(VALID_DELIVERY_STATUS_AMY)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
@@ -188,9 +188,9 @@ public class EditCommandParserTest {
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
-        // order description
+        // Remark
         userInput = targetIndex.getOneBased() + ORDER_DESCRIPTION_DESC_AMY;
-        descriptor = new EditPersonDescriptorBuilder().withOrderDescription(VALID_ORDER_DESCRIPTION_AMY).build();
+        descriptor = new EditPersonDescriptorBuilder().withRemark(VALID_ORDER_DESCRIPTION_AMY).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -232,7 +232,7 @@ public class EditCommandParserTest {
 
         assertParseFailure(parser, userInput,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
-                        PREFIX_ORDER_DESCRIPTION, PREFIX_EXPIRY_DATE, PREFIX_DELIVERY_STATUS));
+                        PREFIX_REMARKS, PREFIX_EXPIRY_DATE, PREFIX_DELIVERY_STATUS));
 
         // multiple invalid values
         userInput = targetIndex.getOneBased() + INVALID_PHONE_DESC + INVALID_ADDRESS_DESC + INVALID_EMAIL_DESC
@@ -242,7 +242,7 @@ public class EditCommandParserTest {
 
         assertParseFailure(parser, userInput,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
-                        PREFIX_ORDER_DESCRIPTION, PREFIX_EXPIRY_DATE, PREFIX_DELIVERY_STATUS));
+                        PREFIX_REMARKS, PREFIX_EXPIRY_DATE, PREFIX_DELIVERY_STATUS));
 
     }
 
