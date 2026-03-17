@@ -52,7 +52,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_REMARKS + "ORDER_DESCRIPTION] "
+            + "[" + PREFIX_REMARKS + "REMARKS] "
             + "[" + PREFIX_EXPIRY_DATE + "EXPIRY_DATE] "
             + "[" + PREFIX_DELIVERY_STATUS + "DELIVERY STATUS] "
             + "[" + PREFIX_BOX + "BOX] "
@@ -230,18 +230,6 @@ public class EditCommand extends Command {
             return Optional.ofNullable(expiryDate);
         }
 
-        public void setOrderDescription(OrderDescription orderDescription) {
-            this.orderDescription = orderDescription;
-        }
-
-        public Optional<OrderDescription> getOrderDescription() {
-            return Optional.ofNullable(orderDescription);
-        }
-
-        /**
-         * Sets {@code boxes} to this object's {@code boxes}.
-         * A defensive copy of {@code boxes} is used internally.
-         */
         public void setBoxes(Set<Box> boxes) {
             this.boxes = (boxes != null) ? new HashSet<>(boxes) : null;
         }
@@ -322,7 +310,6 @@ public class EditCommand extends Command {
                     .add("remark", remark)
                     .add("expiryDate", expiryDate)
                     .add("deliveryStatus", deliveryStatus)
-                    .add("boxes", boxes)
                     .add("tags", tags)
                     .toString();
         }

@@ -31,7 +31,7 @@ public class AddCommand extends Command {
             + PREFIX_EMAIL + "EMAIL "
             + PREFIX_ADDRESS + "ADDRESS "
             + PREFIX_BOX + "BOXES "
-            + PREFIX_REMARKS + "ORDER_DESCRIPTION "
+            + PREFIX_REMARKS + "REMARKS "
             + PREFIX_DELIVERY_STATUS + "DELIVERY_STATUS "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
