@@ -164,18 +164,19 @@ Examples:
 * `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
 
 =======
-### Marking a person as delivered : `markdelivered`
+### Marking a person's delivery status : `mark`
 
-Marks the specified person's delivery status as delivered.
+Marks the specified person's delivery status to a specified status.
 
-Format: `markdelivered INDEX`
+Format: `mark INDEX STATUS`
 
-* Marks the person at the specified `INDEX` as delivered.
+* Marks the person at the specified `INDEX` with the specified `STATUS`.
 * The index refers to the index number shown in the displayed person list.
 * The index **must be a positive integer** 1, 2, 3, …​
+* The status **must be** `PENDING`, `PACKED` or `DELIVERED` (not case-sensitive) 
 
 Examples:
-* `markdelivered 1`
+* `mark 1 delivered`
 
 ### Clearing all entries : `clear`
 
@@ -233,7 +234,7 @@ Action     | Format, Examples
 **Delete** | `delete INDEX` or `delete EMAIL`<br> e.g., `delete 3` `delete test@example.com`
 **Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [b/BOX] [o/REMARK] [ex/EXPIRY_DATE] [s/DELIVERY_STATUS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee o/prefers morning delivery`
 **Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
-**Mark Delivered** | `markdelivered INDEX`<br> e.g., `markdelivered 1`
+**Mark** | `mark INDEX STATUS`<br> e.g., `mark 1 delivered`
 **Remark** | `remark INDEX REMARK`<br> e.g., `remark 2 allergic to peanuts`
 **List**   | `list`
 **Help**   | `help`
