@@ -39,6 +39,6 @@ public class DeliveryStatusTest {
         assertFalse(deliveryStatus.equals(DeliveryStatus.fromString("pending")));
 
         // different values -> returns false
-        assertFalse(deliveryStatus.equals(DeliveryStatus.fromString("preparing")));
+        assertFalse(deliveryStatus.equals(DeliveryStatus.fromString("packing")));
     }
 }
