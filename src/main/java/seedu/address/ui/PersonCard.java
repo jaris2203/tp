@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.model.person.Box;
 import seedu.address.model.person.Person;
 
 /**
@@ -62,12 +63,13 @@ public class PersonCard extends UiPart<Region> {
         email.setText(person.getEmail().value);
         remark.setText("Remark: " + person.getRemark().value);
         deliveryStatus.setText("Delivery Status: " + person.getDeliveryStatus().deliveryStatus);
+        person.getBoxes().stream()
+                .sorted(Comparator.comparing(box -> box.boxName))
+                .forEach(box -> boxes.getChildren().add(new BoxCard(box).getRoot()));
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
         expiryDate.setText("Subscription end date: " + person.getExpiryDate().value);
-        person.getBoxes().stream()
-                .sorted(Comparator.comparing(box -> box.boxName))
-                .forEach(box -> boxes.getChildren().add(new Label(box.boxName)));
     }
 }
+
