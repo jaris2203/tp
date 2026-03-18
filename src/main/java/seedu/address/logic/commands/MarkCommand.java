@@ -27,16 +27,13 @@ import seedu.address.model.tag.Tag;
  */
 public class MarkCommand extends Command {
 
-    public static final String NOT_IMPLEMENTED_YET = "markDelivered command not implemented yet";
-    public static final String MESSAGE_ARGUMENTS = "Index: %1$d";
-
     public static final String COMMAND_WORD = "mark";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sets the delivery status of the person "
             + "identified by the index number used in the "
-            + "last person listing to delivered.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "displayed person list.\n"
+            + "Parameters: INDEX, STATUS\n"
+            + "Example: " + COMMAND_WORD + " 1 Packed";
 
     public static final String MESSAGE_MARK_PENDING = "Subscription has not been fulfilled for: %1$s";
     public static final String MESSAGE_MARK_PACKED = "Package(s) have been packed for: %1$s";
