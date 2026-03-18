@@ -96,7 +96,8 @@ public class MarkCommand extends Command {
         }
 
         MarkCommand otherMarkCommand = (MarkCommand) other;
-        return targetIndex.equals(otherMarkCommand.targetIndex);
+        return targetIndex.equals(otherMarkCommand.targetIndex)
+                && newDeliveryStatus == otherMarkCommand.newDeliveryStatus;
     }
 
     @Override
