@@ -80,12 +80,14 @@ Format: `help`
 
 Adds a person to the address book.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS b/BOX [o/REMARK] ex/EXPIRY_DATE s/DELIVERY_STATUS [t/TAG]…​`
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [o/REMARK] ex/EXPIRY_DATE s/DELIVERY_STATUS b/BOX… [t/TAG]…​`
 
 <box type="tip" seamless>
 
 **Tip:** A person can have any number of tags and boxes (including 0 tags, but at least 1 `b/BOX`). If `o/REMARK` is omitted, the person is created with the default remark `No remark`.
 </box>
+
+**Important Note:** The expiry date input will be applied to **ALL** Boxes added in that same command.
 
 Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 b/box-1 ex/2026-12-31 s/pending`
@@ -101,13 +103,12 @@ Format: `list`
 
 Edits an existing person in the address book.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [b/BOX] [o/REMARK] [ex/EXPIRY_DATE] [s/DELIVERY_STATUS] [t/TAG]…​`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [o/REMARK] [ex/EXPIRY_DATE] [s/DELIVERY_STATUS] [t/TAG]…​`
 
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* When editing boxes, the existing boxes of the person will be removed i.e. adding of boxes is not cumulative.
 * You can remove all the person’s tags by typing `t/` without
     specifying any tags after it.
 * You can update the remark either with `edit ... o/NEW_REMARK` or with the dedicated [`remark`](#updating-a-persons-remark--remark) command below.
