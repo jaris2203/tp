@@ -1,0 +1,191 @@
+package seedu.address.logic.commands;
+
+import seedu.address.commons.util.CollectionUtil;
+import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.logic.Messages;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
+import seedu.address.model.person.*;
+import seedu.address.model.tag.Tag;
+
+import java.util.*;
+
+import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.commands.EditCommand.MESSAGE_DUPLICATE_PERSON;
+import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+
+public class EditBoxCommand extends Command {
+
+    public static final String COMMAND_WORD = "editbox";
+
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of a box of the person identified "
+            + "by the name used in the displayed person list. "
+            + "Box is specified by the box name.\n"
+            + "Parameters: "
+            + PREFIX_NAME + "NAME "
+            + PREFIX_BOX + "OLD_BOX_NAME "
+            + "[" + PREFIX_NEW_BOX + "NEW_BOX_NAME]"
+            + "[" + PREFIX_EXPIRY_DATE + "EXPIRY_DATE\n"
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_NAME + "John Doe "
+            + PREFIX_BOX + "box-1 "
+            + PREFIX_NEW_BOX + "box-2"
+            + PREFIX_EXPIRY_DATE + "2026-01-01";
+
+    public static final String MESSAGE_EDIT_BOX_SUCCESS = "Edited box %1$s of Person: %2$s";
+    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+    public static final String MESSAGE_DUPLICATE_BOX = "This box already exists for the subscriber.";
+    public static final String MESSAGE_PERSON_NOT_FOUND = "No subscriber with the given name was found.";
+    public static final String MESSAGE_BOX_NOT_FOUND = "This box does not exist for this subscriber.";
+
+
+    private final Name subscriberName;
+    private final String boxName;
+    private final EditBoxDescriptor editBoxDescriptor;
+
+    public EditBoxCommand(Name subscriberName, String boxName, EditBoxDescriptor editBoxDescriptor) {
+        requireNonNull(subscriberName);
+        requireNonNull(boxName);
+        requireNonNull(editBoxDescriptor);
+
+        this.subscriberName = subscriberName;
+        this.boxName = boxName;
+        this.editBoxDescriptor = new EditBoxDescriptor(editBoxDescriptor);
+    }
+
+    @Override
+    public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
+        List<Person> lastShownList = model.getFilteredPersonList();
+
+        Person personToEdit = null;
+        for (Person person : lastShownList) {
+            if (person.getName().equals(this.subscriberName)) {
+                personToEdit = person;
+                break;
+            }
+        }
+
+        if (personToEdit == null) {
+            throw new CommandException(MESSAGE_PERSON_NOT_FOUND);
+        }
+
+        Box boxToEdit = null;
+        for (Box box : personToEdit.getBoxes()) {
+            if (box.boxName.equals(this.boxName)) {
+                boxToEdit = box;
+                break;
+            }
+        }
+        if (boxToEdit == null) {
+            throw new CommandException(MESSAGE_BOX_NOT_FOUND);
+        }
+
+        Box editedBox = createEditedBox(boxToEdit, editBoxDescriptor);
+        Person editedPerson = createEditedPerson(personToEdit, boxToEdit, editedBox);
+
+        if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
+            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        }
+
+        model.setPerson(personToEdit, editedPerson);
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        return new CommandResult(String.format(MESSAGE_EDIT_BOX_SUCCESS, editedBox, subscriberName));
+    }
+
+
+    private static Box createEditedBox(Box boxToEdit, EditBoxDescriptor editBoxDescriptor) {
+        assert boxToEdit != null;
+
+        String updatedBoxName = editBoxDescriptor.getBoxName().orElse(boxToEdit.boxName);
+        ExpiryDate updatedExpiryDate = editBoxDescriptor.getExpiryDate().orElse(boxToEdit.expiryDate);
+
+        return new Box(updatedBoxName, updatedExpiryDate);
+    }
+
+    private static Person createEditedPerson(Person personToEdit, Box boxToReplace, Box editedBox)
+            throws CommandException {
+       assert personToEdit != null;
+       assert boxToReplace != null;
+       assert editedBox != null;
+
+       Name updatedName = personToEdit.getName();
+       Phone updatedPhone = personToEdit.getPhone();
+       Email updatedEmail = personToEdit.getEmail();
+       Address updatedAddress = personToEdit.getAddress();
+       Remark updatedRemark = personToEdit.getRemark();
+       DeliveryStatus updatedDeliveryStatus = personToEdit.getDeliveryStatus();
+       ExpiryDate updatedPersonExpiryDate = personToEdit.getExpiryDate();
+       Set<Tag> updatedTags = personToEdit.getTags();
+
+       Set<Box> updatedBoxes = new HashSet<>(personToEdit.getBoxes());
+       updatedBoxes.remove(boxToReplace);
+
+       boolean duplicateBoxName = updatedBoxes.stream()
+               .anyMatch(box -> box.boxName.equals(editedBox.boxName));
+       if (duplicateBoxName) {
+           throw new CommandException(MESSAGE_DUPLICATE_BOX);
+       }
+
+       updatedBoxes.add(editedBox);
+       return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedBoxes, updatedRemark,
+               updatedPersonExpiryDate, updatedDeliveryStatus, updatedTags);
+    }
+
+    public static class EditBoxDescriptor {
+        private String boxName;
+        private ExpiryDate expiryDate;
+
+        public EditBoxDescriptor() {};
+
+        public EditBoxDescriptor(EditBoxDescriptor toCopy) {
+            setBoxName(toCopy.boxName);
+            setExpiryDate(toCopy.expiryDate);
+        }
+
+        public boolean isAnyFieldEdited() {
+            return CollectionUtil.isAnyNonNull(boxName, expiryDate);
+        }
+
+        public void setBoxName(String boxName) {
+            this.boxName = boxName;
+        }
+
+        public Optional<String> getBoxName() {
+            return Optional.ofNullable(boxName);
+        }
+
+        public void setExpiryDate(ExpiryDate expiryDate) {
+            this.expiryDate = expiryDate;
+        }
+
+        public Optional<ExpiryDate> getExpiryDate() {
+            return Optional.ofNullable(expiryDate);
+        }
+
+        @Override
+        public boolean equals(Object other) {
+            if (other == this) {
+                return true;
+            }
+
+            // instanceof handles nulls
+            if (!(other instanceof EditBoxDescriptor)) {
+                return false;
+            }
+
+            EditBoxDescriptor otherEditBoxDescriptor = (EditBoxDescriptor) other;
+            return Objects.equals(boxName, otherEditBoxDescriptor.boxName)
+                    && Objects.equals(expiryDate, otherEditBoxDescriptor.expiryDate);
+        }
+
+        @Override
+        public String toString() {
+            return new ToStringBuilder(this)
+                    .add("boxName", boxName)
+                    .add("expiryDate", expiryDate)
+                    .toString();
+        }
+    }
+}
