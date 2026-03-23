@@ -15,8 +15,16 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Box;
 import seedu.address.model.person.Name;
 
+/**
+ * Parses input arguments and creates a new EditBoxCommand object
+ */
 public class EditBoxCommandParser implements Parser<EditBoxCommand> {
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the EditBoxCommand
+     * and returns an EditBoxCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
     public EditBoxCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =

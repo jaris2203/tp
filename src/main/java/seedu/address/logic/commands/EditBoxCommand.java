@@ -29,6 +29,9 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.person.Remark;
 import seedu.address.model.tag.Tag;
 
+/**
+ * Edits the details of a box of an existing subscriber in the address book.
+ */
 public class EditBoxCommand extends Command {
 
     public static final String COMMAND_WORD = "editbox";
@@ -58,6 +61,11 @@ public class EditBoxCommand extends Command {
     private final String boxName;
     private final EditBoxDescriptor editBoxDescriptor;
 
+    /**
+     * @param subscriberName of the subscriber in the filtered person list to edit
+     * @param boxName of the box of the subscriber specified
+     * @param editBoxDescriptor details of the new box to edit the subscriber's box with
+     */
     public EditBoxCommand(Name subscriberName, String boxName, EditBoxDescriptor editBoxDescriptor) {
         requireNonNull(subscriberName);
         requireNonNull(boxName);
@@ -108,7 +116,10 @@ public class EditBoxCommand extends Command {
         return new CommandResult(String.format(MESSAGE_EDIT_BOX_SUCCESS, editedBox, subscriberName));
     }
 
-
+    /**
+     * Creates and returns a {@code Box} with the details of {@code boxToEdit}
+     * edited with {@code editBoxDescriptor}
+     */
     private static Box createEditedBox(Box boxToEdit, EditBoxDescriptor editBoxDescriptor) {
         assert boxToEdit != null;
 
@@ -118,6 +129,10 @@ public class EditBoxCommand extends Command {
         return new Box(updatedBoxName, updatedExpiryDate);
     }
 
+    /**
+     * Creates and returns a {@code Person} with the details of {@code personToEdit} and the
+     * updated box {@code editedBox}
+     */
     private static Person createEditedPerson(Person personToEdit, Box boxToReplace, Box editedBox)
             throws CommandException {
         assert personToEdit != null;
@@ -147,17 +162,27 @@ public class EditBoxCommand extends Command {
                 updatedPersonExpiryDate, updatedDeliveryStatus, updatedTags);
     }
 
+    /**
+     * Stores the details to edit the box with. Each non-empty field value will replace the corresponding
+     * field value of the specified box under the specified subscriber.
+     */
     public static class EditBoxDescriptor {
         private String boxName;
         private ExpiryDate expiryDate;
 
         public EditBoxDescriptor() {};
 
+        /**
+         * Copy constructor.
+         */
         public EditBoxDescriptor(EditBoxDescriptor toCopy) {
             setBoxName(toCopy.boxName);
             setExpiryDate(toCopy.expiryDate);
         }
 
+        /**
+         * Returns true if at least one field is edited.
+         */
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyNonNull(boxName, expiryDate);
         }
