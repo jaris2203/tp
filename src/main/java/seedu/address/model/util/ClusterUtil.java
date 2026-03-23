@@ -33,7 +33,8 @@ public class ClusterUtil {
      *
      * @param address The address string to extract the postal code from.
      * @return The postal code as an integer.
-     * @throws IllegalArgumentException if the postal code is not found in the address or if it cannot be parsed as an integer.
+     * @throws IllegalArgumentException if the postal code is not found in the address or if it cannot be parsed as an
+     *      integer.
      */
     public static int getPostalCodeIntegerFromAddress(String address) {
         return Integer.parseInt(getPostalCodeStringFromAddress(address));
@@ -44,7 +45,8 @@ public class ClusterUtil {
      *
      * @param address The address string to extract the postal code prefix from.
      * @return The postal code prefix as an integer.
-     * @throws IllegalArgumentException if the postal code is not found in the address or if the prefix cannot be parsed as an integer.
+     * @throws IllegalArgumentException if the postal code is not found in the address or if the prefix cannot be parsed
+     *      as an integer.
      */
     public static int getPostalPrefixFromAddress(String address) {
         String postalCode = getPostalCodeStringFromAddress(address);
@@ -56,14 +58,16 @@ public class ClusterUtil {
      *
      * @param person The Person whose address is used to extract the postal code prefix.
      * @return The postal code prefix as an integer.
-     * @throws IllegalArgumentException if the postal code is not found in the person's address or if the prefix cannot be parsed as an integer.
+     * @throws IllegalArgumentException if the postal code is not found in the person's address or if the prefix cannot
+     *      be parsed as an integer.
      */
     public static int getPostalPrefixFromPerson(Person person) {
         return getPostalPrefixFromAddress(person.getAddress().value);
     }
 
     /**
-     * Groups a list of Persons into clusters based on their postal code prefixes and distributes them among a specified number of drivers.
+     * Groups a list of Persons into clusters based on their postal code prefixes and distributes them among a specified
+     * number of drivers.
      *
      * @param list The list of Persons to be grouped.
      * @param numDrivers The number of drivers to distribute the clusters among.
