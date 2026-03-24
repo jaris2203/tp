@@ -2,7 +2,6 @@ package seedu.address.testutil;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BOX;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DELIVERY_STATUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPIRY_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -40,7 +39,6 @@ public class PersonUtil {
         sb.append(PREFIX_ADDRESS + person.getAddress().value + " ");
         sb.append(PREFIX_REMARKS + person.getRemark().value + " ");
         sb.append(PREFIX_EXPIRY_DATE + person.getExpiryDate().value + " ");
-        sb.append(PREFIX_DELIVERY_STATUS + person.getDeliveryStatus().deliveryStatus + " ");
         person.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
@@ -65,9 +63,6 @@ public class PersonUtil {
                         .append(remark.value).append(" "));
         descriptor.getExpiryDate().ifPresent(expiryDate ->
                 sb.append(PREFIX_EXPIRY_DATE).append(expiryDate.value).append(" "));
-        descriptor.getDeliveryStatus()
-                .ifPresent(deliveryStatus -> sb.append(PREFIX_DELIVERY_STATUS)
-                        .append(deliveryStatus.deliveryStatus).append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {

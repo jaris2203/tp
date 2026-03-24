@@ -3,7 +3,6 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BOX;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DELIVERY_STATUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPIRY_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -33,7 +32,6 @@ public class AddCommand extends Command {
             + PREFIX_BOX + "BOXES "
             + "[" + PREFIX_REMARKS + "REMARKS] "
             + PREFIX_EXPIRY_DATE + "EXPIRY_DATE "
-            + PREFIX_DELIVERY_STATUS + "DELIVERY_STATUS "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
@@ -41,7 +39,6 @@ public class AddCommand extends Command {
             + PREFIX_EMAIL + "johnd@example.com "
             + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
             + PREFIX_EXPIRY_DATE + "2026-12-31 "
-            + PREFIX_DELIVERY_STATUS + "delivered "
             + PREFIX_BOX + "box-1 "
             + PREFIX_REMARKS + "2 fishburgers "
             + PREFIX_TAG + "friends "

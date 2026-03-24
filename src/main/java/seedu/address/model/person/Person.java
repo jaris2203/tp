@@ -30,12 +30,48 @@ public class Person {
     private final Set<Box> boxes = new HashSet<>();
 
     /**
-     * Every field must be present and not null.
+     * * Constructs a {@code Person} with the given details.
+     * <p>
+     * This constructor is intended for creating a new {@code Person},
+     * where the {@code deliveryStatus} is not yet specified by the user.
+     * The {@code deliveryStatus} will be initialized to {@code DeliveryStatus.PENDING} by default.
+     *
+     * @param name The person's name.
+     * @param phone The person's phone number.
+     * @param email The person's email address.
+     * @param address The person's address.
+     * @param boxes The set of boxes associated with the person.
+     * @param remark Additional remarks about the person.
+     * @param expiryDate The expiry date associated with the person.
+     * @param tags The set of tags associated with the person.
+     */
+    public Person(Name name, Phone phone, Email email, Address address, Set<Box> boxes,
+                  Remark remark, ExpiryDate expiryDate, Set<Tag> tags) {
+        this(name, phone, email, address, boxes, remark, expiryDate,
+                DeliveryStatus.PENDING, tags);
+    }
+
+    /**
+     * Constructs a {@code Person} with the given details, including an explicit delivery status.
+     * <p>
+     * This constructor should be used when the {@code deliveryStatus} is already known,
+     * such as during edit operations or when reconstructing a {@code Person} from storage.
+     *
+     * @param name The person's name.
+     * @param phone The person's phone number.
+     * @param email The person's email address.
+     * @param address The person's address.
+     * @param boxes The set of boxes associated with the person.
+     * @param remark Additional remarks about the person.
+     * @param expiryDate The expiry date associated with the person.
+     * @param deliveryStatus The delivery status of the person.
+     * @param tags The set of tags associated with the person.
      */
     public Person(Name name, Phone phone, Email email, Address address, Set<Box> boxes,
                   Remark remark, ExpiryDate expiryDate,
                   DeliveryStatus deliveryStatus, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, remark, deliveryStatus, tags);
+
+        requireAllNonNull(name, phone, email, address, boxes, remark, expiryDate, deliveryStatus, tags);
 
         this.name = name;
         this.phone = phone;
