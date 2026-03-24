@@ -15,18 +15,15 @@ public class FilterCommand extends Command {
 
     public static final String COMMAND_WORD = "filter";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Filters the list of persons based on the boxes ordered or drivers assigned.\n"
+    public static final String MESSAGE_USAGE =
+            COMMAND_WORD + ": Filters the list of persons based on the boxes ordered or drivers assigned.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " box1 ";
+            + "Example: " + COMMAND_WORD + " box1";
 
     private final PersonHasBoxPredicate predicate;
 
     public FilterCommand(PersonHasBoxPredicate predicate) {
         this.predicate = predicate;
-    }
-
-    public FilterCommand() {
-        
     }
 
     @Override
