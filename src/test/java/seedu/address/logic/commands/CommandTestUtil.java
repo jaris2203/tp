@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BOX;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DELIVERY_STATUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPIRY_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -36,8 +35,8 @@ public class CommandTestUtil {
     public static final String VALID_PHONE_BOB = "22222222";
     public static final String VALID_EMAIL_AMY = "amy@example.com";
     public static final String VALID_EMAIL_BOB = "bob@example.com";
-    public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1";
-    public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
+    public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1, Singapore 123456";
+    public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3, Singapore 017325";
     public static final String VALID_ORDER_DESCRIPTION_AMY = "2 muffins";
     public static final String VALID_ORDER_DESCRIPTION_BOB = "4 croissants";
     public static final String VALID_EXPIRY_DATE_AMY = "2026-12-31";
@@ -63,10 +62,6 @@ public class CommandTestUtil {
             " " + PREFIX_REMARKS + VALID_ORDER_DESCRIPTION_BOB;
     public static final String EXPIRY_DATE_DESC_AMY = " " + PREFIX_EXPIRY_DATE + VALID_EXPIRY_DATE_AMY;
     public static final String EXPIRY_DATE_DESC_BOB = " " + PREFIX_EXPIRY_DATE + VALID_EXPIRY_DATE_BOB;
-    public static final String DELIVERY_STATUS_DESC_AMY =
-            " " + PREFIX_DELIVERY_STATUS + VALID_DELIVERY_STATUS_AMY;
-    public static final String DELIVERY_STATUS_DESC_BOB =
-            " " + PREFIX_DELIVERY_STATUS + VALID_DELIVERY_STATUS_BOB;
     public static final String BOX_DESC_BOX1 = " " + PREFIX_BOX + VALID_BOX_BOX1;
     public static final String BOX_DESC_BOX2 = " " + PREFIX_BOX + VALID_BOX_BOX2;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
@@ -78,7 +73,6 @@ public class CommandTestUtil {
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_ORDER_DESCRIPTION_DESC = " " + PREFIX_REMARKS + "#cake";
     public static final String INVALID_EXPIRY_DATE_DESC = " " + PREFIX_EXPIRY_DATE;
-    public static final String INVALID_DELIVERY_STATUS_DESC = " " + PREFIX_DELIVERY_STATUS + "maybe";
     public static final String INVALID_BOX_DESC = " " + PREFIX_BOX + "box*"; // '*' not allowed in boxes
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
