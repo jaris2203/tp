@@ -24,7 +24,7 @@ public class PersonBuilder {
     public static final String DEFAULT_NAME = "Amy Bee";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
-    public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111, Singapore 123456";
     public static final String DEFAULT_ORDER_DESCRIPTION = "1 cake";
     public static final String DEFAULT_EXPIRY_DATE = "2026-12-31";
     public static final String DEFAULT_DELIVERY_STATUS = "pending";

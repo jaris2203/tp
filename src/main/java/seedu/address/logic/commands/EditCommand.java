@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DELIVERY_STATUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPIRY_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -53,7 +52,6 @@ public class EditCommand extends Command {
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_REMARKS + "REMARKS] "
             + "[" + PREFIX_EXPIRY_DATE + "EXPIRY_DATE] "
-            + "[" + PREFIX_DELIVERY_STATUS + "DELIVERY STATUS] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
@@ -110,16 +108,15 @@ public class EditCommand extends Command {
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
-        Remark updatedRemark = editPersonDescriptor.getRemark()
-                .orElse(personToEdit.getRemark());
+        Remark updatedRemark = editPersonDescriptor.getRemark().orElse(personToEdit.getRemark());
         DeliveryStatus updatedDeliveryStatus = editPersonDescriptor.getDeliveryStatus()
                 .orElse(personToEdit.getDeliveryStatus());
-        ExpiryDate updatedExpiry = editPersonDescriptor.getExpiryDate().orElse(personToEdit.getExpiryDate());
         Set<Box> updatedBoxes = personToEdit.getBoxes();
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
+        ExpiryDate updatedExpiry = editPersonDescriptor.getExpiryDate().orElse(personToEdit.getExpiryDate());
+
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedBoxes,
                 updatedRemark, updatedExpiry, updatedDeliveryStatus, updatedTags);
-
     }
 
     @Override
@@ -160,11 +157,16 @@ public class EditCommand extends Command {
         private DeliveryStatus deliveryStatus;
         private Set<Tag> tags;
 
+        /**
+         * Constructs an empty {@code EditPersonDescriptor}.
+         */
         public EditPersonDescriptor() {}
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
+         *
+         * @param toCopy descriptor to copy from
          */
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
             setName(toCopy.name);
@@ -240,19 +242,10 @@ public class EditCommand extends Command {
             return Optional.ofNullable(deliveryStatus);
         }
 
-        /**
-         * Sets {@code tags} to this object's {@code tags}.
-         * A defensive copy of {@code tags} is used internally.
-         */
         public void setTags(Set<Tag> tags) {
             this.tags = (tags != null) ? new HashSet<>(tags) : null;
         }
 
-        /**
-         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
-         * if modification is attempted.
-         * Returns {@code Optional#empty()} if {@code tags} is null.
-         */
         public Optional<Set<Tag>> getTags() {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
         }
@@ -263,7 +256,6 @@ public class EditCommand extends Command {
                 return true;
             }
 
-            // instanceof handles nulls
             if (!(other instanceof EditPersonDescriptor)) {
                 return false;
             }

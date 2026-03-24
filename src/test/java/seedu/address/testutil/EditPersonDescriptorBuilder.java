@@ -39,7 +39,6 @@ public class EditPersonDescriptorBuilder {
         descriptor.setEmail(person.getEmail());
         descriptor.setAddress(person.getAddress());
         descriptor.setRemark(person.getRemark());
-        descriptor.setDeliveryStatus(person.getDeliveryStatus());
         descriptor.setTags(person.getTags());
         descriptor.setExpiryDate(person.getExpiryDate());
     }
