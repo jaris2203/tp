@@ -37,7 +37,7 @@ public class CommandTestUtil {
     public static final String VALID_EMAIL_AMY = "amy@example.com";
     public static final String VALID_EMAIL_BOB = "bob@example.com";
     public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1, Singapore 123456";
-    public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3, Singapore 123456";
+    public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3, Singapore 017325";
     public static final String VALID_ORDER_DESCRIPTION_AMY = "2 muffins";
     public static final String VALID_ORDER_DESCRIPTION_BOB = "4 croissants";
     public static final String VALID_EXPIRY_DATE_AMY = "2026-12-31";
