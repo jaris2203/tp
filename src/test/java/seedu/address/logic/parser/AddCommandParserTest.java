@@ -287,7 +287,7 @@ public class AddCommandParserTest {
         // invalid address
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_ADDRESS_DESC
                 + ORDER_DESCRIPTION_DESC_BOB + EXPIRY_DATE_DESC_BOB + DELIVERY_STATUS_DESC_BOB + TAG_DESC_HUSBAND
-                + TAG_DESC_FRIEND + BOX_DESC_BOX1, Address.MESSAGE_CONSTRAINTS);
+                + TAG_DESC_FRIEND + BOX_DESC_BOX1, Address.getValidationMessage(INVALID_ADDRESS_DESC));
 
         // invalid Remark
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB

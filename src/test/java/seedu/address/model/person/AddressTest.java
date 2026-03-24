@@ -16,19 +16,21 @@ public class AddressTest {
     @Test
     public void constructor_blankAddress_throwsIllegalArgumentException() {
         String blankAddress = "";
-        assertThrows(IllegalArgumentException.class, () -> new Address(blankAddress));
+        assertThrows(IllegalArgumentException.class, Address.MESSAGE_CONSTRAINTS_BLANK, () ->
+                new Address(blankAddress));
     }
 
     @Test
     public void constructor_noPostalCode_throwsIllegalArgumentException() {
         String noPostalCodeAddress = "blk 123, Sengkang Street 11, Singapore";
-        assertThrows(IllegalArgumentException.class, () -> new Address(noPostalCodeAddress));
+        assertThrows(IllegalArgumentException.class, Address.MESSAGE_CONSTRAINTS_POSTAL_CODE, () ->
+                new Address(noPostalCodeAddress));
     }
 
     @Test
     public void isValidAddress() {
         // null address
-        assertThrows(NullPointerException.class, () -> Address.isValidAddress(null));
+        assertFalse(Address.isValidAddress(null));
 
         // invalid addresses
         assertFalse(Address.isValidAddress("")); // empty string
