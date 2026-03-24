@@ -117,6 +117,21 @@ Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com s/delivered` Edits the phone number, email address, and delivery status of the 1st person.
 *  `edit 2 n/Betsy Crower o/prefers morning delivery t/` Edits the name and remark of the 2nd person and clears all existing tags.
 
+### Editing a box of a person : `editbox`
+
+Edits an existing box of an existing person in the address book.
+
+Format: `edit NAME BOX_NAME [nb/NEW_BOX_NAME] [ex/EXPIRY_DATE]`
+
+* Edits the person specified by the person's `NAME`.
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+
+Examples:
+* `editbox n/Amy b/box-1 nb/box-2` Edits the name of box-1 under Amy to box-2.
+* `editbox n/Amy b/box-1 ex/2026-12-31` Edits the expiry date of box-1 under Amy.
+* `editbox n/Amy b/box-1 nb/box-2 ex/2026-12-31` Edits the name and expiry date of box-1 under Amy.
+
 ### Updating a person's remark : `remark`
 
 Updates the remark of an existing person in the address book.
