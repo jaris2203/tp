@@ -139,14 +139,14 @@ public class EditBoxCommand extends Command {
         assert boxToReplace != null;
         assert editedBox != null;
 
-        Name updatedName = personToEdit.getName();
-        Phone updatedPhone = personToEdit.getPhone();
-        Email updatedEmail = personToEdit.getEmail();
-        Address updatedAddress = personToEdit.getAddress();
-        Remark updatedRemark = personToEdit.getRemark();
-        DeliveryStatus updatedDeliveryStatus = personToEdit.getDeliveryStatus();
-        ExpiryDate updatedPersonExpiryDate = personToEdit.getExpiryDate();
-        Set<Tag> updatedTags = personToEdit.getTags();
+        Name name = personToEdit.getName();
+        Phone phone = personToEdit.getPhone();
+        Email email = personToEdit.getEmail();
+        Address address = personToEdit.getAddress();
+        Remark remark = personToEdit.getRemark();
+        DeliveryStatus deliveryStatus = personToEdit.getDeliveryStatus();
+        ExpiryDate personExpiryDate = personToEdit.getExpiryDate();
+        Set<Tag> tags = personToEdit.getTags();
 
         Set<Box> updatedBoxes = new HashSet<>(personToEdit.getBoxes());
         updatedBoxes.remove(boxToReplace);
@@ -158,8 +158,8 @@ public class EditBoxCommand extends Command {
         }
 
         updatedBoxes.add(editedBox);
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedBoxes, updatedRemark,
-                updatedPersonExpiryDate, updatedDeliveryStatus, updatedTags);
+        return new Person(name, phone, email, address, updatedBoxes, remark,
+                personExpiryDate, deliveryStatus, tags);
     }
 
     /**
