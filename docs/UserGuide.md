@@ -122,7 +122,7 @@ Examples:
 
 Edits an existing box of an existing person in the address book.
 
-Format: `edit NAME BOX_NAME [nb/NEW_BOX_NAME] [ex/EXPIRY_DATE]`
+Format: `edit n/NAME b/BOX_NAME [nb/NEW_BOX_NAME] [ex/EXPIRY_DATE]`
 
 * Edits the person specified by the person's `NAME`.
 * At least one of the optional fields must be provided.
@@ -171,7 +171,7 @@ Deletes the specified person from the address book.
 
 Format: `delete INDEX` OR `delete EMAIL`
 
-* Deletes the person at the specified `INDEX`or `EMAIL`.
+* Deletes the person at the specified `INDEX` or `EMAIL`.
 * The index refers to the index number shown in the displayed person list.
 * The index **must be a positive integer** 1, 2, 3, …​
 * The email must be an existing email in the subscribers list.
@@ -179,6 +179,21 @@ Format: `delete INDEX` OR `delete EMAIL`
 Examples:
 * `list` followed by `delete 2` deletes the 2nd person in the address book.
 * `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+
+### Delete boxes from a person: `deletebox`
+
+Deletes one or more boxes for a specified person from the address book
+
+Format: `deletebox n/NAME b/BOX_NAME [b/BOX_NAME]...`
+
+* Deletes one or more boxes specified by their `BOX_NAME` for a person specified by their `NAME`.
+* At least one box must be provided.
+* If all boxes are deleted from the specified person, the person will automatically be deleted from the address book.
+
+Examples:
+* `deletebox n/Amy b/box-1` deletes the box named box-1 from Amy.
+* `deletebox n/Amy b/box-1 b/box-2` deletes the boxes named box-1 and box-2 from Amy. If Amy only has boxes box-1 and
+box-2, this command will delete Amy from the address book upon execution.
 
 =======
 ### Marking a person's delivery status : `mark`
