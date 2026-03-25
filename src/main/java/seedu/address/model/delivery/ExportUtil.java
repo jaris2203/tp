@@ -76,8 +76,8 @@ public class ExportUtil {
         // Iterate through each driver
         for (Driver driver : assignments.getDriversKeySet()) {
             html.append("<table>\n")
-                    .append("<caption>Driver: ").append(driver.getName().toString())
-                    .append(" | ").append(driver.getPhone().toString()).append("</caption>\n")
+                    .append("<caption>Driver: ").append(driver.getName().toString().toUpperCase())
+                    .append(" - ").append(driver.getPhone().toString()).append("</caption>\n")
                     .append("<thead>\n<tr>\n")
                     .append("<th>Name</th><th>Phone</th><th>Email</th><th>Address</th><th>Boxes</th>\n")
                     .append("</tr>\n</thead>\n<tbody>\n");
