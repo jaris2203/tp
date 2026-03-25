@@ -72,7 +72,7 @@ public class ExportCommand extends Command {
 
         try {
             checkExportable();
-            ExportUtil.exportAssignmentshtml(assignments, filePath);
+            ExportUtil.exportAssignmentsAsHtml(assignments, filePath);
         } catch (NotExportableException e) {
             throw new CommandException(MESSAGE_FAILURE + " " + e.getMessage());
         } catch (IOException e) {
