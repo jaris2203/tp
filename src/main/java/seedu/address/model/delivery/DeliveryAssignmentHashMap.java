@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import seedu.address.model.delivery.exceptions.DriverNotFoundException;
 import seedu.address.model.person.Person;
 
 
@@ -54,6 +55,24 @@ public class DeliveryAssignmentHashMap {
         }
         List<Person> subscriberList = assignments.get(d);
         subscriberList.add(p);
+    }
+
+    /**
+     * Returns the list of {@code Person}s assigned to the specified {@code Driver}.
+     *
+     * <p>If the driver does not have any assigned persons, a {@link DriverNotFoundException}
+     * is thrown.</p>
+     *
+     * @param d the {@code Driver} whose delivery list is to be retrieved
+     * @return a list of {@code Person}s assigned to the driver
+     * @throws DriverNotFoundException if the driver has does not exist in hashmap
+     */
+    public List<Person> getDeliveryListFor(Driver d) {
+        if (assignments.containsKey(d)) {
+            return assignments.get(d);
+        } else {
+            throw new DriverNotFoundException();
+        }
     }
 
     /**
