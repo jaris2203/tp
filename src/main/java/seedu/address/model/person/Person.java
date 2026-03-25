@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.TreeSet;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.tag.Tag;
@@ -27,7 +28,7 @@ public class Person {
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
     private final ExpiryDate expiryDate;
-    private final Set<Box> boxes = new HashSet<>();
+    private final Set<Box> boxes = new TreeSet<>();
 
     /**
      * * Constructs a {@code Person} with the given details.

@@ -16,6 +16,7 @@ public class ExpiryDate {
                     + "for example, 2026-12-31.";
 
     public final String value;
+    public final LocalDate localDateValue;
 
     /**
      * Constructs an {@code ExpiryDate}.
@@ -26,6 +27,7 @@ public class ExpiryDate {
         requireNonNull(expiryDate);
         checkArgument(isValidExpiryDate(expiryDate), MESSAGE_CONSTRAINTS);
         value = expiryDate;
+        localDateValue = LocalDate.parse(expiryDate);
     }
 
     /**
@@ -39,6 +41,10 @@ public class ExpiryDate {
         } catch (DateTimeParseException e) {
             return false;
         }
+    }
+
+    public int compareTo(ExpiryDate other) {
+        return this.localDateValue.compareTo(other.localDateValue);
     }
 
     @Override
