@@ -4,6 +4,8 @@ import java.util.Comparator;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
@@ -15,6 +17,10 @@ import seedu.address.model.person.Person;
 public class PersonCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
+    private static final Image ADDRESS_IMAGE =
+            new Image(PersonCard.class.getResourceAsStream("/images/address_icon.png"));
+    private static final Image PHONE_IMAGE =
+            new Image(PersonCard.class.getResourceAsStream("/images/phone_icon.png"));
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -55,7 +61,19 @@ public class PersonCard extends UiPart<Region> {
         this.person = person;
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
+        // Phone
+        ImageView phoneIcon = new ImageView(PHONE_IMAGE);
+        phoneIcon.setFitWidth(14);
+        phoneIcon.setFitHeight(14);
+        phone.setGraphic(phoneIcon);
+        phone.setGraphicTextGap(2);
         phone.setText(person.getPhone().value);
+        // Address
+        ImageView addressIcon = new ImageView(ADDRESS_IMAGE);
+        addressIcon.setFitWidth(14);
+        addressIcon.setFitHeight(14);
+        address.setGraphic(addressIcon);
+        address.setGraphicTextGap(2);
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
         remark.setText("Remark: " + person.getRemark().value);
@@ -65,7 +83,23 @@ public class PersonCard extends UiPart<Region> {
                 .forEach(box -> boxes.getChildren().add(new BoxCard(box).getRoot()));
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+                .forEach(tag -> {
+                    Label tagLabel = new Label(tag.tagName);
+                    if (tag.tagName.startsWith("DRIVER:")) {
+                        Image driverImage = new Image(getClass().getResourceAsStream("/images/driver_icon.png"));
+                        ImageView driverIcon = new ImageView(driverImage);
+                        driverIcon.setFitWidth(16);
+                        driverIcon.setFitHeight(16);
+                        tagLabel.setGraphic(driverIcon);
+                        tagLabel.setGraphicTextGap(2);
+                        tagLabel.getStyleClass().add("driver-tag");
+                    } else {
+                        tagLabel.getStyleClass().add("tag");
+                    }
+                    tags.getChildren().add(tagLabel);
+                });
+
+
     }
 }
 

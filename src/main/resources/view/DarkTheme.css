@@ -351,6 +351,16 @@
     -fx-font-size: 11;
 }
 
+#tags .label.tag {
+    -fx-background-color: #4aa3c0;
+}
+
+#tags .label.driver-tag {
+    -fx-background-color: #cc70af;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
 #boxes {
     -fx-hgap: 7;
     -fx-vgap: 3;

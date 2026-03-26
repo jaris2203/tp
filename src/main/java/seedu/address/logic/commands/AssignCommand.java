@@ -3,7 +3,6 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -23,7 +22,9 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Remark;
+import seedu.address.model.tag.DriverTag;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.util.ClusterUtil;
 
 /**
  * Assigned declared drivers to existing subscribers in the address book.
@@ -72,11 +73,10 @@ public class AssignCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        // TODO: Integrate resetting of sorted subscribers (might have previously been sorted)
-        // TODO: integrate method that returns sorted subscribers from clustering algo
-        List<List<Person>> sortedSubscribers = new ArrayList<List<Person>>();
+        List<List<Person>> sortedSubscribers = ClusterUtil.groupIntoClusters(
+                    model.getFilteredPersonList(),
+                    drivers.length);
 
-        sortedSubscribers.add(model.getFilteredPersonList()); // For Testing
         if (sortedSubscribers.size() != drivers.length) {
             // Algorithm wrong
             return new CommandResult(MESSAGE_FAIL);
@@ -105,10 +105,11 @@ public class AssignCommand extends Command {
         Remark remarkCopy = personToAssign.getRemark();
         Set<Tag> tagsCopy = new HashSet<>(personToAssign.getTags()); // have modifiable tags
         ExpiryDate expiryCopy = personToAssign.getExpiryDate();
-        Tag driverTag = new Tag(assignedDriver.getName() + ":" + assignedDriver.getPhone());
+        DriverTag driverTag = new DriverTag(assignedDriver.getName() + ":" + assignedDriver.getPhone());
 
+        // Negate prior assignments
+        removeExistingDriverTag(tagsCopy);
         // Add driverTag to tags
-        // TODO: Possibly have a specific UI to differentiate driver tags
         tagsCopy.add(driverTag);
 
         assignments.assign(assignedDriver, personToAssign);
@@ -116,6 +117,14 @@ public class AssignCommand extends Command {
         return new Person(nameCopy, phoneCopy, emailCopy, addressCopy,
                 boxesCopy, remarkCopy, expiryCopy,
                 statusCopy, tagsCopy);
+    }
+
+    /**
+     * Finds and removes any {@code DriverTag} in given set of tags
+     * @param tags
+     */
+    private void removeExistingDriverTag(Set<Tag> tags) {
+        tags.removeIf(tag -> tag.tagName.contains("DRIVER: "));
     }
 
     @Override

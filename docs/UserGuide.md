@@ -6,7 +6,8 @@
 
 # AB-3 User Guide
 
-AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized for use via a  Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
+
+CLient2Door is a **lightweight desktop address management app, optimized for use via a  Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). It will  that helps users keep track of subscriber deliveries and related operational details. If you can type fast, Client2Door can get your contact management tasks done faster than traditional GUI apps.
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -251,6 +252,22 @@ If your changes to the data file makes its format invalid, AddressBook will disc
 Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </box>
 
+### Assigning drivers to subscribers : `assign`
+
+Assigns one or more drivers to groups of subscribers so that each subscriber is tagged with an assigned driver.
+
+Format: `assign n/DRIVER_NAME p/DRIVER_PHONE [n/DRIVER_NAME p/DRIVER_PHONE]...`
+
+* Assigns the given drivers to **all subscribers currently in the list**.
+* The number of `n/ ... p/ ...` pairs provided determines how many subscriber groups (clusters) will be formed.
+* Drivers provided must be **unique** (duplicate drivers are not allowed).
+* Any existing driver tag on a subscriber will be replaced with the newly assigned driver tag.
+
+Examples:
+* `assign n/John Doe p/91234567` Assigns all subscribers to John Doe.
+* `assign n/John Doe p/91234567 n/Jane Tan p/98765432` Splits subscribers into 2 groups and assigns each group to John Doe and Jane Tan respectively.
+* `assign n/John Doe p/91234567 n/Jane Tan p/98765432 n/Ali Bin p/81234567` Splits subscribers into 3 groups and assigns each group to a driver.
+
 ### Exporting driver delivery assignments: `export`
 
 Format: `export [FILE_PATH]`
@@ -313,5 +330,6 @@ Action     | Format, Examples
 **Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **Mark** | `mark INDEX STATUS`<br> e.g., `mark 1 delivered`
 **Remark** | `remark INDEX REMARK`<br> e.g., `remark 2 allergic to peanuts`
+**Assign** | `assign [n/NAME] [p/PHONE_NUMBER] [n/NAME] [p/PHONE_NUMBER]...`<br> e.g., `assign n/John Doe p/91234567 n/Jane Tan p/98765432`
 **List**   | `list`
 **Help**   | `help`
