@@ -10,6 +10,7 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.delivery.DeliveryAssignmentHashMap;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Person;
 
@@ -60,11 +61,15 @@ public class DeleteCommand extends Command {
 
             Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
             model.deletePerson(personToDelete);
+            DeliveryAssignmentHashMap.clearAssignments();
+
             return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, Messages.format(personToDelete)));
         } else if (!isNull(targetEmail) && isNull(targetIndex)) {
             for (Person p : lastShownList) {
                 if (p.getEmail().equals(targetEmail)) {
                     model.deletePerson(p);
+                    DeliveryAssignmentHashMap.clearAssignments();
+
                     return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, Messages.format(p)));
                 }
             }
@@ -75,7 +80,6 @@ public class DeleteCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX
                     + " OR " + Messages.MESSAGE_INVALID_PERSON_DISPLAYED_EMAIL);
         }
-
     }
 
     @Override

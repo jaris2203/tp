@@ -14,6 +14,7 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.delivery.DeliveryAssignmentHashMap;
 import seedu.address.model.person.Person;
 
 /**
@@ -66,6 +67,8 @@ public class AddCommand extends Command {
         }
 
         model.addPerson(toAdd);
+        DeliveryAssignmentHashMap.clearAssignments();
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)));
     }
 

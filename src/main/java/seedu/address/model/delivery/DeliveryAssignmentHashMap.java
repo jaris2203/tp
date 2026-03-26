@@ -54,7 +54,11 @@ public class DeliveryAssignmentHashMap {
      * @param p the {@code Person} to be assigned
      */
     public void assign(Driver d, Person p) {
-        assignments.computeIfAbsent(d, k -> new ArrayList<>()).add(p);
+        List<Person> list = assignments.computeIfAbsent(d, k -> new ArrayList<>());
+
+        if (!list.contains(p)) {
+            list.add(p);
+        }
     }
 
     /**
@@ -88,6 +92,10 @@ public class DeliveryAssignmentHashMap {
         } else {
             throw new DriverNotFoundException();
         }
+    }
+
+    public static boolean isExportable() {
+        return !assignments.isEmpty();
     }
 
     /**

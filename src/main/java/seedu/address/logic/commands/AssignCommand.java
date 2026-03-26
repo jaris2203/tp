@@ -12,10 +12,11 @@ import java.util.Set;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.delivery.DeliveryAssignmentHashMap;
+import seedu.address.model.delivery.Driver;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Box;
 import seedu.address.model.person.DeliveryStatus;
-import seedu.address.model.person.Driver;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.ExpiryDate;
 import seedu.address.model.person.Name;
@@ -40,6 +41,7 @@ public class AssignCommand extends Command {
             + "Example: " + COMMAND_WORD + " n/John Doe p/91234567 n/Jane Tan p/98765432";
 
     private final Driver[] drivers;
+    private final DeliveryAssignmentHashMap assignments = DeliveryAssignmentHashMap.getInstance();
 
     /**
      * Creates an AssignCommand to tag all {@code Person}s to a {@code Driver}
@@ -108,6 +110,8 @@ public class AssignCommand extends Command {
         // Add driverTag to tags
         // TODO: Possibly have a specific UI to differentiate driver tags
         tagsCopy.add(driverTag);
+
+        assignments.assign(assignedDriver, personToAssign);
 
         return new Person(nameCopy, phoneCopy, emailCopy, addressCopy,
                 boxesCopy, remarkCopy, expiryCopy,
