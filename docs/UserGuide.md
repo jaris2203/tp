@@ -222,6 +222,37 @@ If your changes to the data file makes its format invalid, AddressBook will disc
 Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </box>
 
+### Exporting driver delivery assignments: `export`
+
+Format: `export [FILE_PATH]`
+
+Generates a HTML file showing all drivers and their assigned subscribers as shown below.
+![ExportedHTML.png](images/exportedHTML.png)
+
+- If FILE_PATH is not provided, the file will be saved to the default location: data/delivery_assignments.html.
+- If a file already exists at the specified path, it will be overwritten.
+- The `FILE_PATH` must end with `.html`
+- This command only works if there are existing delivery assignments.
+<box type="tip" seamless>
+
+Tip: Open the exported .html file in any web browser to view a clean, styled summary of all delivery assignments.
+</box>
+
+<box type="warning" seamless>
+
+Caution:
+If there are no delivery assignments, the export will fail and display an error message.
+Ensure that drivers have been assigned persons before running this command.
+</box>
+
+Examples:
+
+`export`
+Exports delivery assignments to data/delivery_assignments.html.
+
+`export fp/data/my_assignments.html`
+Exports delivery assignments to the specified file path.
+
 ### Archiving data files `[coming in v2.0]`
 
 _Details coming soon ..._
