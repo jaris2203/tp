@@ -14,8 +14,19 @@ UniquePersonList -right-> Person
 
 Person -up-> "*" Tag
 
+enum DeliveryStatus <<enumeration>> {
+    PENDING
+    PACKED
+    DELIVERED
+}
+
 Person *--> Name
 Person *--> Phone
 Person *--> Email
 Person *--> Address
+Person *--> DeliveryStatus
+Person *--> Remark
+Person *--> Driver
+Person *--> Tag
+Person *--> "*" Box
 @enduml
