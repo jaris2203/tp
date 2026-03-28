@@ -158,6 +158,20 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+### Assign Drivers feature
+
+#### Implementation Details
+
+The following sequence diagram shows how an undo operation goes through the Logic component:
+
+<puml src="diagrams/AssignCommandSequence.puml" alt="AssignCommandSequence" />
+
+Separate sequence diagram showing how the assignment of all subscribers:
+
+<puml src="diagrams/AssignLoopSequence.puml" alt="AssignLoopSequence" />
+
+The `AssignCommand` calls `ClusterUtil#groupIntoClusters()` to get the partitioned list of lists of `Person`s. It will then call `Model#setPerson()` to edit all the `Person`s in the address book.
+
 ### \[Proposed\] Undo/redo feature
 
 #### Proposed Implementation
