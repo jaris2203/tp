@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.delivery.Driver;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -29,6 +30,7 @@ public class Person {
     private final Set<Tag> tags = new HashSet<>();
     private final ExpiryDate expiryDate;
     private final Set<Box> boxes = new TreeSet<>();
+    private Driver assignedDriver;
 
     /**
      * * Constructs a {@code Person} with the given details.
@@ -144,6 +146,20 @@ public class Person {
     }
 
     /**
+     * Assigns a {@code Driver} to person
+     */
+    public void assignDriver(Driver driver) {
+        this.assignedDriver = driver;
+    }
+
+    /**
+     * Returns assigned {@code Driver} of person
+     */
+    public Driver getAssignedDriver() {
+        return assignedDriver;
+    }
+
+    /**
      * Returns true if both persons have the same identity and data fields.
      * This defines a stronger notion of equality between two persons.
      */
@@ -167,7 +183,8 @@ public class Person {
                 && remark.equals(otherPerson.remark)
                 && expiryDate.equals(otherPerson.expiryDate)
                 && deliveryStatus.equals(otherPerson.deliveryStatus)
-                && tags.equals(otherPerson.tags);
+                && tags.equals(otherPerson.tags)
+                && assignedDriver.equals(otherPerson.assignedDriver);
     }
 
     @Override
