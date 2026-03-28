@@ -20,6 +20,8 @@ enum DeliveryStatus <<enumeration>> {
     DELIVERED
 }
 
+show DeliveryStatus members
+
 Person *--> Name
 Person *--> Phone
 Person *--> Email
