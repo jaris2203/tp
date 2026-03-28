@@ -2,6 +2,7 @@ package seedu.address.model.person;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.address.model.person.PostalCode.extractPostalCode;
 
 /**
  * Represents a Person's address in the address book.
@@ -20,6 +21,7 @@ public class Address {
     private static final String VALIDATION_REGEX = "^(?=.*\\b\\d{6}\\b).+$";
 
     public final String value;
+    public final PostalCode postalCode;
 
     /**
      * Constructs an {@code Address}.
@@ -29,7 +31,8 @@ public class Address {
     public Address(String address) {
         requireNonNull(address);
         checkArgument(isValidAddress(address), getValidationMessage(address));
-        value = address;
+        this.value = address;
+        this.postalCode = new PostalCode(extractPostalCode(address));
     }
 
     /**
@@ -52,6 +55,13 @@ public class Address {
         }
 
         return null;
+    }
+
+    /**
+     * Returns the postal code of this address.
+     */
+    public PostalCode getPostalCode() {
+        return postalCode;
     }
 
     @Override

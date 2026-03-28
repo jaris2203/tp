@@ -104,6 +104,13 @@ public class Person {
     }
 
     /**
+     * Returns the postal code prefix of this person's address.
+     */
+    public int getPostalPrefix() {
+        return address.getPostalCode().getPostalPrefix();
+    }
+
+    /**
      * Returns an immutable box set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
