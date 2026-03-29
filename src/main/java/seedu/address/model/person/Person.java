@@ -8,7 +8,6 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 
-import javafx.beans.binding.ObjectExpression;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.delivery.Driver;
 import seedu.address.model.tag.Tag;
@@ -188,8 +187,7 @@ public class Person {
                 && remark.equals(otherPerson.remark)
                 && expiryDate.equals(otherPerson.expiryDate)
                 && deliveryStatus.equals(otherPerson.deliveryStatus)
-                && tags.equals(otherPerson.tags)
-                && assignedDriver.equals(otherPerson.assignedDriver);
+                && tags.equals(otherPerson.tags);
     }
 
     @Override
