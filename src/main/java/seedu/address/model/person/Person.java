@@ -11,6 +11,7 @@ import java.util.TreeSet;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.commons.name.Name;
 import seedu.address.model.commons.phone.Phone;
+import seedu.address.model.delivery.Driver;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -31,6 +32,7 @@ public class Person {
     private final Set<Tag> tags = new HashSet<>();
     private final ExpiryDate expiryDate;
     private final Set<Box> boxes = new TreeSet<>();
+    private Driver assignedDriver;
 
     /**
      * * Constructs a {@code Person} with the given details.
@@ -85,6 +87,38 @@ public class Person {
         this.expiryDate = expiryDate;
         this.deliveryStatus = deliveryStatus;
         this.tags.addAll(tags);
+    }
+
+    /**
+     * Constructs a {@code Person} with the given details, with an assigned {@code Driver}.
+     * @param name
+     * @param phone
+     * @param email
+     * @param address
+     * @param boxes
+     * @param remark
+     * @param expiryDate
+     * @param deliveryStatus
+     * @param tags
+     * @param driver
+     */
+    public Person(Name name, Phone phone, Email email, Address address, Set<Box> boxes,
+                  Remark remark, ExpiryDate expiryDate,
+                  DeliveryStatus deliveryStatus, Set<Tag> tags,
+                  Driver driver) {
+
+        requireAllNonNull(name, phone, email, address, boxes, remark, expiryDate, deliveryStatus, tags);
+
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.boxes.addAll(boxes);
+        this.remark = remark;
+        this.expiryDate = expiryDate;
+        this.deliveryStatus = deliveryStatus;
+        this.tags.addAll(tags);
+        this.assignedDriver = driver;
     }
 
     public Name getName() {
@@ -143,6 +177,10 @@ public class Person {
         return otherPerson != null
                 && (otherPerson.getName().equals(getName())
                     || otherPerson.getEmail().equals(getEmail())); // if name or email is same, consider same person
+    }
+
+    public boolean hasDriver() {
+        return !Objects.isNull(this.assignedDriver);
     }
 
     /**
