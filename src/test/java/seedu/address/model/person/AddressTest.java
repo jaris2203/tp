@@ -1,6 +1,8 @@
 package seedu.address.model.person;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
@@ -46,6 +48,35 @@ public class AddressTest {
         assertTrue(Address.isValidAddress("Sengkang 123456 Street 11")); // postal code middle
         assertTrue(Address.isValidAddress("Postal: 123456, Singapore")); // with punctuation
         assertTrue(Address.isValidAddress("Blk 123 Sengkang Street 11, Singapore 123456")); // long address
+    }
+
+    @Test
+    public void getValidationMessage_null_returnsBlankMessage() {
+        assertEquals(Address.MESSAGE_CONSTRAINTS_BLANK,
+                Address.getValidationMessage(null));
+    }
+
+    @Test
+    public void getValidationMessage_blank_returnsBlankMessage() {
+        assertEquals(Address.MESSAGE_CONSTRAINTS_BLANK,
+                Address.getValidationMessage(" "));
+    }
+
+    @Test
+    public void getValidationMessage_noPostalCode_returnsPostalCodeMessage() {
+        assertEquals(Address.MESSAGE_CONSTRAINTS_POSTAL_CODE,
+                Address.getValidationMessage("Blk 123 Jurong East St 32"));
+    }
+
+    @Test
+    public void getValidationMessage_validAddress_returnsNull() {
+        assertNull(Address.getValidationMessage("Blk 123 Jurong East St 32, 123456"));
+    }
+
+    @Test
+    public void getPostalCode_returnsCorrectPostalCode() {
+        Address address = new Address("Blk 123 Jurong East St 32, 123456");
+        assertEquals("123456", address.getPostalCode().toString());
     }
 
     @Test
