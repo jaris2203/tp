@@ -4,10 +4,10 @@
   pageNav: 3
 ---
 
-# AB-3 User Guide
+# Client2Door User Guide
 
 
-CLient2Door is a **lightweight desktop address management app, optimized for use via a  Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). It will  that helps users keep track of subscriber deliveries and related operational details. If you can type fast, Client2Door can get your contact management tasks done faster than traditional GUI apps.
+Client2Door is a **lightweight desktop address management app, optimized for use via a  Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). It will  that helps users keep track of subscriber deliveries and related operational details. If you can type fast, Client2Door can get your contact management tasks done faster than traditional GUI apps.
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -21,18 +21,18 @@ CLient2Door is a **lightweight desktop address management app, optimized for use
 
 2. Download the latest `.jar` file from [here](https://github.com/se-edu/addressbook-level3/releases).
 
-3. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
+3. Copy the file to the folder you want to use as the _home folder_ for your Client2Door app.
 
-4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar` command to run the application.<br>
+4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar Client2Door.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-   ![Ui](images/Ui.png)
+   ![Ui](images/Release1.4-New_UI.png)
 
 5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
    * `list` : Lists all contacts.
 
-   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 b/box-1 ex/2026-12-31` : Adds a person with a box, default remark, expiry date, and "Pending" delivery status.
+   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 Singapore 012345 b/box-1 ex/2026-12-31` : Adds a person with a box, default remark, expiry date, and "Pending" delivery status.
 
    * `delete 3` : Deletes the 3rd contact shown in the current list.
 
@@ -72,10 +72,9 @@ CLient2Door is a **lightweight desktop address management app, optimized for use
 
 Shows a message explaining how to access the help page.
 
-![help message](images/helpMessage.png)
-
 Format: `help`
 
+![help message](images/helpMessage.png)
 
 ### Adding a person: `add`
 
@@ -176,9 +175,8 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 
 Examples:
-* `find John` returns `john` and `John Doe`
-* `find alex david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
+* `find John` returns `John Doe` and `John Ching`
+  ![result for 'find alex david'](images/findJohnResult.png)
 
 ### Deleting a person : `delete`
 
@@ -225,32 +223,19 @@ Format: `mark INDEX STATUS`
 Examples:
 * `mark 1 delivered`
 
-### Clearing all entries : `clear`
+### Filter subscribers: `filter`
 
-Clears all entries from the address book.
+Displays subscribers in the address book based on the box type they have or the driver they are assigned to.
 
-Format: `clear`
+Format: `filter [BOX_NAME]` OR `filter [d/DRIVER_NAME]`
 
-### Exiting the program : `exit`
+* Filters the displayed list of subscribers by `BOX_TYPE`, `DRIVER_NAME`.
+* At least one of the optional fields must be provided.
 
-Exits the program.
+Examples:
 
-Format: `exit`
-
-### Saving the data
-
-AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
-
-### Editing the data file
-
-AddressBook data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
-
-<box type="warning" seamless>
-
-**Caution:**
-If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
-</box>
+* `filter d/Alex` displays all subscribers assigned to driver Alex.
+* `filter Vegetable` displays all subscribers who have a Vegetable box.
 
 ### Assigning drivers to subscribers : `assign`
 
@@ -299,6 +284,33 @@ Exports delivery assignments to data/delivery_assignments.html.
 `export fp/data/my_assignments.html`
 Exports delivery assignments to the specified file path.
 
+### Clearing all entries : `clear`
+
+Clears all entries from the address book.
+
+Format: `clear`
+
+### Exiting the program : `exit`
+
+Exits the program.
+
+Format: `exit`
+
+### Saving the data
+
+AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+
+### Editing the data file
+
+AddressBook data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+
+<box type="warning" seamless>
+
+**Caution:**
+If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
+Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+</box>
+
 ### Archiving data files `[coming in v2.0]`
 
 _Details coming soon ..._
@@ -326,13 +338,14 @@ _Details coming soon ..._
 | **Add**        | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS b/BOX [o/REMARK] ex/EXPIRY_DATE [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 123465 b/box-1 ex/2026-12-31 t/friend` |
 | **Clear**      | `clear`                                                                                                                                                                                                        |
 | **Delete**     | `delete INDEX` or `delete EMAIL`<br> e.g., `delete 3` `delete test@example.com`                                                                                                                                |
-| **Edit**       | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [b/BOX] [o/REMARK] [ex/EXPIRY_DATE] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee o/prefers morning delivery`                                            |
+| **Edit**       | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [b/BOX] [o/REMARK] [ex/EXPIRY_DATE] [t/TAG]…​`<br> e.g., `edit 2 n/James Lee o/prefers morning delivery`                                           |
 | **Find**       | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                                                                     |
+| **Filter**     | `filter [BOX_NAME] [d/DRIVER_NAME]`<br> e.g., `filter d/Alex` or `filter box-1`                                                                                                                                |
 | **Mark**       | `mark INDEX STATUS`<br> e.g., `mark 1 delivered`                                                                                                                                                               |
 | **Remark**     | `remark INDEX REMARK`<br> e.g., `remark 2 allergic to peanuts`                                                                                                                                                 |
-| **Assign**     | `assign [n/NAME] [p/PHONE_NUMBER] [n/NAME] [p/PHONE_NUMBER]…`<br> e.g., `assign n/John Doe p/91234567 n/Jane Tan p/98765432`                                                                                   |
+| **Assign**     | `assign n/NAME p/PHONE_NUMBER [n/NAME] [p/PHONE_NUMBER]…`<br> e.g., `assign n/John Doe p/91234567 n/Jane Tan p/98765432`                                                                                       |
 | **List**       | `list`                                                                                                                                                                                                         |
 | **Add Box**    | `addbox n/NAME b/BOX [b/BOX_NAME]… ex/EXPIRY_DATE` <br> e.g., `addbox n/Amy b/box-1 b/box-2 ex/2026-12-31…​`                                                                                                   |
-| **Edit Box**   | `edit n/NAME b/BOX_NAME [nb/NEW_BOX_NAME] [ex/EXPIRY_DATE]` <br> e.g., `editbox n/Amy b/box-1 nb/box-2 ex/2026-12-31`                                                                                          |
+| **Edit Box**   | `editbox n/NAME b/BOX_NAME [nb/NEW_BOX_NAME] [ex/EXPIRY_DATE]` <br> e.g., `editbox n/Amy b/box-1 nb/box-2 ex/2026-12-31`                                                                                       |
 | **Delete Box** | `deletebox n/NAME b/BOX_NAME [b/BOX_NAME]…` <br> e.g., `deletebox n/Amy b/box-1 b/box-2`                                                                                                                       |
 | **Help**       | `help`                                                                                                                                                                                                         |
