@@ -19,15 +19,15 @@ CLient2Door is a **lightweight desktop address management app, optimized for use
 1. Ensure you have Java `17` or above installed in your Computer.<br>
    **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 
-1. Download the latest `.jar` file from [here](https://github.com/se-edu/addressbook-level3/releases).
+2. Download the latest `.jar` file from [here](https://github.com/se-edu/addressbook-level3/releases).
 
-1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
+3. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
 
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar` command to run the application.<br>
+4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
-1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
    * `list` : Lists all contacts.
@@ -40,7 +40,7 @@ CLient2Door is a **lightweight desktop address management app, optimized for use
 
    * `exit` : Exits the app.
 
-1. Refer to the [Features](#features) below for details of each command.
+6. Refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -54,7 +54,7 @@ CLient2Door is a **lightweight desktop address management app, optimized for use
   e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 
 * Items in square brackets are optional.<br>
-  e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+  e.g. `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 
 * Items with `…`​ after them can be used multiple times including zero times.<br>
   e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
@@ -124,7 +124,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [o/REMARK] [ex/EXPI
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* When editing tags, the existing tags of the person will be removed i.e. adding of tags is not cumulative.
 * You can remove all the person’s tags by typing `t/` without
     specifying any tags after it.
 * You can update the remark either with `edit ... o/NEW_REMARK` or with the dedicated [`remark`](#updating-a-persons-remark--remark) command below.
@@ -168,7 +168,7 @@ Finds persons whose names contain any of the given keywords.
 
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
-* The search is case-insensitive. e.g `hans` will match `Hans`
+* The search is case-insensitive. e.g. `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only the name is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
@@ -272,7 +272,7 @@ Examples:
 
 Format: `export [FILE_PATH]`
 
-Generates a HTML file showing all drivers and their assigned subscribers as shown below.
+Generates an HTML file showing all drivers and their assigned subscribers as shown below.
 ![ExportedHTML.png](images/exportedHTML.png)
 
 - If FILE_PATH is not provided, the file will be saved to the default location: data/delivery_assignments.html.
@@ -321,18 +321,18 @@ _Details coming soon ..._
 
 ## Command summary
 
-Action     | Format, Examples
------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-**Add**    | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS b/BOX [o/REMARK] ex/EXPIRY_DATE [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 123465 b/box-1 ex/2026-12-31 s/pending t/friend`
-**Clear**  | `clear`
-**Delete** | `delete INDEX` or `delete EMAIL`<br> e.g., `delete 3` `delete test@example.com`
-**Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [b/BOX] [o/REMARK] [ex/EXPIRY_DATE] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee o/prefers morning delivery`
-**Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
-**Mark** | `mark INDEX STATUS`<br> e.g., `mark 1 delivered`
-**Remark** | `remark INDEX REMARK`<br> e.g., `remark 2 allergic to peanuts`
-**Assign** | `assign [n/NAME] [p/PHONE_NUMBER] [n/NAME] [p/PHONE_NUMBER]…`<br> e.g., `assign n/John Doe p/91234567 n/Jane Tan p/98765432`
-**List**   | `list`
-**Add Box**    | `addbox n/NAME b/BOX [b/BOX_NAME]… ex/EXPIRY_DATE` <br> e.g., `addbox n/Amy b/box-1 b/box-2 ex/2026-12-31…​`
-**Edit Box**    | `edit n/NAME b/BOX_NAME [nb/NEW_BOX_NAME] [ex/EXPIRY_DATE]` <br> e.g., `editbox n/Amy b/box-1 nb/box-2 ex/2026-12-31`
-**Delete Box**    | `deletebox n/NAME b/BOX_NAME [b/BOX_NAME]…` <br> e.g., `deletebox n/Amy b/box-1 b/box-2`
-**Help**   | `help`
+| Action         | Format, Examples                                                                                                                                                                                               |
+|----------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add**        | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS b/BOX [o/REMARK] ex/EXPIRY_DATE [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 123465 b/box-1 ex/2026-12-31 t/friend` |
+| **Clear**      | `clear`                                                                                                                                                                                                        |
+| **Delete**     | `delete INDEX` or `delete EMAIL`<br> e.g., `delete 3` `delete test@example.com`                                                                                                                                |
+| **Edit**       | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [b/BOX] [o/REMARK] [ex/EXPIRY_DATE] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee o/prefers morning delivery`                                            |
+| **Find**       | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                                                                     |
+| **Mark**       | `mark INDEX STATUS`<br> e.g., `mark 1 delivered`                                                                                                                                                               |
+| **Remark**     | `remark INDEX REMARK`<br> e.g., `remark 2 allergic to peanuts`                                                                                                                                                 |
+| **Assign**     | `assign [n/NAME] [p/PHONE_NUMBER] [n/NAME] [p/PHONE_NUMBER]…`<br> e.g., `assign n/John Doe p/91234567 n/Jane Tan p/98765432`                                                                                   |
+| **List**       | `list`                                                                                                                                                                                                         |
+| **Add Box**    | `addbox n/NAME b/BOX [b/BOX_NAME]… ex/EXPIRY_DATE` <br> e.g., `addbox n/Amy b/box-1 b/box-2 ex/2026-12-31…​`                                                                                                   |
+| **Edit Box**   | `edit n/NAME b/BOX_NAME [nb/NEW_BOX_NAME] [ex/EXPIRY_DATE]` <br> e.g., `editbox n/Amy b/box-1 nb/box-2 ex/2026-12-31`                                                                                          |
+| **Delete Box** | `deletebox n/NAME b/BOX_NAME [b/BOX_NAME]…` <br> e.g., `deletebox n/Amy b/box-1 b/box-2`                                                                                                                       |
+| **Help**       | `help`                                                                                                                                                                                                         |
