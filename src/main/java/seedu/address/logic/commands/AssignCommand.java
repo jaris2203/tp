@@ -113,11 +113,10 @@ public class AssignCommand extends Command {
         Set<Tag> tagsCopy = new HashSet<>(personToAssign.getTags()); // have modifiable tags
         ExpiryDate expiryCopy = personToAssign.getExpiryDate();
 
+        // Create new instance with Driver
         Person assignedPerson = new Person(nameCopy, phoneCopy, emailCopy, addressCopy,
                 boxesCopy, remarkCopy, expiryCopy,
-                statusCopy, tagsCopy);
-
-        assignedPerson.assignDriver(assignedDriver); // Need not remove existing driver as we are creating new instance
+                statusCopy, tagsCopy, assignedDriver);
 
         // Keep the assignment store in sync with the updated Person instance in the model.
         assignments.assign(assignedDriver, assignedPerson);

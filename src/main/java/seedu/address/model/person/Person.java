@@ -89,6 +89,38 @@ public class Person {
         this.tags.addAll(tags);
     }
 
+    /**
+     * Constructs a {@code Person} with the given details, with an assigned {@code Driver}.
+     * @param name
+     * @param phone
+     * @param email
+     * @param address
+     * @param boxes
+     * @param remark
+     * @param expiryDate
+     * @param deliveryStatus
+     * @param tags
+     * @param driver
+     */
+    public Person(Name name, Phone phone, Email email, Address address, Set<Box> boxes,
+                  Remark remark, ExpiryDate expiryDate,
+                  DeliveryStatus deliveryStatus, Set<Tag> tags,
+                  Driver driver) {
+
+        requireAllNonNull(name, phone, email, address, boxes, remark, expiryDate, deliveryStatus, tags);
+
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.boxes.addAll(boxes);
+        this.remark = remark;
+        this.expiryDate = expiryDate;
+        this.deliveryStatus = deliveryStatus;
+        this.tags.addAll(tags);
+        this.assignedDriver = driver;
+    }
+
     public Name getName() {
         return name;
     }
@@ -145,20 +177,6 @@ public class Person {
         return otherPerson != null
                 && (otherPerson.getName().equals(getName())
                     || otherPerson.getEmail().equals(getEmail())); // if name or email is same, consider same person
-    }
-
-    /**
-     * Assigns a {@code Driver} to person
-     */
-    public void assignDriver(Driver driver) {
-        this.assignedDriver = driver;
-    }
-
-    /**
-     * Returns assigned {@code Driver} of person
-     */
-    public Driver getAssignedDriver() {
-        return assignedDriver;
     }
 
     public boolean hasDriver() {
