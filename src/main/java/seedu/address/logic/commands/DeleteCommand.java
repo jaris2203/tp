@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.isNull;
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -100,8 +101,8 @@ public class DeleteCommand extends Command {
      */
     private void clearDriverAssignments(Model model) {
         requireNonNull(model);
-        model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
-        for (Person oldPerson : model.getFilteredPersonList()) {
+        List<Person> persons = new ArrayList<>(model.getAddressBook().getPersonList());
+        for (Person oldPerson : persons) {
             Person updatedPerson = createPersonWithoutDriver(oldPerson);
             model.setPerson(oldPerson, updatedPerson);
         }

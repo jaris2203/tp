@@ -10,7 +10,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARKS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
@@ -78,8 +80,8 @@ public class AddCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        model.addPerson(toAdd);
         clearDriverAssignments(model);
+        model.addPerson(toAdd);
         DeliveryAssignmentHashMap.clearAssignments();
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)));
@@ -91,8 +93,8 @@ public class AddCommand extends Command {
      */
     private void clearDriverAssignments(Model model) {
         requireNonNull(model);
-        model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
-        for (Person oldPerson : model.getFilteredPersonList()) {
+        List<Person> persons = new ArrayList<>(model.getAddressBook().getPersonList());
+        for (Person oldPerson : persons) {
             Person updatedPerson = createPersonWithoutDriver(oldPerson);
             model.setPerson(oldPerson, updatedPerson);
         }
