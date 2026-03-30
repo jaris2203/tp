@@ -227,16 +227,15 @@ Examples:
 
 Displays subscribers in the address book based on the box type they have or the driver they are assigned to.
 
-Format: `filter [b/BOX_TYPE]` OR `filter [d/DRIVER_NAME]`
+Format: `filter [BOX_NAME]` OR `filter [d/DRIVER_NAME]`
 
-* Filters the displayed list of subscribers by `BOX_TYPE`, `DRIVER_NAME`, or both.
+* Filters the displayed list of subscribers by `BOX_TYPE`, `DRIVER_NAME`.
 * At least one of the optional fields must be provided.
-* When both fields are provided, only subscribers matching **both** conditions will be shown.
 
 Examples:
 
 * `filter d/Alex` displays all subscribers assigned to driver Alex.
-* `filter b/Vegetable` displays all subscribers who have a Vegetable box.
+* `filter Vegetable` displays all subscribers who have a Vegetable box.
 
 ### Assigning drivers to subscribers : `assign`
 
@@ -334,19 +333,19 @@ _Details coming soon ..._
 
 ## Command summary
 
-| Action         | Format, Examples                                                                                                                                                                                           |
-|----------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Action         | Format, Examples                                                                                                                                                                                               |
+|----------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Add**        | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS b/BOX [o/REMARK] ex/EXPIRY_DATE [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 123465 b/box-1 ex/2026-12-31 t/friend` |
-| **Clear**      | `clear`                                                                                                                                                                                                    |
-| **Delete**     | `delete INDEX` or `delete EMAIL`<br> e.g., `delete 3` `delete test@example.com`                                                                                                                            |
-| **Edit**       | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [b/BOX] [o/REMARK] [ex/EXPIRY_DATE] [t/TAG]…​`<br> e.g., `edit 2 n/James Lee o/prefers morning delivery`                                        |
-| **Find**       | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                                                                 |
-| **Filter**     | `filter [b/BOX_TYPE] [d/DRIVER_NAME]`<br> e.g., `filter d/Alex` or `filter b/Vegetable`                                                                                                            |
-| **Mark**       | `mark INDEX STATUS`<br> e.g., `mark 1 delivered`                                                                                                                                                           |
-| **Remark**     | `remark INDEX REMARK`<br> e.g., `remark 2 allergic to peanuts`                                                                                                                                             |
-| **Assign**     | `assign n/NAME p/PHONE_NUMBER [n/NAME] [p/PHONE_NUMBER]…`<br> e.g., `assign n/John Doe p/91234567 n/Jane Tan p/98765432`                                                                                   |
-| **List**       | `list`                                                                                                                                                                                                     |
-| **Add Box**    | `addbox n/NAME b/BOX [b/BOX_NAME]… ex/EXPIRY_DATE` <br> e.g., `addbox n/Amy b/box-1 b/box-2 ex/2026-12-31…​`                                                                                               |
-| **Edit Box**   | `editbox n/NAME b/BOX_NAME [nb/NEW_BOX_NAME] [ex/EXPIRY_DATE]` <br> e.g., `editbox n/Amy b/box-1 nb/box-2 ex/2026-12-31`                                                                                  |
-| **Delete Box** | `deletebox n/NAME b/BOX_NAME [b/BOX_NAME]…` <br> e.g., `deletebox n/Amy b/box-1 b/box-2`                                                                                                                   |
-| **Help**       | `help`                                                                                                                                                                                                     |
+| **Clear**      | `clear`                                                                                                                                                                                                        |
+| **Delete**     | `delete INDEX` or `delete EMAIL`<br> e.g., `delete 3` `delete test@example.com`                                                                                                                                |
+| **Edit**       | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [b/BOX] [o/REMARK] [ex/EXPIRY_DATE] [t/TAG]…​`<br> e.g., `edit 2 n/James Lee o/prefers morning delivery`                                           |
+| **Find**       | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                                                                     |
+| **Filter**     | `filter [BOX_NAME] [d/DRIVER_NAME]`<br> e.g., `filter d/Alex` or `filter box-1`                                                                                                                                |
+| **Mark**       | `mark INDEX STATUS`<br> e.g., `mark 1 delivered`                                                                                                                                                               |
+| **Remark**     | `remark INDEX REMARK`<br> e.g., `remark 2 allergic to peanuts`                                                                                                                                                 |
+| **Assign**     | `assign n/NAME p/PHONE_NUMBER [n/NAME] [p/PHONE_NUMBER]…`<br> e.g., `assign n/John Doe p/91234567 n/Jane Tan p/98765432`                                                                                       |
+| **List**       | `list`                                                                                                                                                                                                         |
+| **Add Box**    | `addbox n/NAME b/BOX [b/BOX_NAME]… ex/EXPIRY_DATE` <br> e.g., `addbox n/Amy b/box-1 b/box-2 ex/2026-12-31…​`                                                                                                   |
+| **Edit Box**   | `editbox n/NAME b/BOX_NAME [nb/NEW_BOX_NAME] [ex/EXPIRY_DATE]` <br> e.g., `editbox n/Amy b/box-1 nb/box-2 ex/2026-12-31`                                                                                       |
+| **Delete Box** | `deletebox n/NAME b/BOX_NAME [b/BOX_NAME]…` <br> e.g., `deletebox n/Amy b/box-1 b/box-2`                                                                                                                       |
+| **Help**       | `help`                                                                                                                                                                                                         |
