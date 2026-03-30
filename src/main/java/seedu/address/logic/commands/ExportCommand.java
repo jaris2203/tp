@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.delivery.DeliveryAssignmentHashMap.isExportable;
 
 import java.io.File;
 import java.io.IOException;
