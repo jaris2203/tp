@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BOX;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPIRY_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import java.util.HashSet;
@@ -19,7 +18,6 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Box;
 import seedu.address.model.person.DeliveryStatus;
 import seedu.address.model.person.Email;
-import seedu.address.model.person.ExpiryDate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Remark;
 import seedu.address.model.tag.Tag;
@@ -36,13 +34,11 @@ public class AddBoxCommand extends Command {
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_BOX + "BOX_NAME "
-            + "[" + PREFIX_BOX + "BOX_NAME]... "
-            + PREFIX_EXPIRY_DATE + "EXPIRY_DATE\n"
+            + "[" + PREFIX_BOX + "BOX_NAME:EXPIRY_DATE]... "
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
-            + PREFIX_BOX + "box-1 "
-            + PREFIX_BOX + "box-2 "
-            + PREFIX_EXPIRY_DATE + "2026-01-01";
+            + PREFIX_BOX + "box-1:2026-01-01 "
+            + PREFIX_BOX + "box-2:2026-12-31";
 
     public static final String MESSAGE_SUCCESS = "Added %1$s to Person: %2$s";
     public static final String MESSAGE_EXISTING_BOX_NAME = "One or more of the box names added already exists under "
@@ -105,12 +101,11 @@ public class AddBoxCommand extends Command {
         Address address = personToEdit.getAddress();
         Remark remark = personToEdit.getRemark();
         DeliveryStatus deliveryStatus = personToEdit.getDeliveryStatus();
-        ExpiryDate personExpiryDate = personToEdit.getExpiryDate();
         Set<Tag> tags = personToEdit.getTags();
 
         Set<Box> updatedBoxes = new HashSet<>(personToEdit.getBoxes());
         updatedBoxes.addAll(boxesToAdd);
-        return new Person(name, phone, email, address, updatedBoxes, remark, personExpiryDate, deliveryStatus, tags);
+        return new Person(name, phone, email, address, updatedBoxes, remark, deliveryStatus, tags);
     }
 
     @Override
