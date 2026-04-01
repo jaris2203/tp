@@ -27,6 +27,7 @@ public class TypicalPersons {
             .withAddress("123, Jurong West Ave 6, #08-111, Singapore 123456").withEmail("alice@example.com")
             .withPhone("94351253")
             .withExpiryDate("2026-12-31")
+            .withDriver("Kyle", "91234567")
             .withTags("friends")
             .withBoxes("box-1").build();
 
@@ -36,6 +37,7 @@ public class TypicalPersons {
             .withEmail("johnd@example.com")
             .withPhone("98765432")
             .withExpiryDate("2026-12-31")
+            .withDriver("Kyle", "91234567")
             .withTags("owesMoney", "friends")
             .withBoxes("box-1", "box-2").build();
 
@@ -45,6 +47,7 @@ public class TypicalPersons {
             .withEmail("heinz@example.com")
             .withAddress("wall street 111111")
             .withExpiryDate("2026-12-31")
+            .withDriver("Kyle", "91234567")
             .withBoxes("box-3").build();
 
     public static final Person DANIEL = new PersonBuilder()
@@ -53,6 +56,7 @@ public class TypicalPersons {
             .withEmail("cornelia@example.com")
             .withAddress("10th street 012345")
             .withExpiryDate("2026-12-31")
+            .withDriver("Kyle", "91234567")
             .withTags("friends")
             .withBoxes("box-2", "box-3").build();
 
@@ -62,6 +66,7 @@ public class TypicalPersons {
             .withPhone("9482224")
             .withEmail("werner@example.com")
             .withAddress("michegan ave 642901")
+            .withDriver("Kyle", "91234567")
             .withBoxes("box-2").build();
 
     public static final Person FIONA = new PersonBuilder()
@@ -70,6 +75,7 @@ public class TypicalPersons {
             .withEmail("lydia@example.com")
             .withAddress("little tokyo 654312")
             .withExpiryDate("2026-12-31")
+            .withDriver("Kyle", "91234567")
             .withBoxes("box-1", "box-3").build();
 
     public static final Person GEORGE = new PersonBuilder()
@@ -78,6 +84,7 @@ public class TypicalPersons {
             .withEmail("anna@example.com")
             .withAddress("4th street 746293")
             .withExpiryDate("2026-12-31")
+            .withDriver("Kyle", "91234567")
             .withBoxes("box-3").build();
 
     // Manually added
