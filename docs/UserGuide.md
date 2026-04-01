@@ -94,6 +94,40 @@ Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 Singapore 012345 b/box-1 ex/2026-12-31`
 * `add n/Betsy Crowe p/1234567 e/betsycrowe@example.com a/Newgate Prison 123456 b/box-1 b/box-2 o/weekly pastry set ex/2026-12-15 t/friend t/criminal`
 
+### Importing subscribers : `import`
+
+Imports subscribers from a CSV file into the address book.
+
+Format: `import FILE_PATH`
+
+- Reads subscriber data from the specified CSV file.
+- The file must be a valid .csv file.
+- The first row is treated as a header and will be ignored.
+- Each subsequent row must contain the required fields.
+- Each valid row is converted into a subscriber and added to the address book.
+- Import uses the same validation rules as the add command.
+- Invalid or duplicate entries are skipped, but the import will continue.
+- A summary is shown after execution, including:
+  - Number of successfully imported subscribers
+  - Total rows processed
+  - Details of failed rows (if any)
+  
+<box type="tip" seamless>
+
+Tip: You can collect your data through a google form, then export it as a .csv file.
+
+</box> <box type="warning" seamless>
+
+Caution:
+
+Rows with missing fields will fail to be imported.
+Ensure fields follow the correct formats (e.g. valid email, phone number, expiry date), or the row will fail to import.
+Even if some rows fail, the rest will still be imported.
+</box>
+
+Examples:
+- `import data/subscribers.csv` imports subscribers from the specified file.
+
 ### Adding one or more boxes to a person: `addbox`
 
 Adds one or more boxes to a person in the address book.
