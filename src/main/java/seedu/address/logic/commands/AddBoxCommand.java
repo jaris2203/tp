@@ -75,20 +75,25 @@ public class AddBoxCommand extends Command {
             throw new CommandException(MESSAGE_PERSON_NOT_FOUND);
         }
 
-        Set<String> existingBoxNames = personToEdit.getBoxes().stream()
-                .map(Box::getBoxName)
-                .collect(Collectors.toSet());
-
-        boolean hasMatchingBoxNames = boxesToAdd.stream()
-                .map(Box::getBoxName)
-                .anyMatch(existingBoxNames::contains);
-
-        if (hasMatchingBoxNames) {
+        if (hasMatchingBoxNames(personToEdit, boxesToAdd)) {
             throw new CommandException(String.format(MESSAGE_EXISTING_BOX_NAME, personToEdit.getName()));
         }
         Person editedPerson = createPersonWithUpdatedBoxes(personToEdit, boxesToAdd);
         model.setPerson(personToEdit, editedPerson);
         return new CommandResult(String.format(MESSAGE_SUCCESS, boxesToAdd, personToEdit.getName()));
+    }
+
+    /**
+     * Checks if {@code personToEdit}'s boxes and {@code boxesToAdd} have any name matches.
+     */
+    public boolean hasMatchingBoxNames(Person personToEdit, Set<Box> boxesToAdd) {
+        Set<String> existingBoxNames = personToEdit.getBoxes().stream()
+                .map(Box::getBoxName)
+                .collect(Collectors.toSet());
+
+        return boxesToAdd.stream()
+                .map(Box::getBoxName)
+                .anyMatch(existingBoxNames::contains);
     }
 
     private static Person createPersonWithUpdatedBoxes(Person personToEdit, Set<Box> boxesToAdd) {
