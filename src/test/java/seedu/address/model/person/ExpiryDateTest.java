@@ -1,5 +1,6 @@
 package seedu.address.model.person;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -36,6 +37,9 @@ public class ExpiryDateTest {
         assertTrue(ExpiryDate.isValidExpiryDate("2026-12-31"));
         assertTrue(ExpiryDate.isValidExpiryDate("2024-02-29")); // leap year
         assertTrue(ExpiryDate.isValidExpiryDate("2030-01-01"));
+        assertTrue(ExpiryDate.isValidExpiryDate("31/12/2026"));
+
+        assertEquals("2026-12-31", new ExpiryDate("31/12/2026").toString());
     }
 
     @Test
