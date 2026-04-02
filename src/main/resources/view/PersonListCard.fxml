@@ -11,15 +11,15 @@
 <?import javafx.scene.layout.VBox?>
 
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
-  <GridPane HBox.hgrow="ALWAYS">
+  <GridPane maxWidth="800.0" HBox.hgrow="ALWAYS">
     <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
     </columnConstraints>
-    <VBox alignment="CENTER_LEFT" maxWidth="500.0" minHeight="105" spacing="8.0" GridPane.columnIndex="0">
+    <VBox alignment="CENTER_LEFT" maxWidth="800.0" minHeight="105" spacing="8.0" GridPane.columnIndex="0">
       <padding>
-        <Insets bottom="5" left="15" right="5" top="5" />
+        <Insets bottom="5.0" left="15.0" right="5.0" top="5.0" />
       </padding>
-      <HBox alignment="CENTER_LEFT" maxWidth="-Infinity" prefWidth="400.0" spacing="0.5">
+      <HBox alignment="CENTER_LEFT" maxWidth="-Infinity" prefWidth="520.0" spacing="0.5">
         <Label fx:id="id" styleClass="cell_big_label">
           <minWidth>
             <!-- Ensures that the label text is never truncated -->
@@ -28,13 +28,13 @@
         </Label>
         <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
             <Region maxWidth="-Infinity" prefWidth="10.0" HBox.hgrow="ALWAYS" />
-         <Label fx:id="deliveryStatus" styleClass="cell_small_label" text="\$deliveryStatus" />
+         <Label fx:id="deliveryStatus" styleClass="delivery-status-label" text="\$deliveryStatus" />
       </HBox>
       <VBox spacing="5.0">
         <FlowPane fx:id="tags" />
-        <FlowPane fx:id="boxes" />
+        <FlowPane fx:id="boxes" prefWrapLength="500.0" />
       </VBox>
-         <HBox prefHeight="100.0" prefWidth="200.0">
+         <HBox prefHeight="60.0" prefWidth="200.0">
             <children>
                <VBox prefHeight="200.0" prefWidth="100.0">
                   <children>
