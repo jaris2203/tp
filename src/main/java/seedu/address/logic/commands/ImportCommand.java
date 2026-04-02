@@ -92,7 +92,7 @@ public class ImportCommand extends Command {
         String remarkStr = row[7];
         Remark remark = remarkStr.isEmpty() ? new Remark(Remark.DEFAULT_REMARK) : new Remark(remarkStr);
         Set<Tag> tags = Set.of();
-        return new Person(name, phone, email, address, boxes, remark, expiryDate, tags);
+        return new Person(name, phone, email, address, boxes, remark, tags);
     }
 
     private String formatFailedRow(String[] row, String reason) {
