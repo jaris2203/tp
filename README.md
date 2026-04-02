@@ -1,7 +1,7 @@
 [![Java CI](https://github.com/AY2526S2-CS2103T-T08-3/tp/actions/workflows/gradle.yml/badge.svg)](https://github.com/AY2526S2-CS2103T-T08-3/tp/actions/workflows/gradle.yml)
 [![codecov](https://codecov.io/gh/AY2526S2-CS2103T-T08-3/tp/graph/badge.svg?token=LMWJETY35J)](https://codecov.io/gh/AY2526S2-CS2103T-T08-3/tp)
 
-![Ui](docs/images/Ui.png)
+![Ui](docs/images/Release1.4-New_UI.png)
 
 # Client2Door
 **Client2Door** is your all-in-one companion for your subscription box service. If you are looking to simplify your

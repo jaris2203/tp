@@ -7,7 +7,11 @@ package seedu.address.logic.commands.exceptions;
  * This exception is thrown when an export command attempts to export
  * delivery assignments without finalizing the assignments
  */
-public class NotExportableException extends Exception {
+public class NotExportableException extends CommandException {
+
+    public NotExportableException(String msg) {
+        super(msg);
+    }
 
     public NotExportableException() {
         super("Delivery assignments are not exportable.");

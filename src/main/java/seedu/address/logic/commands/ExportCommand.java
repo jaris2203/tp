@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.delivery.DeliveryAssignmentHashMap.isExportable;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,7 +9,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.exceptions.NotExportableException;
 import seedu.address.model.Model;
 import seedu.address.model.delivery.DeliveryAssignmentHashMap;
-import seedu.address.model.delivery.ExportUtil;
+import seedu.address.model.delivery.util.ExportUtil;
+import seedu.address.model.person.Person;
 
 /**
  * Exports the current delivery assignments to a formatted text file.
@@ -56,24 +56,12 @@ public class ExportCommand extends Command {
         }
     }
 
-    /**
-     * Checks whether the current delivery assignments are in an exportable state.
-     *
-     * @throws NotExportableException if the delivery assignments are not exportable
-     */
-    public void checkExportable() throws NotExportableException {
-        if (!isExportable()) {
-            throw new NotExportableException();
-        }
-    }
-
     @Override
     public CommandResult execute(Model model) throws CommandException {
-
         requireNonNull(model);
 
         try {
-            checkExportable();
+            getDriverMapping(model);
             ExportUtil.exportAssignmentsAsHtml(assignments, filePath);
         } catch (NotExportableException e) {
             throw new CommandException(MESSAGE_FAILURE + " " + e.getMessage());
@@ -82,5 +70,20 @@ public class ExportCommand extends Command {
         }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, filePath));
+    }
+
+    /**
+     * Iterates through all the {@code Person}s in the address book and creates a mapping of the Driver to the Person
+     * @param model
+     * @throws NotExportableException
+     */
+    private void getDriverMapping(Model model) throws NotExportableException {
+        requireNonNull(model);
+        for (Person p : model.getAddressBook().getPersonList()) {
+            if (!p.hasDriver()) {
+                throw new NotExportableException("Not all subscribers have been assigned a driver!");
+            }
+            assignments.assign(p.getAssignedDriver(), p);
+        }
     }
 }
