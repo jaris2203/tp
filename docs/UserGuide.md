@@ -116,7 +116,14 @@ Format: `import FILE_PATH`
 
 Tip: You can collect your data through a google form, then export it as a .csv file.
 
-</box> <box type="warning" seamless>
+</box> 
+
+<box type="tip" seamless>
+
+Tip: Place your CSV files in the `data/` folder of the project for easier access and consistent file paths.
+</box>
+
+<box type="warning" seamless>
 
 Caution:
 
