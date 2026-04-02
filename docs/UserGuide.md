@@ -135,20 +135,6 @@ Even if some rows fail, the rest will still be imported.
 Examples:
 - `import data/subscribers.csv` imports subscribers from the specified file.
 
-### Adding one or more boxes to a person: `addbox`
-
-Adds one or more boxes to a person in the address book.
-
-Format: `addbox n/NAME b/BOX_NAME [b/BOX_NAME]... ex/EXPIRY_DATE`
-
-* Adds box(es) with the box names listed to the person identified by `NAME`.
-* The expiry date input will be applied to all added boxes on that same command.
-* Accepts one or more box names.
-
-Examples:
-* `addbox n/Amy b/box-1 ex/2026-12-31` adds 1 box-1 with an expiry date of 2026-12-31 to Amy.
-* `addbox n/Amy b/box-1 b/box-2 ex/2026-12-31` adds 2 boxes box-1 and box2, both with an expiry date of 2026-12-31 to Amy.
-
 ### Listing all persons : `list`
 
 Shows a list of all persons in the address book.
@@ -172,21 +158,6 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [o/REMARK] [ex/EXPI
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person.
 *  `edit 2 n/Betsy Crower o/prefers morning delivery t/` Edits the name and remark of the 2nd person and clears all existing tags.
-
-### Editing a box of a person : `editbox`
-
-Edits an existing box of an existing person in the address book.
-
-Format: `edit n/NAME b/BOX_NAME [nb/NEW_BOX_NAME] [ex/EXPIRY_DATE]`
-
-* Edits the person specified by the person's `NAME`.
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-
-Examples:
-* `editbox n/Amy b/box-1 nb/box-2` Edits the name of box-1 under Amy to box-2.
-* `editbox n/Amy b/box-1 ex/2026-12-31` Edits the expiry date of box-1 under Amy.
-* `editbox n/Amy b/box-1 nb/box-2 ex/2026-12-31` Edits the name and expiry date of box-1 under Amy.
 
 ### Updating a person's remark : `remark`
 
@@ -234,6 +205,35 @@ Examples:
 * `list` followed by `delete 2` deletes the 2nd person in the address book.
 * `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
 
+### Adding one or more boxes to a person: `addbox`
+
+Adds one or more boxes to a person in the address book.
+
+Format: `addbox n/NAME b/BOX_NAME [b/BOX_NAME]... ex/EXPIRY_DATE`
+
+* Adds box(es) with the box names listed to the person identified by `NAME`.
+* The expiry date input will be applied to all added boxes on that same command.
+* Accepts one or more box names.
+
+Examples:
+* `addbox n/Amy b/box-1 ex/2026-12-31` adds 1 box-1 with an expiry date of 2026-12-31 to Amy.
+* `addbox n/Amy b/box-1 b/box-2 ex/2026-12-31` adds 2 boxes box-1 and box2, both with an expiry date of 2026-12-31 to Amy.
+
+### Editing a box of a person : `editbox`
+
+Edits an existing box of an existing person in the address book.
+
+Format: `edit n/NAME b/BOX_NAME [nb/NEW_BOX_NAME] [ex/EXPIRY_DATE]`
+
+* Edits the person specified by the person's `NAME`.
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+
+Examples:
+* `editbox n/Amy b/box-1 nb/box-2` Edits the name of box-1 under Amy to box-2.
+* `editbox n/Amy b/box-1 ex/2026-12-31` Edits the expiry date of box-1 under Amy.
+* `editbox n/Amy b/box-1 nb/box-2 ex/2026-12-31` Edits the name and expiry date of box-1 under Amy.
+
 ### Delete boxes from a person: `deletebox`
 
 Deletes one or more boxes for a specified person from the address book
@@ -247,9 +247,8 @@ Format: `deletebox n/NAME b/BOX_NAME [b/BOX_NAME]...`
 Examples:
 * `deletebox n/Amy b/box-1` deletes the box named box-1 from Amy.
 * `deletebox n/Amy b/box-1 b/box-2` deletes the boxes named box-1 and box-2 from Amy. If Amy only has boxes box-1 and
-box-2, this command will delete Amy from the address book upon execution.
+  box-2, this command will delete Amy from the address book upon execution.
 
-=======
 ### Marking a person's delivery status : `mark`
 
 Marks the specified person's delivery status to a specified status.
