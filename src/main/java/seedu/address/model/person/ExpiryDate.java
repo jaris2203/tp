@@ -4,7 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.List;
 
 /**
  * Represents a Person's expiry date in the address book.
@@ -12,11 +14,21 @@ import java.time.format.DateTimeParseException;
 public class ExpiryDate {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Expiry date should be a valid date in the format yyyy-MM-dd, "
-                    + "for example, 2026-12-31.";
+            "Expiry date should be a valid date in one of these formats: "
+            + "yyyy-MM-dd "
+            + "dd/MM/yyyy\n"
+            + "Example: "
+            + "2026-12-31, or "
+            + "31/12/2026.";
+
+    public static final DateTimeFormatter STANDARD_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    public static final List<DateTimeFormatter> FORMATS = List.of(
+            DateTimeFormatter.ofPattern("dd/MM/yyyy"),
+            STANDARD_FORMAT
+    );
+
 
     public final String value;
-    public final LocalDate localDateValue;
 
     /**
      * Constructs an {@code ExpiryDate}.
@@ -26,8 +38,30 @@ public class ExpiryDate {
     public ExpiryDate(String expiryDate) {
         requireNonNull(expiryDate);
         checkArgument(isValidExpiryDate(expiryDate), MESSAGE_CONSTRAINTS);
-        value = expiryDate;
-        localDateValue = LocalDate.parse(expiryDate);
+        value = normalizeExpiryDate(expiryDate);
+    }
+
+    /**
+     * Normalize the accepted expiry date formats to a standardized yyyy-MM-dd format.
+     */
+    public static String normalizeExpiryDate(String expiryDate) {
+        String trimmed = expiryDate.trim();
+
+        for (DateTimeFormatter formatter : FORMATS) {
+            try {
+                // this line may accept invalid dates like 2026-12-30, and parses it to return 2026-12-28.
+                LocalDate date = LocalDate.parse(trimmed, formatter);
+                String reformatted = date.format(formatter);
+
+                // this block prevents the above comment from being accepted.
+                if (trimmed.equals(reformatted)) {
+                    return date.format(STANDARD_FORMAT);
+                }
+            } catch (DateTimeParseException e) {
+                // do nothing, loop through the list of formats.
+            }
+        }
+        throw new IllegalArgumentException(MESSAGE_CONSTRAINTS);
     }
 
     /**
@@ -35,16 +69,27 @@ public class ExpiryDate {
      */
     public static boolean isValidExpiryDate(String test) {
         requireNonNull(test);
-        try {
-            LocalDate.parse(test);
-            return true;
-        } catch (DateTimeParseException e) {
-            return false;
+        String trimmed = test.trim();
+
+        for (DateTimeFormatter formatter : FORMATS) {
+            try {
+                // this line may accept invalid dates like 2026-12-30, and parses it to return 2026-12-28.
+                LocalDate date = LocalDate.parse(trimmed, formatter);
+                String reformatted = date.format(formatter);
+
+                // this block prevents the above comment from being accepted.
+                if (trimmed.equals(reformatted)) {
+                    return true;
+                }
+            } catch (DateTimeParseException e) {
+                // do nothing, loop through the list of formats.
+            }
         }
+        return false;
     }
 
     public int compareTo(ExpiryDate other) {
-        return this.localDateValue.compareTo(other.localDateValue);
+        return this.value.compareTo(other.value);
     }
 
     @Override
