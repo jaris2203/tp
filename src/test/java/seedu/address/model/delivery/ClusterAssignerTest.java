@@ -3,6 +3,13 @@ package seedu.address.model.delivery;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalPersons.CARL;
+import static seedu.address.testutil.TypicalPersons.DANIEL;
+import static seedu.address.testutil.TypicalPersons.ELLE;
+import static seedu.address.testutil.TypicalPersons.FIONA;
+import static seedu.address.testutil.TypicalPersons.GEORGE;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,19 +41,24 @@ public class ClusterAssignerTest {
     }
 
     @Test
-    public void groupIntoClusters_sortsByPostalPrefixAscending() {
+    public void groupIntoClusters_sortsByWestToEast() {
         List<Person> persons = new ArrayList<>(TypicalPersons.getTypicalPersons());
         List<List<Person>> clusters = ClusterAssigner.groupIntoClusters(persons, 1);
         List<Person> groupedPersons = clusters.get(0);
 
-        assertEquals(1, groupedPersons.get(0).getAddress().getPostalPrefixFromAddress());
-        assertEquals(11, groupedPersons.get(1).getAddress().getPostalPrefixFromAddress());
-        assertEquals(12, groupedPersons.get(2).getAddress().getPostalPrefixFromAddress());
-        assertEquals(54, groupedPersons.get(3).getAddress().getPostalPrefixFromAddress());
-        assertEquals(64, groupedPersons.get(4).getAddress().getPostalPrefixFromAddress());
-        assertEquals(65, groupedPersons.get(5).getAddress().getPostalPrefixFromAddress());
-        assertEquals(74, groupedPersons.get(6).getAddress().getPostalPrefixFromAddress());
+        System.out.println("ALICE prefix: " + ALICE.getAddress().getPostalPrefixFromAddress());
+        System.out.println("CARL prefix: " + CARL.getAddress().getPostalPrefixFromAddress());
+        System.out.println("ALICE rank: " + DistrictRanker.getRank(DistrictMapper.getDistrictFromPrefix(12)));
+        System.out.println("CARL rank: " + DistrictRanker.getRank(DistrictMapper.getDistrictFromPrefix(11)));
 
+        // expected west to east: ELLE, FIONA, CARL, ALICE, DANIEL, GEORGE, BENSON
+        assertEquals(ELLE, groupedPersons.get(0));
+        assertEquals(FIONA, groupedPersons.get(1));
+        assertEquals(ALICE, groupedPersons.get(2));
+        assertEquals(CARL, groupedPersons.get(3));
+        assertEquals(DANIEL, groupedPersons.get(4));
+        assertEquals(GEORGE, groupedPersons.get(5));
+        assertEquals(BENSON, groupedPersons.get(6));
     }
 
     @Test

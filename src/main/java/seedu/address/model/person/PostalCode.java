@@ -12,7 +12,8 @@ import java.util.regex.Pattern;
  */
 public class PostalCode {
 
-    public static final String MESSAGE_CONSTRAINTS = "Postal code must be a 6-digit number.";
+    public static final String MESSAGE_CONSTRAINTS_SIX_DIGIT = "Postal code must be a 6-digit number.";
+    public static final String MESSAGE_CONSTRAINTS_PREFIX = "Postal code prefix must be between 01 and 82.";
     public static final Pattern POSTAL_CODE_PATTERN = Pattern.compile("\\b\\d{6}\\b");
 
     /**
@@ -20,6 +21,8 @@ public class PostalCode {
      */
     private static final String VALIDATION_REGEX = "^\\d{6}$";
     private static final Pattern VALIDATION_PATTERN = Pattern.compile(VALIDATION_REGEX);
+    private static final int MIN_PREFIX = 1;
+    private static final int MAX_PREFIX = 82;
 
     public final String value;
 
@@ -30,15 +33,40 @@ public class PostalCode {
      */
     public PostalCode(String postalCode) {
         requireNonNull(postalCode);
-        checkArgument(isValidPostalCode(postalCode), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidPostalCode(postalCode), getValidationMessage(postalCode));
         this.value = postalCode;
     }
 
     /**
-     * Returns true if a given string is a valid postal code.
+     * Returns true if a given string is a valid postal code with a valid prefix.
      */
     public static boolean isValidPostalCode(String test) {
-        return test != null && VALIDATION_PATTERN.matcher(test).matches();
+        if (test == null || !VALIDATION_PATTERN.matcher(test).matches()) {
+            return false;
+        }
+        return isValidPrefix(Integer.parseInt(test.substring(0, 2)));
+    }
+
+    /**
+     * Returns true if the given prefix is a valid Singapore postal code prefix (01 to 82).
+     */
+    public static boolean isValidPrefix(int prefix) {
+        return prefix >= MIN_PREFIX && prefix <= MAX_PREFIX;
+    }
+
+    /**
+     * Returns specific validation error message based on the given postalCode.
+     */
+    public static String getValidationMessage(String postalCode) {
+        if (postalCode == null || postalCode.isBlank() || !VALIDATION_PATTERN.matcher(postalCode).matches()) {
+            return MESSAGE_CONSTRAINTS_SIX_DIGIT;
+        }
+
+        if (!isValidPrefix(Integer.parseInt(postalCode.substring(0, 2)))) {
+            return MESSAGE_CONSTRAINTS_PREFIX;
+        }
+
+        return null;
     }
 
     /**
@@ -54,13 +82,6 @@ public class PostalCode {
             return postalCodeMatcher.group();
         }
         throw new IllegalArgumentException("No valid postal code found in: " + address);
-    }
-
-    /**
-     * Returns the postal code value as an integer.
-     */
-    public int getValue() {
-        return Integer.parseInt(value);
     }
 
     /**

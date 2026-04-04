@@ -28,12 +28,7 @@ public class ClusterAssigner {
             return new ArrayList<>();
         }
 
-        List<Person> sortedList = new ArrayList<>(list);
-        sortedList.sort((person1, person2) -> {
-            int prefix1 = person1.getAddress().getPostalPrefixFromAddress();
-            int prefix2 = person2.getAddress().getPostalPrefixFromAddress();
-            return Integer.compare(prefix1, prefix2); // sort persons by postal prefix ascending
-        });
+        List<Person> sortedList = getPersonsSortedByGeography(list);
 
         List<List<Person>> driverAssignments = new ArrayList<>();
         int numPersons = sortedList.size();
@@ -51,5 +46,17 @@ public class ClusterAssigner {
         }
 
         return driverAssignments;
+    }
+
+    /**
+     * Returns a list of persons sorted geographically from west to east.
+     *
+     * @param persons The list of persons to sort.
+     * @return A new list sorted by geographical location.
+     */
+    private static List<Person> getPersonsSortedByGeography(List<Person> persons) {
+        List<Person> sortedList = new ArrayList<>(persons);
+        sortedList.sort(new GeographicalComparator());
+        return sortedList;
     }
 }
