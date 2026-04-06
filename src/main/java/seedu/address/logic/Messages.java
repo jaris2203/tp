@@ -45,12 +45,10 @@ public class Messages {
                 .append("; Address: ")
                 .append(person.getAddress())
                 .append("; Remark: ")
-                .append("; Subscription End Date: ")
                 .append(person.getRemark())
                 .append("; Delivery Status: ")
                 .append(person.getDeliveryStatus())
                 .append("; Tags: ");
-        person.getBoxes().forEach(builder::append);
         person.getTags().forEach(builder::append);
         return builder.toString();
     }
