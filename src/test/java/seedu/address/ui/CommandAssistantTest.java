@@ -44,7 +44,8 @@ public class CommandAssistantTest {
 
     @Test
     public void getSuggestion_addBoxCommand_showsMissingFieldsAndRepeatableBoxes() {
-        assertEquals(" [b/BOX_NAME:EXPIRY_DATE]...", commandAssistant.getSuggestion("addbox n/John Doe b/box-1:2026-01-01"));
+        assertEquals(" [b/BOX_NAME:EXPIRY_DATE]...",
+                commandAssistant.getSuggestion("addbox n/John Doe b/box-1:2026-01-01"));
     }
 
     @Test
