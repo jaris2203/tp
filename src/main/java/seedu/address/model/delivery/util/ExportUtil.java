@@ -56,19 +56,20 @@ public class ExportUtil {
     private static String generateDriverTable(Driver driver, List<Person> persons) {
         StringBuilder table = new StringBuilder();
         table.append("<table>\n")
-                .append("<caption>Driver: ").append(driver.getName().toString().toUpperCase())
-                .append(" - ").append(driver.getPhone()).append("</caption>\n")
+                .append("<caption>Driver: ").append(escapeHtml(driver.getName().toString().toUpperCase()))
+                .append(" - ").append(escapeHtml(driver.getPhone().toString()))
+                .append("</caption>\n")
                 .append("<thead>\n<tr>\n")
                 .append("<th>Name</th><th>Phone</th><th>Email</th><th>Address</th><th>Boxes</th>\n")
                 .append("</tr>\n</thead>\n<tbody>\n");
 
         for (Person p : persons) {
             table.append("<tr>\n")
-                    .append("<td>").append(p.getName()).append("</td>")
-                    .append("<td>").append(p.getPhone()).append("</td>")
-                    .append("<td>").append(p.getEmail()).append("</td>")
-                    .append("<td>").append(p.getAddress()).append("</td>")
-                    .append("<td>").append(p.getBoxes()).append("</td>\n")
+                    .append("<td>").append(escapeHtml(p.getName().toString())).append("</td>")
+                    .append("<td>").append(escapeHtml(p.getPhone().toString())).append("</td>")
+                    .append("<td>").append(escapeHtml(p.getEmail().toString())).append("</td>")
+                    .append("<td>").append(escapeHtml(p.getAddress().toString())).append("</td>")
+                    .append("<td>").append(escapeHtml(p.getBoxes().toString())).append("</td>\n")
                     .append("</tr>\n");
         }
 
@@ -84,5 +85,15 @@ public class ExportUtil {
 
         File file = new File(filePath);
         java.nio.file.Files.writeString(file.toPath(), content, StandardCharsets.UTF_8);
+    }
+
+    private static String escapeHtml(String input) {
+        if (input == null) return "";
+        return input
+                .replace("&", "&amp;")   // must be first
+                .replace("<", "&lt;")
+                .replace(">", "&gt;")
+                .replace("\"", "&quot;")
+                .replace("'", "&#x27;");
     }
 }
