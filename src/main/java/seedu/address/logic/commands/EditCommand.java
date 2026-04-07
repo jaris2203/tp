@@ -25,6 +25,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.commons.name.Name;
 import seedu.address.model.commons.phone.Phone;
+import seedu.address.model.delivery.Driver;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Box;
 import seedu.address.model.person.DeliveryStatus;
@@ -114,8 +115,17 @@ public class EditCommand extends Command {
         Set<Box> updatedBoxes = personToEdit.getBoxes();
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedBoxes,
-                updatedRemark, updatedDeliveryStatus, updatedTags);
+        // Re-use the existing assigned driver is address is unchanged
+        if (editPersonDescriptor.getAddress().isEmpty()) {
+            Driver preassignedDriver = personToEdit.getAssignedDriver();
+            return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedBoxes,
+                    updatedRemark, updatedDeliveryStatus, updatedTags, preassignedDriver);
+        } else {
+            // Edited Person has new address, so we create a Person without any Driver assigned
+            return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedBoxes,
+                    updatedRemark, updatedDeliveryStatus, updatedTags);
+        }
+
     }
 
     @Override
