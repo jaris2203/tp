@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -7,36 +8,66 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
-  <GridPane HBox.hgrow="ALWAYS">
+  <GridPane maxWidth="800.0" HBox.hgrow="ALWAYS">
     <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
     </columnConstraints>
-    <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
+    <VBox alignment="CENTER_LEFT" maxWidth="800.0" minHeight="105" spacing="8.0" GridPane.columnIndex="0">
       <padding>
-        <Insets top="5" right="5" bottom="5" left="15" />
+        <Insets bottom="5.0" left="15.0" right="5.0" top="5.0" />
       </padding>
-      <HBox spacing="0.5" alignment="CENTER_LEFT">
+      <HBox alignment="CENTER_LEFT" maxWidth="-Infinity" prefWidth="520.0" spacing="0.5">
         <Label fx:id="id" styleClass="cell_big_label">
           <minWidth>
             <!-- Ensures that the label text is never truncated -->
             <Region fx:constant="USE_PREF_SIZE" />
           </minWidth>
         </Label>
-        <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
+        <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
+            <Region maxWidth="-Infinity" prefWidth="10.0" HBox.hgrow="ALWAYS" />
+         <Label fx:id="deliveryStatus" styleClass="delivery-status-label" text="\$deliveryStatus" />
       </HBox>
-      <VBox spacing="1">
-        <Label fx:id="driver" styleClass="cell_small_label" text="\$driver" />
-        <FlowPane fx:id="tags" />
-        <FlowPane fx:id="boxes" />
+      <VBox spacing="5.0">
+        <FlowPane fx:id="tags">
+               <children>
+              <Label fx:id="driver" styleClass="cell_small_label" text="\$driver" />
+               </children></FlowPane>
+        <FlowPane fx:id="boxes" prefWrapLength="500.0" />
       </VBox>
-      <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
-      <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
-      <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
-      <Label fx:id="remark" styleClass="cell_small_label" text="\$remark" />
-      <Label fx:id="deliveryStatus" styleClass="cell_small_label" text="\$deliveryStatus" />
+         <HBox alignment="CENTER_LEFT" prefWidth="600.0">
+            <children>
+               <VBox>
+                  <children>
+                     <Label fx:id="detailsTitle" styleClass="details_title" text="\$detailsTitle" />
+                     <VBox alignment="CENTER_LEFT" fillWidth="false" prefHeight="90.0" spacing="2.0" styleClass="details_box">
+                        <children>
+                        <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
+                        <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
+                        <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
+                        </children>
+                     </VBox>
+                  </children>
+               </VBox>
+               <Region maxWidth="-Infinity" prefWidth="30.0" HBox.hgrow="ALWAYS" />
+               <VBox prefWidth="100.0">
+                  <children>
+                     <Label fx:id="remarkTitle" styleClass="remark_title" text="\$remarkTitle" />
+                  <Label fx:id="remark" minHeight="-Infinity" prefHeight="90.0" text="\$remark" wrapText="true">
+                        <styleClass>
+                           <String fx:value="cell_small_label" />
+                           <String fx:value="remark-box" />
+                        </styleClass></Label>
+                  </children>
+               </VBox>
+            </children>
+         </HBox>
     </VBox>
+      <rowConstraints>
+         <RowConstraints />
+      </rowConstraints>
   </GridPane>
 </HBox>

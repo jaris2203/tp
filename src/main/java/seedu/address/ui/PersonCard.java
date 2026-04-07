@@ -17,6 +17,8 @@ import seedu.address.model.person.Person;
 public class PersonCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
+    private static final Image EMAIL_IMAGE =
+            new Image(PersonCard.class.getResourceAsStream("/images/email_icon.png"));
     private static final Image ADDRESS_IMAGE =
             new Image(PersonCard.class.getResourceAsStream("/images/address_icon.png"));
     private static final Image PHONE_IMAGE =
@@ -39,11 +41,15 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
+    private Label detailsTitle;
+    @FXML
     private Label phone;
     @FXML
     private Label address;
     @FXML
     private Label email;
+    @FXML
+    private Label remarkTitle;
     @FXML
     private Label remark;
     @FXML
@@ -63,6 +69,7 @@ public class PersonCard extends UiPart<Region> {
         this.person = person;
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
+        detailsTitle.setText("Details");
         // Phone
         ImageView phoneIcon = new ImageView(PHONE_IMAGE);
         phoneIcon.setFitWidth(14);
@@ -77,9 +84,15 @@ public class PersonCard extends UiPart<Region> {
         address.setGraphic(addressIcon);
         address.setGraphicTextGap(2);
         address.setText(person.getAddress().value);
+        ImageView emailIcon = new ImageView(EMAIL_IMAGE);
+        emailIcon.setFitWidth(14);
+        emailIcon.setFitHeight(14);
+        email.setGraphic(emailIcon);
+        email.setGraphicTextGap(2);
         email.setText(person.getEmail().value);
-        remark.setText("Remark: " + person.getRemark().value);
-        deliveryStatus.setText("Delivery Status: " + person.getDeliveryStatus().deliveryStatus);
+        remarkTitle.setText("Remarks");
+        remark.setText(person.getRemark().value);
+        deliveryStatus.setText(person.getDeliveryStatus().deliveryStatus);
         person.getBoxes().stream()
                 .sorted()
                 .forEach(box -> boxes.getChildren().add(new BoxCard(box).getRoot()));
