@@ -3,6 +3,9 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -86,12 +89,31 @@ public class ImportCommand extends Command {
         Phone phone = new Phone(row[2]);
         Email email = new Email(row[3]);
         Address address = new Address(row[4]);
-        ExpiryDate expiryDate = new ExpiryDate(row[6]);
-        Box box = new Box(row[5], expiryDate);
-        Set<Box> boxes = new TreeSet<>(Set.of(box));
-        String remarkStr = row[7];
+
+        int remarkIndex = row.length - 2;
+
+        Set<Box> boxes = new TreeSet<>();
+        for (int i = 5; i < remarkIndex; i += 2) {
+            String boxName = row[i].trim();
+
+            if (boxName.isEmpty()) {
+                continue; //skip box if blank (user did not order a 2nd, 3rd etc. bow)
+            }
+
+            int subscribedMonths = Integer.parseInt(row[i + 1].trim());
+            LocalDate expiry = LocalDate.now()
+                    .plusMonths(subscribedMonths)
+                    .with(TemporalAdjusters.lastDayOfMonth());
+            ExpiryDate expiryDate = new ExpiryDate(expiry.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+            boxes.add(new Box(boxName, expiryDate));
+        }
+
+        String remarkStr = row[remarkIndex].trim();
+
         Remark remark = remarkStr.isEmpty() ? new Remark(Remark.DEFAULT_REMARK) : new Remark(remarkStr);
+
         Set<Tag> tags = Set.of();
+
         return new Person(name, phone, email, address, boxes, remark, tags);
     }
 
