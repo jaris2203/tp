@@ -39,7 +39,16 @@ public class Address {
      * Returns true if a given string is a valid address.
      */
     public static boolean isValidAddress(String test) {
-        return test != null && test.matches(VALIDATION_REGEX);
+        if (test == null || test.isBlank()) {
+            return false;
+        }
+
+        try {
+            String extractedPostalCode = PostalCode.extractPostalCode(test);
+            return PostalCode.isValidPostalCode(extractedPostalCode);
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
     }
 
     /**
@@ -50,10 +59,14 @@ public class Address {
             return MESSAGE_CONSTRAINTS_BLANK;
         }
 
-        if (!address.matches(VALIDATION_REGEX)) {
+        try {
+            String extractedPostalCode = PostalCode.extractPostalCode(address);
+            if (!PostalCode.isValidPostalCode(extractedPostalCode)) {
+                return PostalCode.getValidationMessage(extractedPostalCode);
+            }
+        } catch (IllegalArgumentException e) {
             return MESSAGE_CONSTRAINTS_POSTAL_CODE;
         }
-
         return null;
     }
 
