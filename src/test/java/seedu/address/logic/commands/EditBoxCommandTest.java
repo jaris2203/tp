@@ -112,7 +112,7 @@ public class EditBoxCommandTest {
                 .build();
         final EditBoxDescriptor differentDescriptor = new EditBoxDescriptorBuilder()
                 .withBoxName("box-2")
-                .withExpiryDate("2026-01-01")
+                .withExpiryDate("2026-12-30")
                 .build();
         final EditBoxCommand standardCommand = new EditBoxCommand(new Name("AMY"), "box-1",
                 descriptor);

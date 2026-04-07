@@ -36,7 +36,7 @@ public class BoxTest {
     public void compareTo() {
         Box box1 = new Box("box-1", new ExpiryDate("2026-12-31"));
         Box box2 = new Box("box-2", new ExpiryDate("2026-12-31"));
-        Box box1Earlier = new Box("box-1", new ExpiryDate("2026-01-01"));
+        Box box1Earlier = new Box("box-1", new ExpiryDate("2026-12-30"));
 
         // box with earlier expiry date compared to box with later expiry date of the same name -> returns -1
         assertEquals(-1, box1Earlier.compareTo(box1));

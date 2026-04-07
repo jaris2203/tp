@@ -13,7 +13,8 @@ public class ExpiryDate {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Expiry date should be a valid date in the format yyyy-MM-dd, "
-                    + "for example, 2026-12-31.";
+                    + "for example, 2026-12-31.\n"
+                    + "It should also be a date that has not passed yet.";
 
     public final String value;
     public final LocalDate localDateValue;
@@ -36,8 +37,8 @@ public class ExpiryDate {
     public static boolean isValidExpiryDate(String test) {
         requireNonNull(test);
         try {
-            LocalDate.parse(test);
-            return true;
+            LocalDate date = LocalDate.parse(test);
+            return date.isAfter(LocalDate.now());
         } catch (DateTimeParseException e) {
             return false;
         }

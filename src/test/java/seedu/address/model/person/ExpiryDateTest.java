@@ -31,10 +31,11 @@ public class ExpiryDateTest {
         assertFalse(ExpiryDate.isValidExpiryDate("2026/12/31")); // wrong separator
         assertFalse(ExpiryDate.isValidExpiryDate("2026-02-30")); // invalid calendar date
         assertFalse(ExpiryDate.isValidExpiryDate("FAKE DATE")); // not a date
+        assertFalse(ExpiryDate.isValidExpiryDate("2026-01-01")); // correct format, past date
 
         // valid expiry dates
         assertTrue(ExpiryDate.isValidExpiryDate("2026-12-31"));
-        assertTrue(ExpiryDate.isValidExpiryDate("2024-02-29")); // leap year
+        assertTrue(ExpiryDate.isValidExpiryDate("2028-02-29")); // leap year
         assertTrue(ExpiryDate.isValidExpiryDate("2030-01-01"));
     }
 

@@ -44,7 +44,7 @@ public class CommandTestUtil {
     public static final String VALID_DELIVERY_STATUS_AMY = "pending";
     public static final String VALID_DELIVERY_STATUS_BOB = "delivered";
     public static final String VALID_BOX_BOX1 = "box-1:2026-12-31";
-    public static final String VALID_BOX_BOX2 = "box-2:2026-01-01";
+    public static final String VALID_BOX_BOX2 = "box-2:2026-12-30";
     public static final String VALID_BOX_NAME_BOX1 = "box-1";
     public static final String VALID_BOX_NAME_BOX2 = "box-2";
     public static final String VALID_TAG_HUSBAND = "husband";
