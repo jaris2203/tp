@@ -88,9 +88,11 @@ public class ExportUtil {
     }
 
     private static String escapeHtml(String input) {
-        if (input == null) return "";
+        if (input == null) {
+            return "";
+        }
         return input
-                .replace("&", "&amp;")   // must be first
+                .replace("&", "&amp;")
                 .replace("<", "&lt;")
                 .replace(">", "&gt;")
                 .replace("\"", "&quot;")
