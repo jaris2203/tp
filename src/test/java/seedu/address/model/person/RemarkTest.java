@@ -70,4 +70,36 @@ public class RemarkTest {
         Remark second = new Remark("2 cakes");
         assertEquals(first.hashCode(), second.hashCode());
     }
+
+    @Test
+    public void isValidRemark_boundary_singleCharacter_valid() {
+        assertTrue(Remark.isValidRemark("a")); // single alphanumeric char
+        assertTrue(Remark.isValidRemark("1")); // single digit
+    }
+
+    @Test
+    public void isValidRemark_boundary_leadingSpace_invalid() {
+        // VALIDATION_REGEX = "[\p{Alnum}][\p{Alnum} ]*" — same as Name, must start with alnum
+        assertFalse(Remark.isValidRemark(" cakes")); // starts with space
+    }
+
+    @Test
+    public void isValidRemark_boundary_specialCharsAfterValid_invalid() {
+        assertFalse(Remark.isValidRemark("cakes!")); // special char at end
+        assertFalse(Remark.isValidRemark("2-cakes")); // hyphen not allowed
+        assertFalse(Remark.isValidRemark("cake#")); // hash not allowed
+    }
+
+    @Test
+    public void toString_returnsValue() {
+        Remark remark = new Remark("2 cakes");
+        assertEquals("2 cakes", remark.toString());
+    }
+
+    @Test
+    public void hashCode_differentValues_differentHash() {
+        Remark first = new Remark("2 cakes");
+        Remark second = new Remark("3 cakes");
+        assertFalse(first.hashCode() == second.hashCode());
+    }
 }
