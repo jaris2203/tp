@@ -112,4 +112,41 @@ public class ClusterAssignerTest {
         assertEquals(persons.size(), clusters.get(0).size());
     }
 
+    @Test
+    public void groupIntoClusters_twoPersonsTwoDrivers_eachGetOne() {
+        List<Person> persons = new ArrayList<>();
+        persons.add(ALICE);
+        persons.add(BENSON);
+        List<List<Person>> clusters = ClusterAssigner.groupIntoClusters(persons, 2);
+
+        assertEquals(2, clusters.size());
+        assertEquals(1, clusters.get(0).size());
+        assertEquals(1, clusters.get(1).size());
+    }
+
+    @Test
+    public void groupIntoClusters_threePersonsTwoDrivers_distributesTwoPlusOne() {
+        // 3 persons, 2 drivers -> sizes should be 2 and 1
+        List<Person> persons = new ArrayList<>();
+        persons.add(ALICE);
+        persons.add(BENSON);
+        persons.add(CARL);
+        List<List<Person>> clusters = ClusterAssigner.groupIntoClusters(persons, 2);
+
+        assertEquals(2, clusters.size());
+        int total = clusters.get(0).size() + clusters.get(1).size();
+        assertEquals(3, total); // all persons assigned
+        assertTrue(clusters.get(0).size() >= clusters.get(1).size()); // larger group first
+    }
+
+    @Test
+    public void groupIntoClusters_singlePersonSingleDriver_oneGroupOfOne() {
+        List<Person> persons = new ArrayList<>();
+        persons.add(ALICE);
+        List<List<Person>> clusters = ClusterAssigner.groupIntoClusters(persons, 1);
+
+        assertEquals(1, clusters.size());
+        assertEquals(1, clusters.get(0).size());
+    }
+
 }
