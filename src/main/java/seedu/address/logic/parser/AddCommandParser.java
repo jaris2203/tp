@@ -54,7 +54,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         if (argMultimap.getValue(PREFIX_REMARKS).isPresent()) {
             remark = ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARKS).get());
         }
-        Set<Box> boxList = ParserUtil.parseBoxesWithExpiry(argMultimap.getAllValues(PREFIX_BOX));
+        Set<Box> boxList = ParserUtil.parseBoxesWithNumOfMonths(argMultimap.getAllValues(PREFIX_BOX));
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         Person person = new Person(name, phone, email, address, boxList, remark, tagList);

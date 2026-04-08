@@ -33,7 +33,7 @@ public class AddBoxCommandParser implements Parser<AddBoxCommand> {
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME);
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Set<Box> boxesToAdd = ParserUtil.parseBoxesWithExpiry(argMultimap.getAllValues(PREFIX_BOX));
+        Set<Box> boxesToAdd = ParserUtil.parseBoxesWithNumOfMonths(argMultimap.getAllValues(PREFIX_BOX));
 
         return new AddBoxCommand(name, boxesToAdd);
     }

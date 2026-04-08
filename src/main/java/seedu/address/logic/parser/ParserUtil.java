@@ -2,6 +2,9 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.Clock;
+import java.time.LocalDate;
+import java.time.temporal.TemporalAdjusters;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -26,6 +29,17 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_NUM_OF_MONTHS = "Number of months should be an integer.";
+
+    private static Clock clock = Clock.systemDefaultZone();
+
+    public static void setClock(Clock newClock) {
+        clock = newClock;
+    }
+
+    public static void resetClock() {
+        clock = Clock.systemDefaultZone();
+    }
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -95,13 +109,16 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code expiryDate} is invalid.
      */
-    public static ExpiryDate parseExpiryDate(String expiryDate) throws ParseException {
-        requireNonNull(expiryDate);
-        String trimmedExpiryDate = expiryDate.trim();
-        if (!ExpiryDate.isValidExpiryDate(trimmedExpiryDate)) {
-            throw new ParseException(ExpiryDate.MESSAGE_CONSTRAINTS);
+    public static ExpiryDate parseExpiryDate(String numOfMonthsString) throws ParseException {
+        try {
+            int numOfMonths = Integer.parseInt(numOfMonthsString.trim());
+            LocalDate expiry = LocalDate.now(clock)
+                    .plusMonths(numOfMonths)
+                    .with(TemporalAdjusters.lastDayOfMonth());
+            return new ExpiryDate(expiry.format(ExpiryDate.STANDARD_FORMAT));
+        } catch (NumberFormatException e) {
+            throw new ParseException(MESSAGE_INVALID_NUM_OF_MONTHS);
         }
-        return new ExpiryDate(trimmedExpiryDate);
     }
 
     /**
@@ -178,22 +195,6 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String box} into a {@code Box}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code box} is invalid.
-     */
-    public static Box parseBox(String box, ExpiryDate expiryDate) throws ParseException {
-        requireNonNull(box);
-        requireNonNull(expiryDate);
-        String trimmedBox = box.trim();
-        if (!Box.isValidBoxName(trimmedBox)) {
-            throw new ParseException(Box.MESSAGE_CONSTRAINTS);
-        }
-        return new Box(trimmedBox, expiryDate);
-    }
-
-    /**
      * Parses a {@code String box} into a {@code String} for name-only parsing.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -209,24 +210,11 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code Collection<String> boxes} into a {@code Set<Box>}
-     */
-    public static Set<Box> parseBoxes(Collection<String> boxes, ExpiryDate expiryDate) throws ParseException {
-        requireNonNull(boxes);
-        requireNonNull(expiryDate);
-        final Set<Box> boxSet = new TreeSet<>();
-        for (String boxName: boxes) {
-            boxSet.add(parseBox(boxName, expiryDate));
-        }
-        return boxSet;
-    }
-
-    /**
      * Parses {@code String boxWithExpiry} into a {@code Box}
      */
-    public static Box parseBoxWithExpiry(String boxWithExpiry) throws ParseException {
-        requireNonNull(boxWithExpiry);
-        String trimmed = boxWithExpiry.trim();
+    public static Box parseBoxWithNumOfMonths(String boxWithMonths) throws ParseException {
+        requireNonNull(boxWithMonths);
+        String trimmed = boxWithMonths.trim();
 
         int separatorIndex = trimmed.lastIndexOf(":");
         if (separatorIndex <= 0 || separatorIndex == trimmed.length() - 1) {
@@ -234,24 +222,24 @@ public class ParserUtil {
         }
 
         String boxName = trimmed.substring(0, separatorIndex).trim();
-        String expiryDateString = trimmed.substring(separatorIndex + 1).trim();
+        String numOfMonthsString = trimmed.substring(separatorIndex + 1).trim();
 
         if (!Box.isValidBoxName(boxName)) {
             throw new ParseException(Box.MESSAGE_CONSTRAINTS);
         }
 
-        ExpiryDate expiryDate = parseExpiryDate(expiryDateString);
+        ExpiryDate expiryDate = parseExpiryDate(numOfMonthsString);
         return new Box(boxName, expiryDate);
     }
 
     /**
      * Parses {@code Collection<String> boxes} into a {@code Set<Box>}
      */
-    public static Set<Box> parseBoxesWithExpiry(Collection<String> boxesWithExpiry) throws ParseException {
-        requireNonNull(boxesWithExpiry);
+    public static Set<Box> parseBoxesWithNumOfMonths(Collection<String> boxesWithNumOfMonths) throws ParseException {
+        requireNonNull(boxesWithNumOfMonths);
         final Set<Box> boxSet = new TreeSet<>();
-        for (String boxWithExpiry : boxesWithExpiry) {
-            boxSet.add(parseBoxWithExpiry(boxWithExpiry));
+        for (String boxWithNumOfMonths: boxesWithNumOfMonths) {
+            boxSet.add(parseBoxWithNumOfMonths(boxWithNumOfMonths));
         }
         return boxSet;
     }
