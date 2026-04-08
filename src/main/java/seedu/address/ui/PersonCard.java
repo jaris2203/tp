@@ -114,7 +114,7 @@ public class PersonCard extends UiPart<Region> {
             driver.getStyleClass().add("driver-tag");
             String driverName = person.getAssignedDriver().getName().fullName;
             String driverPhone = person.getAssignedDriver().getPhone().value;
-            driver.setText("DRIVER: " + driverName + "[" + driverPhone + "]");
+            driver.setText("DRIVER: " + driverName + " - " + driverPhone);
         } else {
             driver.setText("");
             driver.setVisible(false);
