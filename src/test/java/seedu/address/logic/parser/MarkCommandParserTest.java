@@ -6,6 +6,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.Messages;
 import seedu.address.logic.commands.MarkCommand;
 import seedu.address.model.person.DeliveryStatus;
 
@@ -37,7 +38,7 @@ public class MarkCommandParserTest {
 
         // missing delivery status
         assertParseFailure(parser, "1",
-                String.format(DeliveryStatus.MESSAGE_CONSTRAINTS, MarkCommand.MESSAGE_USAGE));
+                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, MarkCommand.MESSAGE_USAGE));
 
         // invalid delivery status
         assertParseFailure(parser, "1 INVALIDSTATUS",
