@@ -29,7 +29,7 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
-    public static final String MESSAGE_INVALID_NUM_OF_MONTHS = "Number of months should be an integer.";
+    public static final String MESSAGE_INVALID_NUM_OF_MONTHS = "Number of months should be an positive integer.";
 
     private static Clock clock = Clock.systemDefaultZone();
 
@@ -112,6 +112,9 @@ public class ParserUtil {
     public static ExpiryDate parseExpiryDate(String numOfMonthsString) throws ParseException {
         try {
             int numOfMonths = Integer.parseInt(numOfMonthsString.trim());
+            if (numOfMonths <= 0) {
+                throw new ParseException(MESSAGE_INVALID_NUM_OF_MONTHS);
+            }
             LocalDate expiry = LocalDate.now(clock)
                     .plusMonths(numOfMonths)
                     .with(TemporalAdjusters.lastDayOfMonth());
