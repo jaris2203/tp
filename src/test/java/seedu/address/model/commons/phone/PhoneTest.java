@@ -40,19 +40,19 @@ public class PhoneTest {
     }
 
     @Test
-    public void isValidPhone_boundary_exactlyThreeDigits_valid() {
+    public void isValidPhone_threeDigits_valid() {
         assertTrue(Phone.isValidPhone("100")); // exactly 3 digits, starts with 1
         assertTrue(Phone.isValidPhone("999")); // exactly 3 digits, starts with 9
     }
 
     @Test
-    public void isValidPhone_boundary_twoDigits_invalid() {
+    public void isValidPhone_twoDigits_invalid() {
         assertFalse(Phone.isValidPhone("12")); // only 2 digits — below minimum
         assertFalse(Phone.isValidPhone("99")); // only 2 digits
     }
 
     @Test
-    public void isValidPhone_boundary_startsWithZero_invalid() {
+    public void isValidPhone_startsWithZero_invalid() {
         // VALIDATION_REGEX = "[1-9]\d{2,}" — must start with 1-9
         assertFalse(Phone.isValidPhone("099")); // starts with 0
         assertFalse(Phone.isValidPhone("012")); // starts with 0

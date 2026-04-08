@@ -72,19 +72,19 @@ public class RemarkTest {
     }
 
     @Test
-    public void isValidRemark_boundary_singleCharacter_valid() {
+    public void isValidRemark_singleCharacter_valid() {
         assertTrue(Remark.isValidRemark("a")); // single alphanumeric char
         assertTrue(Remark.isValidRemark("1")); // single digit
     }
 
     @Test
-    public void isValidRemark_boundary_leadingSpace_invalid() {
+    public void isValidRemark_leadingSpace_invalid() {
         // VALIDATION_REGEX = "[\p{Alnum}][\p{Alnum} ]*" — same as Name, must start with alnum
         assertFalse(Remark.isValidRemark(" cakes")); // starts with space
     }
 
     @Test
-    public void isValidRemark_boundary_specialCharsAfterValid_invalid() {
+    public void isValidRemark_specialCharsAfterValid_invalid() {
         assertFalse(Remark.isValidRemark("cakes!")); // special char at end
         assertFalse(Remark.isValidRemark("2-cakes")); // hyphen not allowed
         assertFalse(Remark.isValidRemark("cake#")); // hash not allowed

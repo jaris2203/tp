@@ -7,7 +7,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AssignCommand;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.commons.name.Name;
 import seedu.address.model.commons.phone.Phone;
 import seedu.address.model.delivery.DeliveryAssignmentHashMap;

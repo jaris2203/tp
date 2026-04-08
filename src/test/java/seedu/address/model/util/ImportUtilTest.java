@@ -2,7 +2,6 @@ package seedu.address.model.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -35,7 +34,7 @@ public class ImportUtilTest {
     }
 
     @Test
-    public void parseCsv_nonexistentFile_throwsIOException() {
+    public void parseCsv_nonexistentFile_throwsIoException() {
         String nonExistent = tempDir.resolve("missing.csv").toString();
         assertThrows(IOException.class, () -> ImportUtil.parseCsv(nonExistent));
     }

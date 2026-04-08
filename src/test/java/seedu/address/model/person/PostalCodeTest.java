@@ -145,7 +145,7 @@ public class PostalCodeTest {
     }
 
     @Test
-    public void isValidPostalCode_boundary_fiveAndSevenDigits_invalid() {
+    public void isValidPostalCode_fiveAndSevenDigits_invalid() {
         assertFalse(PostalCode.isValidPostalCode("12345")); // 5 digits
         assertFalse(PostalCode.isValidPostalCode("1234567")); // 7 digits
     }

@@ -31,29 +31,25 @@ public class ExportCommandParserTest {
 
     @Test
     public void parse_nonHtmlExtension_throwsParseException() {
-        assertThrows(ParseException.class,
-                "Invalid file type. Please provide a file name ending with .html",
-                () -> parser.parse(" output.txt"));
+        String msg = "Invalid file type. Please provide a file name ending with .html";
+        assertThrows(ParseException.class, msg, () -> parser.parse(" output.txt"));
     }
 
     @Test
     public void parse_pathWithSeparator_throwsParseException() {
-        assertThrows(ParseException.class,
-                "Invalid file name. Please provide a file name only, not a path.",
-                () -> parser.parse(" subdir/output.html"));
+        String msg = "Invalid file name. Please provide a file name only, not a path.";
+        assertThrows(ParseException.class, msg, () -> parser.parse(" subdir/output.html"));
     }
 
     @Test
     public void parse_dotDot_throwsParseException() {
-        assertThrows(ParseException.class,
-                "Invalid file name. Please provide a file name only, not a path.",
-                () -> parser.parse(" ../output.html"));
+        String msg = "Invalid file name. Please provide a file name only, not a path.";
+        assertThrows(ParseException.class, msg, () -> parser.parse(" ../output.html"));
     }
 
     @Test
     public void parse_windowsPathSeparator_throwsParseException() {
-        assertThrows(ParseException.class,
-                "Invalid file name. Please provide a file name only, not a path.",
-                () -> parser.parse(" subdir\\output.html"));
+        String msg = "Invalid file name. Please provide a file name only, not a path.";
+        assertThrows(ParseException.class, msg, () -> parser.parse(" subdir\\output.html"));
     }
 }

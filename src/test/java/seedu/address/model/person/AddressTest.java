@@ -92,17 +92,17 @@ public class AddressTest {
     }
 
     @Test
-    public void isValidAddress_boundary_fiveDigitNumber_invalid() {
+    public void isValidAddress_fiveDigitNumber_invalid() {
         assertFalse(Address.isValidAddress("12345")); // 5-digit number, no 6-digit postal code
     }
 
     @Test
-    public void isValidAddress_boundary_sevenDigitNumber_invalid() {
+    public void isValidAddress_sevenDigitNumber_invalid() {
         assertFalse(Address.isValidAddress("1234567")); // 7-digit number, no 6-digit postal code
     }
 
     @Test
-    public void isValidAddress_boundary_validPrefixBoundaries_valid() {
+    public void isValidAddress_validPrefixBoundaries_valid() {
         assertTrue(Address.isValidAddress("Blk 1 Street 012345")); // prefix 01 — minimum valid
         assertTrue(Address.isValidAddress("Blk 1 Street 823456")); // prefix 82 — maximum valid
     }

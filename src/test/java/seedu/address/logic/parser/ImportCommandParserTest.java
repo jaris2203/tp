@@ -20,35 +20,30 @@ public class ImportCommandParserTest {
 
     @Test
     public void parse_emptyArgs_throwsParseException() {
-        assertThrows(ParseException.class, "File name cannot be empty.",
-                () -> parser.parse(""));
+        assertThrows(ParseException.class, "File name cannot be empty.", () -> parser.parse(""));
     }
 
     @Test
     public void parse_nonCsvExtension_throwsParseException() {
-        assertThrows(ParseException.class,
-                "Invalid file type. Only .csv files are allowed for import.",
-                () -> parser.parse(" test.txt"));
+        String msg = "Invalid file type. Only .csv files are allowed for import.";
+        assertThrows(ParseException.class, msg, () -> parser.parse(" test.txt"));
     }
 
     @Test
     public void parse_pathWithSeparator_throwsParseException() {
-        assertThrows(ParseException.class,
-                "Invalid file name. Please provide a file name only, not a path.",
-                () -> parser.parse(" subdir/test.csv"));
+        String msg = "Invalid file name. Please provide a file name only, not a path.";
+        assertThrows(ParseException.class, msg, () -> parser.parse(" subdir/test.csv"));
     }
 
     @Test
     public void parse_dotDot_throwsParseException() {
-        assertThrows(ParseException.class,
-                "Invalid file name. Please provide a file name only, not a path.",
-                () -> parser.parse(" ../test.csv"));
+        String msg = "Invalid file name. Please provide a file name only, not a path.";
+        assertThrows(ParseException.class, msg, () -> parser.parse(" ../test.csv"));
     }
 
     @Test
     public void parse_windowsPathSeparator_throwsParseException() {
-        assertThrows(ParseException.class,
-                "Invalid file name. Please provide a file name only, not a path.",
-                () -> parser.parse(" subdir\\test.csv"));
+        String msg = "Invalid file name. Please provide a file name only, not a path.";
+        assertThrows(ParseException.class, msg, () -> parser.parse(" subdir\\test.csv"));
     }
 }

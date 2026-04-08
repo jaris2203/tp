@@ -57,8 +57,8 @@ public class AssignCommandTest {
     @Test
     public void constructor_duplicateDrivers_throwsCommandException() {
         Driver driver = new Driver(new Name("Kyle"), new Phone("91234567"));
-        assertThrows(CommandException.class, AssignCommand.MESSAGE_DUPLICATE_DRIVER,
-                () -> new AssignCommand(driver, driver));
+        assertThrows(CommandException.class, AssignCommand.MESSAGE_DUPLICATE_DRIVER, () ->
+                new AssignCommand(driver, driver));
     }
 
     @Test

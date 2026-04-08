@@ -40,14 +40,14 @@ public class NameTest {
     }
 
     @Test
-    public void isValidName_boundary_singleCharacter_valid() {
+    public void isValidName_singleCharacter_valid() {
         assertTrue(Name.isValidName("a")); // single alphanumeric char
         assertTrue(Name.isValidName("Z")); // single uppercase char
         assertTrue(Name.isValidName("1")); // single digit
     }
 
     @Test
-    public void isValidName_boundary_leadingSpace_invalid() {
+    public void isValidName_leadingSpace_invalid() {
         assertFalse(Name.isValidName(" Alice")); // starts with space — regex requires alnum first
         assertFalse(Name.isValidName(" 1")); // digit preceded by space
     }
