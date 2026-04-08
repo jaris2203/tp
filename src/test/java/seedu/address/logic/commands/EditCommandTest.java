@@ -20,6 +20,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -179,6 +180,48 @@ public class EditCommandTest {
         String expected = EditCommand.class.getCanonicalName() + "{index=" + index + ", editPersonDescriptor="
                 + editPersonDescriptor + "}";
         assertEquals(expected, editCommand.toString());
+    }
+
+    @Test
+    public void execute_addressChanged_clearsAssignedDriver() {
+        // ALICE (index 0) has driver "Kyle" assigned; changing her address should strip the driver
+        Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        assertTrue(personToEdit.hasDriver(), "Precondition: person must have a driver");
+
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder()
+                .withAddress("99 New Street Singapore 654321")
+                .build();
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
+
+        try {
+            editCommand.execute(model);
+        } catch (CommandException e) {
+            throw new AssertionError("execute() threw unexpectedly: " + e.getMessage());
+        }
+
+        Person editedPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        assertFalse(editedPerson.hasDriver(), "Driver should be cleared after address change");
+    }
+
+    @Test
+    public void execute_nonAddressFieldChanged_preservesAssignedDriver() {
+        // Changing phone (not address) should keep the existing driver
+        Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        assertTrue(personToEdit.hasDriver(), "Precondition: person must have a driver");
+
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder()
+                .withPhone("99999999")
+                .build();
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
+
+        try {
+            editCommand.execute(model);
+        } catch (CommandException e) {
+            throw new AssertionError("execute() threw unexpectedly: " + e.getMessage());
+        }
+
+        Person editedPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        assertTrue(editedPerson.hasDriver(), "Driver should be preserved when address is unchanged");
     }
 
 }
