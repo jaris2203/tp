@@ -3,6 +3,7 @@ package seedu.address.ui;
 import java.util.Comparator;
 
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -106,7 +107,13 @@ public class PersonCard extends UiPart<Region> {
         }
         person.getBoxes().stream()
                 .sorted()
-                .forEach(box -> boxes.getChildren().add(new BoxCard(box).getRoot()));
+                .forEach(box -> {
+                    Parent boxCard = new BoxCard(box).getRoot();
+                    if (box.isExpired()) {
+                        boxCard.getStyleClass().add("expired");
+                    }
+                    boxes.getChildren().add(boxCard);
+                });
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> {

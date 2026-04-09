@@ -25,7 +25,11 @@ public class BoxCard extends UiPart<Region> {
     public BoxCard(Box box) {
         super(FXML);
         this.box = box;
-        boxName.setText(box.boxName);
+        if (box.isExpired()) {
+            boxName.setText(box.boxName + " (EXPIRED)");
+        } else {
+            boxName.setText(box.boxName);
+        }
         expiryDate.setText("Exp: " + box.expiryDate.toString());
     }
 }
