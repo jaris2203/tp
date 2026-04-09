@@ -129,4 +129,16 @@ public class BoxTest {
         assertTrue(result.contains("box-1"));
         assertTrue(result.contains("2026-12-31"));
     }
+
+    @Test
+    public void isExpired_futureDate_returnsFalse() {
+        Box box = new Box("box-1", new ExpiryDate("2099-12-31"));
+        assertFalse(box.isExpired());
+    }
+
+    @Test
+    public void isExpired_pastDate_returnsTrue() {
+        Box box = new Box("box-1", new ExpiryDate("2020-01-01"));
+        assertTrue(box.isExpired());
+    }
 }

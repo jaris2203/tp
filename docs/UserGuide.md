@@ -179,9 +179,9 @@ Tom's status updates to `Delivered` in the result panel. The output panel confir
 
 **Step 5 — Delete the test entry**
 
-To safely delete Tom without worrying about his current index, use his email directly:
+Run `list` to see all subscribers and note Tom Baker's index number at the bottom. Then delete him using that index — for example, if Tom is index 9:
 ```
-delete tombaker@email.com
+delete 9
 ```
 Tom Baker is removed. The output panel confirms the deletion. You are now ready to manage your real subscribers.
 
@@ -200,7 +200,7 @@ A subscriber is a customer who receives regular deliveries from your business. E
 5. An optional remark (e.g. delivery preferences or notes).
 
 **Box**
-A box represents a single recurring delivery package assigned to a subscriber. Each subscriber must have at least one box. Boxes have a name in the format `[type]-[number]` where the type uses underscores for multi-word names (e.g. `box-1`, `pastry-2`, `meal_kit-1`) and an expiry date — after which the subscription is considered lapsed. A subscriber can hold multiple boxes if they have ordered more than one package.
+A box represents a single recurring delivery package assigned to a subscriber. Each subscriber must have at least one box. Boxes have a name in the format `[type]-[number]` (e.g. `box-1`, `pastry-2`) and a subscription length in months — when adding or editing a box, you specify how many months until expiry and Client2Door computes the exact expiry date automatically (set to the last day of that month). Once the expiry date passes, the box is marked as expired. A subscriber can hold multiple boxes if they have ordered more than one package.
 
 **Delivery Status**
 Every subscriber has a delivery status that reflects where their order is in the fulfilment process:
@@ -265,7 +265,7 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [o/REMARK] b/BOX_NAME:NUMBE
 
 > **Note:** The subscriber's delivery status is automatically set to `Pending` when first added.
 
-**Important:** The expiry date applies to **all** boxes added in the same command. To set different expiry dates per box, use [`addbox`](#adding-one-or-more-boxes-to-a-subscriber--addbox) separately for each.
+> **Tip:** Each `b/` entry has its own `:NUMBER_OF_MONTHS`, so you can set different subscription lengths for each box in one command.
 
 **Important:** Each address must contain exactly one 6-digit postal code.
 
@@ -456,8 +456,7 @@ Adds one or more boxes to an existing subscriber.
 Format: `addbox n/NAME b/BOX_NAME:NUMBER_OF_MONTHS [b/BOX_NAME:NUMBER_OF_MONTHS]...`
 
 * The subscriber is identified by their exact `NAME`.
-* Name-based box commands assume subscriber names are unique in your current data.
-* The expiry date applies to all boxes added in the same command.
+* Each `b/` entry takes its own `:NUMBER_OF_MONTHS`, so you can set different subscription lengths per box.
 * See also: [`add`](#adding-a-subscriber--add) to add boxes when first creating a subscriber.
 
 > **Tip:** Use this command when a subscriber renews or upgrades their order mid-cycle without changing their other details.

@@ -4,8 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
 /**
@@ -21,6 +19,7 @@ public class Box implements Comparable<Box> {
 
     public final String boxName;
     public final ExpiryDate expiryDate;
+    private final LocalDate expiryLocalDate;
 
     /**
      * Constructs a {@code Box}.
@@ -33,6 +32,7 @@ public class Box implements Comparable<Box> {
         checkArgument(isValidBoxName(boxName), MESSAGE_CONSTRAINTS);
         this.boxName = boxName;
         this.expiryDate = expiryDate;
+        this.expiryLocalDate = LocalDate.parse(expiryDate.value, ExpiryDate.STANDARD_FORMAT);
     }
 
     public static boolean isValidBoxName(String test) {
@@ -51,15 +51,7 @@ public class Box implements Comparable<Box> {
      * Returns true if the expiry date of the {@code Box} instance has passed.
      */
     public boolean isExpired() {
-        for (DateTimeFormatter formatter : ExpiryDate.FORMATS) {
-            try {
-                LocalDate date = LocalDate.parse(expiryDate.value, formatter);
-                return date.isBefore(LocalDate.now());
-            } catch (DateTimeParseException e) {
-                // do nothing, iterate to next format.
-            }
-        }
-        return false;
+        return expiryLocalDate.isBefore(LocalDate.now());
     }
 
     @Override

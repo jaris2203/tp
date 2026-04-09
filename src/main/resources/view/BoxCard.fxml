@@ -8,6 +8,7 @@
 <VBox id="box-card" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="boxName" text="\$boxName" />
+      <Label fx:id="expiredLabel" text="EXPIRED" styleClass="expired-label" managed="false" visible="false" />
       <Label fx:id="expiryDate" text="\$expiryDate" />
    </children>
    <padding>

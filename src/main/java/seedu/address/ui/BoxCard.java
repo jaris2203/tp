@@ -17,6 +17,8 @@ public class BoxCard extends UiPart<Region> {
     @FXML
     private Label boxName;
     @FXML
+    private Label expiredLabel;
+    @FXML
     private Label expiryDate;
 
     /**
@@ -25,10 +27,10 @@ public class BoxCard extends UiPart<Region> {
     public BoxCard(Box box) {
         super(FXML);
         this.box = box;
+        boxName.setText(box.boxName);
         if (box.isExpired()) {
-            boxName.setText(box.boxName + " (EXPIRED)");
-        } else {
-            boxName.setText(box.boxName);
+            expiredLabel.setVisible(true);
+            expiredLabel.setManaged(true);
         }
         expiryDate.setText("Exp: " + box.expiryDate.toString());
     }
