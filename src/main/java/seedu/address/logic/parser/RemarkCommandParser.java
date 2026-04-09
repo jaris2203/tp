@@ -38,7 +38,12 @@ public class RemarkCommandParser implements Parser<RemarkCommand> {
         }
 
         String remarkText = argMultimap.getValue(PREFIX_REMARKS).get().trim();
-        Remark remark = remarkText.isEmpty() ? new Remark() : new Remark(remarkText);
+        Remark remark;
+        try {
+            remark = remarkText.isEmpty() ? new Remark() : new Remark(remarkText);
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(e.getMessage());
+        }
         return new RemarkCommand(index, remark);
     }
 }
