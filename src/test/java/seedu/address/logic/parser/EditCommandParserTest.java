@@ -85,6 +85,9 @@ public class EditCommandParserTest {
 
         // invalid prefix being parsed as preamble
         assertParseFailure(parser, "1 i/ string", MESSAGE_INVALID_FORMAT);
+
+        // expiry date is not a valid prefix for edit
+        assertParseFailure(parser, "1 ex/3", MESSAGE_INVALID_FORMAT);
     }
 
     @Test

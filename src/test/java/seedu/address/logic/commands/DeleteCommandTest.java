@@ -8,6 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
@@ -17,6 +18,7 @@ import seedu.address.logic.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.person.Email;
 import seedu.address.model.person.Person;
 
 /**
@@ -107,6 +109,51 @@ public class DeleteCommandTest {
         DeleteCommand deleteCommand = new DeleteCommand(targetIndex);
         String expected = DeleteCommand.class.getCanonicalName() + "{targetIndex=" + targetIndex + "}";
         assertEquals(expected, deleteCommand.toString());
+    }
+
+    @Test
+    public void execute_validEmailUnfilteredList_success() {
+        Person personToDelete = ALICE;
+        DeleteCommand deleteCommand = new DeleteCommand(personToDelete.getEmail());
+
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS,
+                Messages.format(personToDelete));
+
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.deletePerson(personToDelete);
+
+        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_invalidEmail_throwsCommandException() {
+        Email nonExistentEmail = new Email("nobody@nonexistent.com");
+        DeleteCommand deleteCommand = new DeleteCommand(nonExistentEmail);
+
+        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_EMAIL);
+    }
+
+    @Test
+    public void equals_emailBasedCommands() {
+        Email emailAlice = ALICE.getEmail();
+        DeleteCommand deleteAliceByEmail = new DeleteCommand(emailAlice);
+        DeleteCommand deleteAliceByEmailCopy = new DeleteCommand(emailAlice);
+
+        // same object -> true
+        assertTrue(deleteAliceByEmail.equals(deleteAliceByEmail));
+
+        // same email -> true
+        assertTrue(deleteAliceByEmail.equals(deleteAliceByEmailCopy));
+
+        // different email -> false
+        Email otherEmail = new Email("other@example.com");
+        assertFalse(deleteAliceByEmail.equals(new DeleteCommand(otherEmail)));
+
+        // email-based vs index-based -> false
+        assertFalse(deleteAliceByEmail.equals(new DeleteCommand(INDEX_FIRST_PERSON)));
+
+        // null -> false
+        assertFalse(deleteAliceByEmail.equals(null));
     }
 
     /**

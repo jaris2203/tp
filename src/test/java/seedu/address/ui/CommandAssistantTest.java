@@ -38,7 +38,7 @@ public class CommandAssistantTest {
 
     @Test
     public void getSuggestion_editCommandAfterIndex_showsEditableFields() {
-        assertEquals(" [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/REMARKS] [ex/EXPIRY_DATE] [t/TAG]...",
+        assertEquals(" [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/REMARKS] [t/TAG]...",
                 commandAssistant.getSuggestion("edit 1"));
     }
 

@@ -71,4 +71,32 @@ public class DistrictRankerTest {
     public void getRank_districtNinetyNine_returnsMaxValue() {
         assertEquals(Integer.MAX_VALUE, DistrictRanker.getRank(99));
     }
+
+    @Test
+    public void getRank_districtZero_returnsMaxValue() {
+        // 0 is not a valid district
+        assertEquals(Integer.MAX_VALUE, DistrictRanker.getRank(0));
+    }
+
+    @Test
+    public void getRank_districtTwentyEight_returnsFiniteRank() {
+        // District 28 is valid (North-East); rank should not be MAX_VALUE
+        assertTrue(DistrictRanker.getRank(28) < Integer.MAX_VALUE);
+    }
+
+    @Test
+    public void getRank_allKnownDistrictsReturnFiniteRank() {
+        // Districts 1-28 are all valid Singapore districts
+        for (int d = 1; d <= 28; d++) {
+            assertTrue(DistrictRanker.getRank(d) < Integer.MAX_VALUE,
+                    "Expected finite rank for district " + d);
+        }
+    }
+
+    @Test
+    public void getRank_unknownDistinctsReturnMaxValue() {
+        // Districts outside 1-28 are invalid
+        assertEquals(Integer.MAX_VALUE, DistrictRanker.getRank(29));
+        assertEquals(Integer.MAX_VALUE, DistrictRanker.getRank(100));
+    }
 }

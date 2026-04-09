@@ -80,6 +80,40 @@ public class AddressTest {
     }
 
     @Test
+    public void constructor_postalCodeWithInvalidPrefix00_throwsIllegalArgumentException() {
+        // 001234 has prefix 00, which is below the valid 01-82 range
+        assertThrows(IllegalArgumentException.class, () -> new Address("Blk 1 Street 001234"));
+    }
+
+    @Test
+    public void constructor_postalCodeWithInvalidPrefix83_throwsIllegalArgumentException() {
+        // 831234 has prefix 83, which is above the valid 01-82 range
+        assertThrows(IllegalArgumentException.class, () -> new Address("Blk 1 Street 831234"));
+    }
+
+    @Test
+    public void isValidAddress_fiveDigitNumber_invalid() {
+        assertFalse(Address.isValidAddress("12345")); // 5-digit number, no 6-digit postal code
+    }
+
+    @Test
+    public void isValidAddress_sevenDigitNumber_invalid() {
+        assertFalse(Address.isValidAddress("1234567")); // 7-digit number, no 6-digit postal code
+    }
+
+    @Test
+    public void isValidAddress_validPrefixBoundaries_valid() {
+        assertTrue(Address.isValidAddress("Blk 1 Street 012345")); // prefix 01 — minimum valid
+        assertTrue(Address.isValidAddress("Blk 1 Street 823456")); // prefix 82 — maximum valid
+    }
+
+    @Test
+    public void isValidAddress_multipleNumbers_usesFirstValidPostalCode() {
+        // Address contains two 6-digit numbers; first one (123456) has valid prefix
+        assertTrue(Address.isValidAddress("Unit 100000, Block 123456"));
+    }
+
+    @Test
     public void equals() {
         Address address = new Address("Blk 123 Sengkang Street 11, Singapore 123456");
 

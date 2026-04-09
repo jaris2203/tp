@@ -123,6 +123,46 @@ public class PostalCodeTest {
     }
 
     @Test
+    public void constructor_postalCodeWithPrefix01_success() {
+        // prefix 01 is the minimum valid prefix
+        PostalCode p = new PostalCode("012345");
+        assertEquals("012345", p.toString());
+    }
+
+    @Test
+    public void constructor_postalCodeWithPrefix82_success() {
+        // prefix 82 is the maximum valid prefix
+        PostalCode p = new PostalCode("821234");
+        assertEquals("821234", p.toString());
+    }
+
+    @Test
+    public void isValidPostalCode_boundary_prefixBoundaries() {
+        assertTrue(PostalCode.isValidPostalCode("012345")); // prefix 01 — minimum valid
+        assertTrue(PostalCode.isValidPostalCode("821234")); // prefix 82 — maximum valid
+        assertFalse(PostalCode.isValidPostalCode("001234")); // prefix 00 — just below minimum
+        assertFalse(PostalCode.isValidPostalCode("831234")); // prefix 83 — just above maximum
+    }
+
+    @Test
+    public void isValidPostalCode_fiveAndSevenDigits_invalid() {
+        assertFalse(PostalCode.isValidPostalCode("12345")); // 5 digits
+        assertFalse(PostalCode.isValidPostalCode("1234567")); // 7 digits
+    }
+
+    @Test
+    public void getPostalPrefixFromPostalCode_boundary_prefix01() {
+        PostalCode postalCode = new PostalCode("012345");
+        assertEquals(1, postalCode.getPostalPrefixFromPostalCode()); // leading zero stripped
+    }
+
+    @Test
+    public void getPostalPrefixFromPostalCode_boundary_prefix82() {
+        PostalCode postalCode = new PostalCode("821234");
+        assertEquals(82, postalCode.getPostalPrefixFromPostalCode());
+    }
+
+    @Test
     public void equals() {
         PostalCode postalCode = new PostalCode("123456");
 

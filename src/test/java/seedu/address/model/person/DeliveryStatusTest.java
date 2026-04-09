@@ -1,5 +1,6 @@
 package seedu.address.model.person;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -40,5 +41,32 @@ public class DeliveryStatusTest {
 
         // different values -> returns false
         assertFalse(deliveryStatus.equals(DeliveryStatus.fromString("packed")));
+    }
+
+    @Test
+    public void fromString_allStatuses_success() {
+        assertEquals(DeliveryStatus.PENDING, DeliveryStatus.fromString("pending"));
+        assertEquals(DeliveryStatus.PACKED, DeliveryStatus.fromString("packed"));
+        assertEquals(DeliveryStatus.DELIVERED, DeliveryStatus.fromString("delivered"));
+    }
+
+    @Test
+    public void fromString_caseInsensitive_success() {
+        assertEquals(DeliveryStatus.PENDING, DeliveryStatus.fromString("PENDING"));
+        assertEquals(DeliveryStatus.PENDING, DeliveryStatus.fromString("Pending"));
+        assertEquals(DeliveryStatus.PACKED, DeliveryStatus.fromString("PACKED"));
+        assertEquals(DeliveryStatus.DELIVERED, DeliveryStatus.fromString("DELIVERED"));
+    }
+
+    @Test
+    public void fromString_withWhitespace_success() {
+        assertEquals(DeliveryStatus.PENDING, DeliveryStatus.fromString("  pending  "));
+    }
+
+    @Test
+    public void toString_returnsCapitalisedLabel() {
+        assertEquals("Pending", DeliveryStatus.PENDING.toString());
+        assertEquals("Packed", DeliveryStatus.PACKED.toString());
+        assertEquals("Delivered", DeliveryStatus.DELIVERED.toString());
     }
 }

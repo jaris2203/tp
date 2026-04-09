@@ -64,4 +64,39 @@ public class ExpiryDateTest {
         // different values -> returns false
         assertFalse(expiryDate.equals(new ExpiryDate("2027-01-01")));
     }
+
+    @Test
+    public void hashCode_equalDates_sameHash() {
+        ExpiryDate d1 = new ExpiryDate("2026-12-31");
+        ExpiryDate d2 = new ExpiryDate("2026-12-31");
+        assertEquals(d1.hashCode(), d2.hashCode());
+    }
+
+    @Test
+    public void hashCode_differentDates_differentHash() {
+        ExpiryDate d1 = new ExpiryDate("2026-12-31");
+        ExpiryDate d2 = new ExpiryDate("2027-01-01");
+        assertFalse(d1.hashCode() == d2.hashCode());
+    }
+
+    @Test
+    public void compareTo_earlierDate_returnsNegative() {
+        ExpiryDate earlier = new ExpiryDate("2026-12-30");
+        ExpiryDate later = new ExpiryDate("2026-12-31");
+        assertTrue(earlier.compareTo(later) < 0);
+    }
+
+    @Test
+    public void compareTo_laterDate_returnsPositive() {
+        ExpiryDate earlier = new ExpiryDate("2026-12-30");
+        ExpiryDate later = new ExpiryDate("2026-12-31");
+        assertTrue(later.compareTo(earlier) > 0);
+    }
+
+    @Test
+    public void compareTo_sameDate_returnsZero() {
+        ExpiryDate d1 = new ExpiryDate("2026-12-31");
+        ExpiryDate d2 = new ExpiryDate("2026-12-31");
+        assertEquals(0, d1.compareTo(d2));
+    }
 }

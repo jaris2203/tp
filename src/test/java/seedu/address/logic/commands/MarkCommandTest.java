@@ -136,6 +136,62 @@ public class MarkCommandTest {
     }
 
     @Test
+    public void execute_markPending_success() {
+        Person personToMark = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+
+        Person updatedPerson = new Person(
+                personToMark.getName(),
+                personToMark.getPhone(),
+                personToMark.getEmail(),
+                personToMark.getAddress(),
+                personToMark.getBoxes(),
+                personToMark.getRemark(),
+                DeliveryStatus.PENDING,
+                personToMark.getTags()
+        );
+
+        MarkCommand command = new MarkCommand(INDEX_FIRST_PERSON, DeliveryStatus.PENDING);
+
+        String expectedMessage = String.format(
+                MarkCommand.MESSAGE_MARK_PENDING,
+                Messages.format(updatedPerson));
+
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.setPerson(personToMark, updatedPerson);
+        expectedModel.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
+
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_markPacked_success() {
+        Person personToMark = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+
+        Person updatedPerson = new Person(
+                personToMark.getName(),
+                personToMark.getPhone(),
+                personToMark.getEmail(),
+                personToMark.getAddress(),
+                personToMark.getBoxes(),
+                personToMark.getRemark(),
+                DeliveryStatus.PACKED,
+                personToMark.getTags()
+        );
+
+        MarkCommand command = new MarkCommand(INDEX_FIRST_PERSON, DeliveryStatus.PACKED);
+
+        String expectedMessage = String.format(
+                MarkCommand.MESSAGE_MARK_PACKED,
+                Messages.format(updatedPerson));
+
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.setPerson(personToMark, updatedPerson);
+        expectedModel.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
+
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+    }
+
+    @Test
     public void toStringMethod() {
         Index targetIndex = Index.fromOneBased(1);
         MarkCommand command = new MarkCommand(targetIndex, DeliveryStatus.DELIVERED);

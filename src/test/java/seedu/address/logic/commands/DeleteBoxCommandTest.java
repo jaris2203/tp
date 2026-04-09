@@ -84,6 +84,17 @@ public class DeleteBoxCommandTest {
     }
 
     @Test
+    public void execute_mixedExistingAndNonExistingBoxes_failure() {
+        // box-1 exists for BENSON, box-9 does not — entire command should fail
+        Person personToEdit = BENSON;
+
+        DeleteBoxCommand deleteBoxCommand = new DeleteBoxCommand(personToEdit.getName(),
+                Set.of("box-1", "box-9"));
+        assertCommandFailure(deleteBoxCommand, model, String.format(
+                DeleteBoxCommand.MESSAGE_BOX_NOT_FOUND, personToEdit.getName(), Set.of("box-9")));
+    }
+
+    @Test
     public void equals() {
         Person personToEdit = ALICE;
 

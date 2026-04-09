@@ -60,4 +60,22 @@ public class DistrictMapperTest {
     public void getDistrictFromPrefix_negativePrefix_returnsNegativeOne() {
         assertEquals(-1, DistrictMapper.getDistrictFromPrefix(-1));
     }
+
+    @Test
+    public void getDistrictFromPrefix_prefix83_returnsNegativeOne() {
+        // 83 is just above the valid maximum of 82
+        assertEquals(-1, DistrictMapper.getDistrictFromPrefix(83));
+    }
+
+    @Test
+    public void getDistrictFromPrefix_prefix82_returnsNineteen() {
+        // 82 is the maximum valid prefix
+        assertEquals(19, DistrictMapper.getDistrictFromPrefix(82));
+    }
+
+    @Test
+    public void getDistrictFromPrefix_prefix01_returnsOne() {
+        // 1 is the minimum valid prefix
+        assertEquals(1, DistrictMapper.getDistrictFromPrefix(1));
+    }
 }

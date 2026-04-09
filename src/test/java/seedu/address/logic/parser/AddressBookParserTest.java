@@ -18,8 +18,10 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddBoxCommand;
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AssignCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteBoxCommand;
 import seedu.address.logic.commands.DeleteCommand;
@@ -28,16 +30,25 @@ import seedu.address.logic.commands.EditBoxCommand.EditBoxDescriptor;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.ExportCommand;
+import seedu.address.logic.commands.FilterCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.MarkCommand;
 import seedu.address.logic.commands.RemarkCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.commons.name.Name;
+import seedu.address.model.commons.phone.Phone;
+import seedu.address.model.delivery.DeliveryAssignmentHashMap;
+import seedu.address.model.delivery.Driver;
 import seedu.address.model.person.Box;
+import seedu.address.model.person.DeliveryStatus;
 import seedu.address.model.person.ExpiryDate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.PersonHasBoxPredicate;
 import seedu.address.model.person.Remark;
 import seedu.address.testutil.DateTestUtil;
 import seedu.address.testutil.EditBoxDescriptorBuilder;
@@ -52,6 +63,7 @@ public class AddressBookParserTest {
     @BeforeEach
     public void setUpClock() {
         DateTestUtil.useFixedClock();
+        DeliveryAssignmentHashMap.clearAssignments();
     }
 
     @AfterEach
@@ -143,6 +155,37 @@ public class AddressBookParserTest {
         RemarkCommand command = (RemarkCommand) parser.parseCommand(
                 RemarkCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + " prefers morning delivery");
         assertEquals(new RemarkCommand(INDEX_FIRST_PERSON, new Remark("prefers morning delivery")), command);
+    }
+
+    @Test
+    public void parseCommand_assign() throws Exception {
+        AssignCommand command = (AssignCommand) parser.parseCommand(
+                AssignCommand.COMMAND_WORD + " n/John Doe p/91234567");
+        assertEquals(new AssignCommand(new Driver(new Name("John Doe"), new Phone("91234567"))), command);
+    }
+
+    @Test
+    public void parseCommand_export() throws Exception {
+        assertTrue(parser.parseCommand(ExportCommand.COMMAND_WORD + " output.html") instanceof ExportCommand);
+    }
+
+    @Test
+    public void parseCommand_import() throws Exception {
+        assertTrue(parser.parseCommand(ImportCommand.COMMAND_WORD + " test.csv") instanceof ImportCommand);
+    }
+
+    @Test
+    public void parseCommand_filter() throws Exception {
+        FilterCommand command = (FilterCommand) parser.parseCommand(
+                FilterCommand.COMMAND_WORD + " box-1");
+        assertEquals(new FilterCommand(new PersonHasBoxPredicate(Arrays.asList("box-1"))), command);
+    }
+
+    @Test
+    public void parseCommand_mark() throws Exception {
+        MarkCommand command = (MarkCommand) parser.parseCommand(
+                MarkCommand.COMMAND_WORD + " 1 DELIVERED");
+        assertEquals(new MarkCommand(Index.fromOneBased(1), DeliveryStatus.DELIVERED), command);
     }
 
     @Test

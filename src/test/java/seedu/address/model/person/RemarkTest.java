@@ -70,4 +70,36 @@ public class RemarkTest {
         Remark second = new Remark("2 cakes");
         assertEquals(first.hashCode(), second.hashCode());
     }
+
+    @Test
+    public void constructor_singleCharacter_valid() {
+        new Remark("a"); // single alphanumeric char — should not throw
+        new Remark("1"); // single digit — should not throw
+    }
+
+    @Test
+    public void constructor_leadingSpace_throwsIllegalArgumentException() {
+        // VALIDATION_REGEX requires first char to be alnum
+        assertThrows(IllegalArgumentException.class, () -> new Remark(" cakes"));
+    }
+
+    @Test
+    public void constructor_specialChars_throwsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () -> new Remark("cakes!")); // special char at end
+        assertThrows(IllegalArgumentException.class, () -> new Remark("2-cakes")); // hyphen not allowed
+        assertThrows(IllegalArgumentException.class, () -> new Remark("cake#")); // hash not allowed
+    }
+
+    @Test
+    public void toString_returnsValue() {
+        Remark remark = new Remark("2 cakes");
+        assertEquals("2 cakes", remark.toString());
+    }
+
+    @Test
+    public void hashCode_differentValues_differentHash() {
+        Remark first = new Remark("2 cakes");
+        Remark second = new Remark("3 cakes");
+        assertFalse(first.hashCode() == second.hashCode());
+    }
 }

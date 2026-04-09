@@ -94,6 +94,30 @@ public class EditBoxCommandTest {
     }
 
     @Test
+    public void execute_bothFieldsSpecified_success() {
+        Person targetPerson = BENSON;
+
+        EditBoxDescriptor descriptor = new EditBoxDescriptor();
+        descriptor.setBoxName("box-3");
+        descriptor.setExpiryDate(new ExpiryDate("2026-12-30"));
+
+        EditBoxCommand editBoxCommand = new EditBoxCommand(
+                targetPerson.getName(), "box-1", descriptor
+        );
+
+        Box editedBox = new Box("box-3", new ExpiryDate("2026-12-30"));
+        Person editedPerson = createEditedPerson(targetPerson, "box-1", editedBox);
+
+        String expectedMessage = String.format(EditBoxCommand.MESSAGE_EDIT_BOX_SUCCESS, editedBox,
+                targetPerson.getName());
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.setPerson(targetPerson, editedPerson);
+
+        assertCommandSuccess(editBoxCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
     public void execute_duplicateBoxName_failure() {
         Person targetPerson = BENSON;
 

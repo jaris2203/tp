@@ -15,11 +15,13 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -33,7 +35,12 @@ import seedu.address.testutil.PersonBuilder;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model;
+
+    @BeforeEach
+    public void setUp() {
+        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    }
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -179,6 +186,75 @@ public class EditCommandTest {
         String expected = EditCommand.class.getCanonicalName() + "{index=" + index + ", editPersonDescriptor="
                 + editPersonDescriptor + "}";
         assertEquals(expected, editCommand.toString());
+    }
+
+    @Test
+    public void execute_addressChanged_clearsAssignedDriver() {
+        // ALICE (index 0) has driver "Kyle" assigned; changing her address should strip the driver
+        Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        assertTrue(personToEdit.hasDriver(), "Precondition: person must have a driver");
+
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder()
+                .withAddress("99 New Street Singapore 654321")
+                .build();
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
+
+        try {
+            editCommand.execute(model);
+        } catch (CommandException e) {
+            throw new AssertionError("execute() threw unexpectedly: " + e.getMessage());
+        }
+
+        Person editedPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        assertFalse(editedPerson.hasDriver(), "Driver should be cleared after address change");
+    }
+
+    @Test
+    public void execute_nonAddressFieldChanged_preservesAssignedDriver() {
+        // Changing phone (not address) should keep the existing driver
+        Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        assertTrue(personToEdit.hasDriver(), "Precondition: person must have a driver");
+
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder()
+                .withPhone("99999999")
+                .build();
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
+
+        try {
+            editCommand.execute(model);
+        } catch (CommandException e) {
+            throw new AssertionError("execute() threw unexpectedly: " + e.getMessage());
+        }
+
+        Person editedPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        assertTrue(editedPerson.hasDriver(), "Driver should be preserved when address is unchanged");
+    }
+
+    @Test
+    public void execute_nonAddressChanged_noDriver() {
+        AddressBook addressBook = new AddressBook();
+        Person personWithoutDriver = new PersonBuilder()
+                .withName("No Driver")
+                .withEmail("nodriver@example.com")
+                .build();
+        addressBook.addPerson(personWithoutDriver);
+
+        Model localModel = new ModelManager(addressBook, new UserPrefs());
+        assertFalse(personWithoutDriver.hasDriver(), "Precondition: person must not have a driver");
+
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder()
+                .withPhone("99999999")
+                .build();
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
+
+        try {
+            editCommand.execute(localModel);
+        } catch (CommandException e) {
+            throw new AssertionError("execute() threw unexpectedly: " + e.getMessage());
+        }
+
+        Person editedPerson = localModel.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        assertFalse(editedPerson.hasDriver(), "Person without a driver should remain without one");
     }
 
 }

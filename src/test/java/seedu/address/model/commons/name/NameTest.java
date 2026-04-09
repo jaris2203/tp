@@ -1,5 +1,6 @@
 package seedu.address.model.commons.name;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -39,6 +40,40 @@ public class NameTest {
     }
 
     @Test
+    public void isValidName_singleCharacter_valid() {
+        assertTrue(Name.isValidName("a")); // single alphanumeric char
+        assertTrue(Name.isValidName("Z")); // single uppercase char
+        assertTrue(Name.isValidName("1")); // single digit
+    }
+
+    @Test
+    public void isValidName_leadingSpace_invalid() {
+        assertFalse(Name.isValidName(" Alice")); // starts with space — regex requires alnum first
+        assertFalse(Name.isValidName(" 1")); // digit preceded by space
+    }
+
+    @Test
+    public void isValidName_trailingSpace_valid() {
+        assertTrue(Name.isValidName("Alice ")); // trailing space allowed by regex
+    }
+
+    @Test
+    public void equals_caseInsensitive_returnsTrue() {
+        Name lower = new Name("alice");
+        Name upper = new Name("ALICE");
+        Name mixed = new Name("Alice");
+        // Name.equals uses equalsIgnoreCase
+        assertTrue(lower.equals(upper));
+        assertTrue(lower.equals(mixed));
+        assertTrue(upper.equals(mixed));
+    }
+
+    @Test
+    public void equals_differentNames_returnsFalse() {
+        assertFalse(new Name("Alice").equals(new Name("Bob")));
+    }
+
+    @Test
     public void equals() {
         Name name = new Name("Valid Name");
 
@@ -56,5 +91,18 @@ public class NameTest {
 
         // different values -> returns false
         assertFalse(name.equals(new Name("Other Valid Name")));
+    }
+
+    @Test
+    public void hashCode_sameValue_sameHash() {
+        Name n1 = new Name("Alice");
+        Name n2 = new Name("Alice");
+        assertEquals(n1.hashCode(), n2.hashCode());
+    }
+
+    @Test
+    public void toString_returnsFullName() {
+        Name name = new Name("Alice Tan");
+        assertEquals("Alice Tan", name.toString());
     }
 }

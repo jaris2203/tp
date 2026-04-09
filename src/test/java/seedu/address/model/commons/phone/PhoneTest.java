@@ -1,5 +1,6 @@
 package seedu.address.model.commons.phone;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -36,6 +37,38 @@ public class PhoneTest {
         assertTrue(Phone.isValidPhone("911")); // exactly 3 numbers
         assertTrue(Phone.isValidPhone("93121534"));
         assertTrue(Phone.isValidPhone("124293842033123")); // long phone numbers
+    }
+
+    @Test
+    public void isValidPhone_threeDigits_valid() {
+        assertTrue(Phone.isValidPhone("100")); // exactly 3 digits, starts with 1
+        assertTrue(Phone.isValidPhone("999")); // exactly 3 digits, starts with 9
+    }
+
+    @Test
+    public void isValidPhone_twoDigits_invalid() {
+        assertFalse(Phone.isValidPhone("12")); // only 2 digits — below minimum
+        assertFalse(Phone.isValidPhone("99")); // only 2 digits
+    }
+
+    @Test
+    public void isValidPhone_startsWithZero_invalid() {
+        // VALIDATION_REGEX = "[1-9]\d{2,}" — must start with 1-9
+        assertFalse(Phone.isValidPhone("099")); // starts with 0
+        assertFalse(Phone.isValidPhone("012")); // starts with 0
+    }
+
+    @Test
+    public void hashCode_sameValue_sameHash() {
+        Phone p1 = new Phone("999");
+        Phone p2 = new Phone("999");
+        assertEquals(p1.hashCode(), p2.hashCode());
+    }
+
+    @Test
+    public void toString_returnsValue() {
+        Phone phone = new Phone("91234567");
+        assertEquals("91234567", phone.toString());
     }
 
     @Test
