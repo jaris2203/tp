@@ -180,7 +180,7 @@ public class CommandAssistant {
 
     private static String suggestForEdit(String arguments) {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(arguments, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
-                PREFIX_ADDRESS, PREFIX_REMARKS, PREFIX_EXPIRY_DATE, PREFIX_TAG);
+                PREFIX_ADDRESS, PREFIX_REMARKS, PREFIX_TAG);
 
         StringBuilder suggestion = new StringBuilder();
         if (argMultimap.getPreamble().isEmpty()) {
@@ -191,7 +191,6 @@ public class CommandAssistant {
         appendMissingPrefix(suggestion, argMultimap, PREFIX_EMAIL, " [e/EMAIL]");
         appendMissingPrefix(suggestion, argMultimap, PREFIX_ADDRESS, " [a/ADDRESS]");
         appendMissingPrefix(suggestion, argMultimap, PREFIX_REMARKS, " [r/REMARKS]");
-        appendMissingPrefix(suggestion, argMultimap, PREFIX_EXPIRY_DATE, " [ex/EXPIRY_DATE]");
         suggestion.append(" [t/TAG]...");
         return suggestion.toString();
     }
