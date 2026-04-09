@@ -13,8 +13,10 @@ import java.util.stream.Collectors;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.util.ClearDriversUtil;
 import seedu.address.model.Model;
 import seedu.address.model.commons.name.Name;
+import seedu.address.model.delivery.DeliveryAssignmentHashMap;
 import seedu.address.model.person.Box;
 import seedu.address.model.person.Person;
 
@@ -82,6 +84,7 @@ public class DeleteBoxCommand extends Command {
         // if person has no more boxes upon deletion, the person gets deleted as well
         if (updatedBoxes.isEmpty()) {
             model.deletePerson(personToEdit);
+            ClearDriversUtil.clearDriverAssignments(model);
             model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
             return new CommandResult(String.format(MESSAGE_DELETE_BOXES_AND_PERSON_SUCCESS, targetBoxNames,
                     personToEdit.getName()));

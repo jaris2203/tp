@@ -3,26 +3,16 @@ package seedu.address.logic.commands;
 import static java.util.Objects.isNull;
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.util.ClearDriversUtil;
 import seedu.address.model.Model;
-import seedu.address.model.commons.name.Name;
-import seedu.address.model.commons.phone.Phone;
 import seedu.address.model.delivery.DeliveryAssignmentHashMap;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Box;
-import seedu.address.model.person.DeliveryStatus;
-import seedu.address.model.person.Email;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Remark;
-import seedu.address.model.tag.Tag;
 
 /**
  * Deletes a person identified using the displayed index from the address book.
@@ -59,7 +49,7 @@ public class DeleteCommand extends Command {
             }
 
             Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
-            clearDriverAssignments(model);
+            ClearDriversUtil.clearDriverAssignments(model);
             model.deletePerson(personToDelete);
             DeliveryAssignmentHashMap.clearAssignments();
 
@@ -69,41 +59,6 @@ public class DeleteCommand extends Command {
             // Code path should not end here, but it is just a safeguard
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
-    }
-
-    /**
-     * Clears all Driver assignments foe every subscriber in existing address book
-     * @param model
-     */
-    private void clearDriverAssignments(Model model) {
-        requireNonNull(model);
-        List<Person> persons = new ArrayList<>(model.getAddressBook().getPersonList());
-        for (Person oldPerson : persons) {
-            Person updatedPerson = createPersonWithoutDriver(oldPerson);
-            model.setPerson(oldPerson, updatedPerson);
-        }
-    }
-
-    /**
-     * Creates a copy of the input Person without an assigned Driver
-     * @param personToCopy
-     * @return Person without {@code Driver} assigned
-     */
-    private Person createPersonWithoutDriver(Person personToCopy) {
-        Name nameCopy = personToCopy.getName();
-        Phone phoneCopy = personToCopy.getPhone();
-        Email emailCopy = personToCopy.getEmail();
-        Address addressCopy = personToCopy.getAddress();
-        DeliveryStatus statusCopy = personToCopy.getDeliveryStatus();
-        Set<Box> boxesCopy = personToCopy.getBoxes();
-        Remark remarkCopy = personToCopy.getRemark();
-        Set<Tag> tagsCopy = new HashSet<>(personToCopy.getTags()); // have modifiable tags
-
-        // Create new instance with Driver
-        Person assignedPerson = new Person(nameCopy, phoneCopy, emailCopy, addressCopy,
-                boxesCopy, remarkCopy, statusCopy, tagsCopy);
-
-        return assignedPerson;
     }
 
     @Override
