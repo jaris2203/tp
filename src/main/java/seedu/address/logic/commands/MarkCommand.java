@@ -31,7 +31,8 @@ public class MarkCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sets the delivery status of the person "
             + "identified by the index number used in the "
             + "displayed person list.\n"
-            + "Parameters: INDEX, STATUS (STATUS must be one of the following: 'Pending', 'Packed', 'Delivered')\n"
+            + "Parameters: INDEX (must be a positive integer), STATUS (must be one of the following: 'Pending', "
+            + "'Packed', 'Delivered')\n"
             + "Example: " + COMMAND_WORD + " 1 Packed";
 
     public static final String MESSAGE_MARK_PENDING = "Subscription has not been fulfilled for:";

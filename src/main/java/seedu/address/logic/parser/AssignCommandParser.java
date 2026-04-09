@@ -22,48 +22,74 @@ public class AssignCommandParser implements Parser<AssignCommand> {
 
     private static final String DRIVER_NAME_REGEX = "n/[^/]+";
     private static final String DRIVER_PHONE_REGEX = "p/\\S+";
-    private static final String ASSIGN_ARGS_REGEX =
-            "\\s*" + DRIVER_NAME_REGEX + "\\s+" + DRIVER_PHONE_REGEX
-                    + "(\\s+" + DRIVER_NAME_REGEX + "\\s+" + DRIVER_PHONE_REGEX + ")*\\s*";
+    private static final String ASSIGN_ARGS_REGEX = "\\s*" + DRIVER_NAME_REGEX + "\\s+" + DRIVER_PHONE_REGEX
+            + "(\\s+" + DRIVER_NAME_REGEX + "\\s+" + DRIVER_PHONE_REGEX + ")*\\s*";
 
     /**
      * Parses the given {@code String} of arguments in the context of the AssignCommand
      * and returns an AssignCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
+    @Override
     public AssignCommand parse(String args) throws ParseException {
+        validateRawArguments(args);
 
+        ArgumentMultimap argMultimap = tokenize(args);
+        validateTokenizedArguments(argMultimap);
+
+        List<Driver> drivers = parseDrivers(argMultimap);
+        return buildAssignCommand(drivers);
+    }
+
+    private void validateRawArguments(String args) throws ParseException {
         String trimmedArgs = args.trim();
 
         if (trimmedArgs.isEmpty() || !trimmedArgs.matches(ASSIGN_ARGS_REGEX)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AssignCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(
+                    MESSAGE_INVALID_COMMAND_FORMAT, AssignCommand.MESSAGE_USAGE));
         }
+    }
 
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE);
+    private ArgumentMultimap tokenize(String args) {
+        return ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE);
+    }
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE)
-                || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AssignCommand.MESSAGE_USAGE));
+    private void validateTokenizedArguments(ArgumentMultimap argMultimap) throws ParseException {
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE) || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(
+                    MESSAGE_INVALID_COMMAND_FORMAT, AssignCommand.MESSAGE_USAGE));
         }
 
         List<String> names = argMultimap.getAllValues(PREFIX_NAME);
         List<String> phones = argMultimap.getAllValues(PREFIX_PHONE);
 
         if (names.size() != phones.size()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AssignCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(
+                    MESSAGE_INVALID_COMMAND_FORMAT, AssignCommand.MESSAGE_USAGE));
         }
+    }
+
+    private List<Driver> parseDrivers(ArgumentMultimap argMultimap) throws ParseException {
+        List<String> names = argMultimap.getAllValues(PREFIX_NAME);
+        List<String> phones = argMultimap.getAllValues(PREFIX_PHONE);
+
+        assert names.size() == phones.size() : "Names and phones should be paired after validation";
 
         List<Driver> drivers = new ArrayList<>();
-
         for (int i = 0; i < names.size(); i++) {
-            Name name = ParserUtil.parseName(names.get(i));
-            Phone phone = ParserUtil.parsePhone(phones.get(i));
-
-            Driver driver = new Driver(name, phone);
-            drivers.add(driver);
+            drivers.add(parseDriver(names.get(i), phones.get(i)));
         }
 
+        return drivers;
+    }
+
+    private Driver parseDriver(String nameValue, String phoneValue) throws ParseException {
+        Name name = ParserUtil.parseName(nameValue);
+        Phone phone = ParserUtil.parsePhone(phoneValue);
+        return new Driver(name, phone);
+    }
+
+    private AssignCommand buildAssignCommand(List<Driver> drivers) throws ParseException {
         try {
             return new AssignCommand(drivers.toArray(new Driver[0]));
         } catch (CommandException e) {

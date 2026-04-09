@@ -19,7 +19,7 @@ import seedu.address.model.person.Remark;
 import seedu.address.model.tag.Tag;
 
 /**
- * Utility class to clear all drivers assigned
+ * Utility class to clear all drivers assigned in address book
  */
 public class ClearDriversUtil {
 

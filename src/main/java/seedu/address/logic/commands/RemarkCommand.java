@@ -22,7 +22,7 @@ public class RemarkCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Updates the remark of the person identified by "
             + "the index number used in the displayed person list.\n"
-            + "Parameters: INDEX REMARK\n"
+            + "Parameters: INDEX (must be a positive integer), REMARK\n"
             + "Example: " + COMMAND_WORD + " 1 prefers morning delivery";
 
     public static final String MESSAGE_REMARK_PERSON_SUCCESS = "Updated remark for Person: %1$s";

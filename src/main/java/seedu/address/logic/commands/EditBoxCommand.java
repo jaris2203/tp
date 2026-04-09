@@ -44,7 +44,7 @@ public class EditBoxCommand extends Command {
             + PREFIX_NAME + "NAME "
             + PREFIX_BOX + "OLD_BOX_NAME "
             + "[" + PREFIX_NEW_BOX + "NEW_BOX_NAME] "
-            + "[" + PREFIX_EXPIRY_DATE + "NUMBER_OF_MONTHS]\n"
+            + "[" + PREFIX_EXPIRY_DATE + "MONTHS_SUBSCRIBED]\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_BOX + "box-1 "

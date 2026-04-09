@@ -74,17 +74,32 @@ public class AssignCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         int numOfDrivers = drivers.length;
-        List<List<Person>> sortedSubscribers = ClusterAssigner.groupIntoClusters(
-                    model.getAddressBook().getPersonList(),
-                    numOfDrivers);
+        List<List<Person>> sortedSubscribers = sortAllSubscribers(model, numOfDrivers);
 
+        if (sortedSubscribers.size() != drivers.length) {
+            throw new CommandException(MESSAGE_FAIL); // Safeguard for when Algorithm is wrong
+        }
+
+        assignDriversToPartitions(model, sortedSubscribers);
+
+        // Determine if there are drivers not utilised
         int numOfExcessDrivers = numOfDrivers - model.getAddressBook().getPersonList().size();
         boolean hasExcessDrivers = numOfExcessDrivers > 0;
 
-        if (sortedSubscribers.size() != drivers.length) {
-            // End here is algorithm is wrong (mapped to wrong no. of drivers)
-            return new CommandResult(MESSAGE_FAIL);
-        }
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        return new CommandResult(hasExcessDrivers
+                ? MESSAGE_SUCCESS + "\n" + String.format("Note: %d Driver(s) not utilised!", numOfExcessDrivers)
+                : MESSAGE_SUCCESS);
+
+    }
+
+    private List<List<Person>> sortAllSubscribers(Model model, int numOfDrivers) {
+        requireNonNull(model);
+        return ClusterAssigner.groupIntoClusters(model.getAddressBook().getPersonList(), numOfDrivers);
+    }
+
+    private void assignDriversToPartitions(Model model, List<List<Person>> sortedSubscribers) {
+        requireNonNull(model);
         for (int i = 0; i < sortedSubscribers.size(); i++) {
             Driver assignedDriver = drivers[i];
             for (Person personInSameCluster : sortedSubscribers.get(i)) {
@@ -92,12 +107,6 @@ public class AssignCommand extends Command {
                 model.setPerson(personInSameCluster, assignedPerson);
             }
         }
-
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(hasExcessDrivers
-                ? MESSAGE_SUCCESS + "\n" + String.format("Note: %d Driver(s) not utilised!", numOfExcessDrivers)
-                : MESSAGE_SUCCESS);
-
     }
 
     /**

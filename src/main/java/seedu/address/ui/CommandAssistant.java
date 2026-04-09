@@ -125,21 +125,18 @@ public class CommandAssistant {
         appendMissingPrefix(suggestion, argMultimap, PREFIX_PHONE, " p/PHONE");
         appendMissingPrefix(suggestion, argMultimap, PREFIX_EMAIL, " e/EMAIL");
         appendMissingPrefix(suggestion, argMultimap, PREFIX_ADDRESS, " a/ADDRESS");
-        appendMissingPrefix(suggestion, argMultimap, PREFIX_BOX, " b/BOX_NAME:EXPIRY_DATE");
-        appendMissingPrefix(suggestion, argMultimap, PREFIX_REMARKS, " [r/REMARKS]");
+        appendMissingPrefix(suggestion, argMultimap, PREFIX_BOX, " b/BOX_NAME:MONTHS_SUBSCRIBED");
+        appendMissingPrefix(suggestion, argMultimap, PREFIX_REMARKS, " [r/REMARK]");
         suggestion.append(" [t/TAG]...");
         return suggestion.toString();
     }
 
     private static String suggestForAddBox(String arguments) {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(arguments, PREFIX_NAME, PREFIX_BOX);
-
         StringBuilder suggestion = new StringBuilder();
         appendMissingPrefix(suggestion, argMultimap, PREFIX_NAME, " n/NAME");
-        appendMissingPrefix(suggestion, argMultimap, PREFIX_BOX, " b/BOX_NAME:EXPIRY_DATE");
-        if (hasPrefix(argMultimap, PREFIX_BOX)) {
-            suggestion.append(" [b/BOX_NAME:EXPIRY_DATE]...");
-        }
+        appendMissingPrefix(suggestion, argMultimap, PREFIX_BOX, " b/BOX_NAME:MONTHS_SUBSCRIBED");
+        suggestion.append(" [b/BOX_NAME:MONTHS_SUBSCRIBED]...");
         return suggestion.toString();
     }
 
@@ -168,13 +165,10 @@ public class CommandAssistant {
 
     private static String suggestForDeleteBox(String arguments) {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(arguments, PREFIX_NAME, PREFIX_BOX);
-
         StringBuilder suggestion = new StringBuilder();
         appendMissingPrefix(suggestion, argMultimap, PREFIX_NAME, " n/NAME");
         appendMissingPrefix(suggestion, argMultimap, PREFIX_BOX, " b/BOX_NAME");
-        if (hasPrefix(argMultimap, PREFIX_BOX)) {
-            suggestion.append(" [b/BOX_NAME]...");
-        }
+        suggestion.append(" [b/BOX_NAME]...");
         return suggestion.toString();
     }
 
@@ -190,7 +184,7 @@ public class CommandAssistant {
         appendMissingPrefix(suggestion, argMultimap, PREFIX_PHONE, " [p/PHONE]");
         appendMissingPrefix(suggestion, argMultimap, PREFIX_EMAIL, " [e/EMAIL]");
         appendMissingPrefix(suggestion, argMultimap, PREFIX_ADDRESS, " [a/ADDRESS]");
-        appendMissingPrefix(suggestion, argMultimap, PREFIX_REMARKS, " [r/REMARKS]");
+        appendMissingPrefix(suggestion, argMultimap, PREFIX_REMARKS, " [r/REMARK]");
         suggestion.append(" [t/TAG]...");
         return suggestion.toString();
     }
@@ -203,7 +197,7 @@ public class CommandAssistant {
         appendMissingPrefix(suggestion, argMultimap, PREFIX_NAME, " n/NAME");
         appendMissingPrefix(suggestion, argMultimap, PREFIX_BOX, " b/OLD_BOX_NAME");
         appendMissingPrefix(suggestion, argMultimap, PREFIX_NEW_BOX, " [nb/NEW_BOX_NAME]");
-        appendMissingPrefix(suggestion, argMultimap, PREFIX_EXPIRY_DATE, " [ex/EXPIRY_DATE]");
+        appendMissingPrefix(suggestion, argMultimap, PREFIX_EXPIRY_DATE, " [ex/MONTHS_SUBSCRIBED]");
         return suggestion.toString();
     }
 
