@@ -162,8 +162,7 @@ public class Person {
         }
 
         return otherPerson != null
-                && (otherPerson.getName().equals(getName())
-                || otherPerson.getEmail().equals(getEmail())); // If same name OR same email => same person
+                && otherPerson.getName().equals(getName()); // If same name  => same person
     }
 
     public boolean hasDriver() {
