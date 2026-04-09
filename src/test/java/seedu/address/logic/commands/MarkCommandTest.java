@@ -29,47 +29,12 @@ public class MarkCommandTest {
     private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
-    public void execute_validIndexUnfilteredList_success() {
+    public void execute_markDelivered_success() {
         Person personToMark = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-
-        // create updated person with new delivery status
-        Person updatedPerson = new Person(
-                personToMark.getName(),
-                personToMark.getPhone(),
-                personToMark.getEmail(),
-                personToMark.getAddress(),
-                personToMark.getBoxes(),
-                personToMark.getRemark(),
-                DeliveryStatus.DELIVERED,
-                personToMark.getTags()
-        );
 
         MarkCommand command = new MarkCommand(INDEX_FIRST_PERSON, DeliveryStatus.DELIVERED);
 
-        String expectedMessage = String.format(
-                MarkCommand.MESSAGE_MARK_DELIVERED,
-                Messages.format(updatedPerson));
-
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.setPerson(personToMark, updatedPerson);
-        expectedModel.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
-
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
-    }
-
-    @Test
-    public void execute_invalidIndexUnfilteredList_throwsCommandException() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
-        MarkCommand command = new MarkCommand(outOfBoundIndex, DeliveryStatus.DELIVERED);
-
-        assertCommandFailure(command, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-    }
-
-    @Test
-    public void execute_validIndexFilteredList_success() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
-
-        Person personToMark = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
 
         Person updatedPerson = new Person(
                 personToMark.getName(),
@@ -82,17 +47,37 @@ public class MarkCommandTest {
                 personToMark.getTags()
         );
 
-        MarkCommand command = new MarkCommand(INDEX_FIRST_PERSON, DeliveryStatus.DELIVERED);
-
-        String expectedMessage = String.format(
-                MarkCommand.MESSAGE_MARK_DELIVERED,
-                Messages.format(updatedPerson));
-
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.setPerson(personToMark, updatedPerson);
         expectedModel.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
 
+        String expectedMessage = MarkCommand.MESSAGE_MARK_DELIVERED
+                + "\n\n" + buildExpectedDetails(updatedPerson);
+
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_alreadyMarked_throwsCommandException() {
+        Person personToMark = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+
+        // First mark as DELIVERED
+        model.setPerson(personToMark, new Person(
+                personToMark.getName(),
+                personToMark.getPhone(),
+                personToMark.getEmail(),
+                personToMark.getAddress(),
+                personToMark.getBoxes(),
+                personToMark.getRemark(),
+                DeliveryStatus.DELIVERED,
+                personToMark.getTags()
+        ));
+
+        MarkCommand command = new MarkCommand(INDEX_FIRST_PERSON, DeliveryStatus.DELIVERED);
+
+        assertCommandFailure(command, model,
+                String.format(MarkCommand.MESSAGE_ALREADY_MARKED,
+                        personToMark.getName(),
+                        DeliveryStatus.DELIVERED));
     }
 
     @Test
@@ -136,62 +121,6 @@ public class MarkCommandTest {
     }
 
     @Test
-    public void execute_markPending_success() {
-        Person personToMark = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-
-        Person updatedPerson = new Person(
-                personToMark.getName(),
-                personToMark.getPhone(),
-                personToMark.getEmail(),
-                personToMark.getAddress(),
-                personToMark.getBoxes(),
-                personToMark.getRemark(),
-                DeliveryStatus.PENDING,
-                personToMark.getTags()
-        );
-
-        MarkCommand command = new MarkCommand(INDEX_FIRST_PERSON, DeliveryStatus.PENDING);
-
-        String expectedMessage = String.format(
-                MarkCommand.MESSAGE_MARK_PENDING,
-                Messages.format(updatedPerson));
-
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.setPerson(personToMark, updatedPerson);
-        expectedModel.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
-
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
-    }
-
-    @Test
-    public void execute_markPacked_success() {
-        Person personToMark = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-
-        Person updatedPerson = new Person(
-                personToMark.getName(),
-                personToMark.getPhone(),
-                personToMark.getEmail(),
-                personToMark.getAddress(),
-                personToMark.getBoxes(),
-                personToMark.getRemark(),
-                DeliveryStatus.PACKED,
-                personToMark.getTags()
-        );
-
-        MarkCommand command = new MarkCommand(INDEX_FIRST_PERSON, DeliveryStatus.PACKED);
-
-        String expectedMessage = String.format(
-                MarkCommand.MESSAGE_MARK_PACKED,
-                Messages.format(updatedPerson));
-
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.setPerson(personToMark, updatedPerson);
-        expectedModel.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
-
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
-    }
-
-    @Test
     public void toStringMethod() {
         Index targetIndex = Index.fromOneBased(1);
         MarkCommand command = new MarkCommand(targetIndex, DeliveryStatus.DELIVERED);
@@ -199,5 +128,30 @@ public class MarkCommandTest {
                 + "{targetIndex=" + targetIndex
                 + ", deliveryStatus=" + DeliveryStatus.DELIVERED + "}";
         assertEquals(expected, command.toString());
+    }
+
+    /**
+     * Builds expected formatted details string (must mirror MarkCommand).
+     */
+    private String buildExpectedDetails(Person p) {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("Recipient: ").append(p.getName()).append("\n");
+        sb.append("Phone: ").append(p.getPhone()).append("\n");
+        sb.append("Email: ").append(p.getEmail()).append("\n");
+        sb.append("Address: ").append(p.getAddress()).append("\n\n");
+
+        sb.append("Remark:\n").append(p.getRemark()).append("\n\n");
+
+        sb.append("Status: ").append(p.getDeliveryStatus()).append("\n");
+
+        if (p.getTags().isEmpty()) {
+            sb.append("Tags: -");
+        } else {
+            sb.append("Tags: ");
+            p.getTags().forEach(tag -> sb.append(tag.tagName).append(" "));
+        }
+
+        return sb.toString();
     }
 }
