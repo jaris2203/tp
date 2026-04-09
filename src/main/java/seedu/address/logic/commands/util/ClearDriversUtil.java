@@ -1,5 +1,12 @@
 package seedu.address.logic.commands.util;
 
+import static java.util.Objects.requireNonNull;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import seedu.address.model.Model;
 import seedu.address.model.commons.name.Name;
 import seedu.address.model.commons.phone.Phone;
@@ -11,19 +18,12 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Remark;
 import seedu.address.model.tag.Tag;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import static java.util.Objects.requireNonNull;
-
 /**
  * Utility class to clear all drivers assigned
  */
 public class ClearDriversUtil {
 
-    private ClearDriversUtil(){}
+    private ClearDriversUtil() {}
 
     /**
      * Clears all Driver assignments foe every subscriber in existing address book

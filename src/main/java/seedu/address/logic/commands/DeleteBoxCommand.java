@@ -16,7 +16,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.util.ClearDriversUtil;
 import seedu.address.model.Model;
 import seedu.address.model.commons.name.Name;
-import seedu.address.model.delivery.DeliveryAssignmentHashMap;
 import seedu.address.model.person.Box;
 import seedu.address.model.person.Person;
 
