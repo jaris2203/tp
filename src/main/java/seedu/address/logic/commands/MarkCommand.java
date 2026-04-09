@@ -108,7 +108,10 @@ public class MarkCommand extends Command {
         Set<Box> boxesCopy = personToMark.getBoxes();
         Remark remarkCopy = personToMark.getRemark();
         Set<Tag> tagsCopy = personToMark.getTags();
-
+        if (personToMark.hasDriver()) {
+            return new Person(nameCopy, phoneCopy, emailCopy, addressCopy, boxesCopy,
+                    remarkCopy, newDeliveryStatus, tagsCopy, personToMark.getAssignedDriver());
+        }
         return new Person(nameCopy, phoneCopy, emailCopy, addressCopy,
                 boxesCopy, remarkCopy, newDeliveryStatus, tagsCopy);
     }

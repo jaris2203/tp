@@ -363,18 +363,16 @@ Run [`list`](#listing-all-subscribers--list) to return to the full subscriber vi
 
 Permanently removes a subscriber from Client2Door.
 
-Format: `delete INDEX` OR `delete EMAIL`
+Format: `delete INDEX` 
 
-* Identifies the subscriber by their list index or their email address.
+* Identifies the subscriber by their list index.
 * The `INDEX` **must be a positive integer** (1, 2, 3, …).
-* The email must exactly match an existing subscriber's email.
 
 > **Warning:** Deletion is permanent and cannot be undone. Use [`find`](#finding-subscribers--find) to confirm you have the right subscriber before deleting. Consider running [`export`](#exporting-driver-delivery-assignments--export) before bulk deletions to save a copy of your data.
 
 Examples:
 * `list` then `delete 2` — deletes the 2nd subscriber in the full list.
 * `find Sarah` then `delete 1` — deletes the first result from the search.
-* `delete sarah@email.com` — deletes the subscriber with that email directly.
 
 **Expected output:** The subscriber is removed from the list. The output panel confirms the deletion.
 
@@ -614,24 +612,24 @@ A: All previous driver assignments for every subscriber are replaced. The `assig
 
 ## Command summary
 
-| Action | Format                                                                                 | Example                                                                     |
-|--------|----------------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| Action | Format                                                                                | Example                                        |
+|--------|---------------------------------------------------------------------------------------|------------------------------------------------|
 | **Add** | `add n/NAME p/PHONE e/EMAIL a/ADDRESS b/BOX_NAME:NUMBER_OF_MONTHS [o/REMARK] [t/TAG]…` | `add n/Sarah Tan p/91234567 e/sarah@email.com a/Blk 10 AMK Ave 4 b/box-1:2` |
-| **Edit** | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [o/REMARK] [t/TAG]…`              | `edit 2 p/98887777 o/prefers afternoon delivery`                            |
-| **Delete** | `delete INDEX` or `delete EMAIL`                                                       | `delete 3` or `delete sarah@email.com`                                      |
-| **Find** | `find KEYWORD [MORE_KEYWORDS]`                                                         | `find Sarah Wei`                                                            |
-| **List** | `list`                                                                                 | `list`                                                                      |
-| **Mark** | `mark INDEX STATUS`                                                                    | `mark 1 delivered`                                                          |
-| **Filter** | `filter BOX_NAME` or `filter d/DRIVER_NAME`                                            | `filter box-1` or `filter d/David Lim`                                      |
-| **Remark** | `remark INDEX REMARK`                                                                  | `remark 2 leave at door`                                                    |
-| **Add Box** | `addbox n/NAME b/BOX_NAME:NUMBER_OF_MONTHS [b/BOX_NAME:NUMBER_OF_MONTHS]…`             | `addbox n/Sarah Tan b/box-3:4`                                              |
-| **Edit Box** | `editbox n/NAME b/BOX_NAME [nb/NEW_NAME] [ex/NUMBER_OF_MONTHS]`                        | `editbox n/Sarah Tan b/box-1 nb/box-2 ex/3`                                 |
-| **Delete Box** | `deletebox n/NAME b/BOX_NAME [b/BOX_NAME]…`                                            | `deletebox n/Sarah Tan b/box-1`                                             |
-| **Assign** | `assign n/NAME p/PHONE [n/NAME p/PHONE]…`                                              | `assign n/David Lim p/91234567 n/Priya Nair p/98765432`                     |
-| **Export** | `export [FILE_PATH]`                                                                   | `export data/march-delivery.html`                                           |
-| **Clear** | `clear`                                                                                | `clear`                                                                     |
-| **Help** | `help`                                                                                 | `help`                                                                      |
-| **Exit** | `exit`                                                                                 | `exit`                                                                      |
+| **Edit** | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [o/REMARK] [t/TAG]…`             | `edit 2 p/98887777 o/prefers afternoon delivery` |
+| **Delete** | `delete INDEX`                                                                         | `delete 3`                                     |
+| **Find** | `find KEYWORD [MORE_KEYWORDS]`                                                        | `find Sarah Wei`                               |
+| **List** | `list`                                                                                | `list`                                         |
+| **Mark** | `mark INDEX STATUS`                                                                   | `mark 1 delivered`                             |
+| **Filter** | `filter BOX_NAME` or `filter d/DRIVER_NAME`                                           | `filter box-1` or `filter d/David Lim`         |
+| **Remark** | `remark INDEX REMARK`                                                                 | `remark 2 leave at door`                       |
+| **Add Box** | `addbox n/NAME b/BOX_NAME:NUMBER_OF_MONTHS [b/BOX_NAME:NUMBER_OF_MONTHS]…`            | `addbox n/Sarah Tan b/box-3:4`                 |
+| **Edit Box** | `editbox n/NAME b/BOX_NAME [nb/NEW_NAME] [ex/NUMBER_OF_MONTHS]`                       | `editbox n/Sarah Tan b/box-1 nb/box-2 ex/3`    |
+| **Delete Box** | `deletebox n/NAME b/BOX_NAME [b/BOX_NAME]…`                                           | `deletebox n/Sarah Tan b/box-1`                |
+| **Assign** | `assign n/NAME p/PHONE [n/NAME p/PHONE]…`                                             | `assign n/David Lim p/91234567 n/Priya Nair p/98765432` |
+| **Export** | `export [FILE_PATH]`                                                                  | `export data/march-delivery.html`              |
+| **Clear** | `clear`                                                                               | `clear`                                        |
+| **Help** | `help`                                                                                | `help`                                         |
+| **Exit** | `exit`                                                                                | `exit`                                         |
 
 ---
 
