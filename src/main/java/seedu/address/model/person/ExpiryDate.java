@@ -28,7 +28,6 @@ public class ExpiryDate {
             STANDARD_FORMAT
     );
 
-
     public final String value;
 
     /**
@@ -78,7 +77,7 @@ public class ExpiryDate {
                 String reformatted = date.format(formatter);
 
                 // this block prevents the above comment from being accepted.
-                if (trimmed.equals(reformatted) && date.isAfter(LocalDate.now())) {
+                if (trimmed.equals(reformatted)) {
                     return true;
                 }
             } catch (DateTimeParseException e) {

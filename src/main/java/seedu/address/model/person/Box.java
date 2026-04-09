@@ -3,6 +3,9 @@ package seedu.address.model.person;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
 /**
@@ -42,6 +45,21 @@ public class Box implements Comparable<Box> {
 
     public ExpiryDate getExpiryDate() {
         return expiryDate;
+    }
+
+    /**
+     * Returns true if the expiry date of the {@code Box} instance has passed.
+     */
+    public boolean isExpired() {
+        for (DateTimeFormatter formatter : ExpiryDate.FORMATS) {
+            try {
+                LocalDate date = LocalDate.parse(expiryDate.value, formatter);
+                return date.isBefore(LocalDate.now());
+            } catch (DateTimeParseException e) {
+                // do nothing, iterate to next format.
+            }
+        }
+        return false;
     }
 
     @Override
