@@ -61,7 +61,7 @@ public class CommandAssistantTest {
 
     @Test
     public void getSuggestion_deleteCommand_showsAcceptedTargets() {
-        assertEquals(" INDEX|EMAIL", commandAssistant.getSuggestion("delete"));
+        assertEquals(" INDEX", commandAssistant.getSuggestion("delete"));
     }
 
     @Test

@@ -163,7 +163,7 @@ public class CommandAssistant {
     }
 
     private static String suggestForDelete(String arguments) {
-        return arguments.trim().isEmpty() ? " INDEX|EMAIL" : "";
+        return arguments.trim().isEmpty() ? " INDEX" : "";
     }
 
     private static String suggestForDeleteBox(String arguments) {
