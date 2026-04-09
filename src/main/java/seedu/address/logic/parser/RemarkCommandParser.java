@@ -1,8 +1,8 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARKS;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.commons.core.index.Index;
@@ -24,18 +24,21 @@ public class RemarkCommandParser implements Parser<RemarkCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public RemarkCommand parse(String args) throws ParseException {
-        final Matcher matcher = REMARK_ARGS_FORMAT.matcher(args.trim());
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_REMARKS);
 
-        if (!matcher.matches()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemarkCommand.MESSAGE_USAGE));
-        }
-
+        Index index;
         try {
-            Index index = ParserUtil.parseIndex(matcher.group("index"));
-            Remark remark = ParserUtil.parseRemark(matcher.group("remark").trim());
-            return new RemarkCommand(index, remark);
+            index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemarkCommand.MESSAGE_USAGE), pe);
         }
+
+        if (!argMultimap.getValue(PREFIX_REMARKS).isPresent()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemarkCommand.MESSAGE_USAGE));
+        }
+
+        String remarkText = argMultimap.getValue(PREFIX_REMARKS).get().trim();
+        Remark remark = remarkText.isEmpty() ? new Remark() : new Remark(remarkText);
+        return new RemarkCommand(index, remark);
     }
 }

@@ -141,7 +141,7 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_remark() throws Exception {
         RemarkCommand command = (RemarkCommand) parser.parseCommand(
-                RemarkCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + " prefers morning delivery");
+                RemarkCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + " r/prefers morning delivery");
         assertEquals(new RemarkCommand(INDEX_FIRST_PERSON, new Remark("prefers morning delivery")), command);
     }
 

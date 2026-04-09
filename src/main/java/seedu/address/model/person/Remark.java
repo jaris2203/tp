@@ -12,7 +12,7 @@ public class Remark {
     public static final int MAX_LENGTH = 40;
 
     public static final String MESSAGE_INVALID_CHARACTERS =
-            "Remarks should only contain alphanumeric characters and spaces, and should not be blank";
+            "Remarks should only contain alphanumeric characters and spaces";
     public static final String MESSAGE_TOO_LONG =
             "Remarks must be at most " + MAX_LENGTH + " characters long";
 
@@ -45,6 +45,13 @@ public class Remark {
         }
 
         this.value = description;
+    }
+
+    /**
+     * Constructs a default {@code Remark} with no description (used for reset).
+     */
+    public Remark() {
+        this.value = DEFAULT_REMARK;
     }
 
     @Override

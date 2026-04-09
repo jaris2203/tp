@@ -19,14 +19,28 @@ public class RemarkCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsRemarkCommand() {
-        assertParseSuccess(parser, "1 prefers morning delivery",
+        assertParseSuccess(parser, "1 r/prefers morning delivery",
                 new RemarkCommand(INDEX_FIRST_PERSON, new Remark("prefers morning delivery")));
     }
 
     @Test
     public void parse_validArgsWithWhitespace_returnsRemarkCommand() {
-        assertParseSuccess(parser, "   1    prefers morning delivery   ",
+        assertParseSuccess(parser, "   1    r/prefers morning delivery   ",
                 new RemarkCommand(INDEX_FIRST_PERSON, new Remark("prefers morning delivery")));
+    }
+
+    @Test
+    public void parse_blankRemark_returnsRemarkCommandWithDefault() {
+        // r/ with no value resets the remark
+        assertParseSuccess(parser, "1 r/",
+                new RemarkCommand(INDEX_FIRST_PERSON, new Remark()));
+    }
+
+    @Test
+    public void parse_missingPrefix_throwsParseException() {
+        // No r/ prefix at all
+        assertParseFailure(parser, "1 prefers morning delivery",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemarkCommand.MESSAGE_USAGE));
     }
 
     @Test
@@ -36,14 +50,8 @@ public class RemarkCommandParserTest {
     }
 
     @Test
-    public void parse_missingRemark_throwsParseException() {
-        assertParseFailure(parser, "1",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemarkCommand.MESSAGE_USAGE));
-    }
-
-    @Test
     public void parse_invalidIndex_throwsParseException() {
-        assertParseFailure(parser, "a prefers morning delivery",
+        assertParseFailure(parser, "a r/prefers morning delivery",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemarkCommand.MESSAGE_USAGE));
     }
 }

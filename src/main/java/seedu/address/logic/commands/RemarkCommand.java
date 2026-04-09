@@ -26,6 +26,8 @@ public class RemarkCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 prefers morning delivery";
 
     public static final String MESSAGE_REMARK_PERSON_SUCCESS = "Updated remark for Person: %1$s";
+    public static final String MESSAGE_REMARK_RESET_SUCCESS = "Reset remark for Person: %1$s";
+
 
     private final Index targetIndex;
     private final Remark remark;
@@ -55,7 +57,9 @@ public class RemarkCommand extends Command {
         model.setPerson(personToEdit, remarkedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
-        return new CommandResult(String.format(MESSAGE_REMARK_PERSON_SUCCESS, Messages.format(remarkedPerson)));
+        boolean isReset = remark.value.equals(Remark.DEFAULT_REMARK);
+        String messageTemplate = isReset ? MESSAGE_REMARK_RESET_SUCCESS : MESSAGE_REMARK_PERSON_SUCCESS;
+        return new CommandResult(String.format(messageTemplate, Messages.format(remarkedPerson)));
     }
 
     @Override
