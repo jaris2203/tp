@@ -517,7 +517,7 @@ Format: `assign n/NAME p/PHONE [n/NAME p/PHONE]…`
 
 * Assigns drivers to **all subscribers** in Client2Door — the current view does not affect who gets assigned.
 * The number of `n/… p/…` pairs determines how many groups are created. Subscribers are divided roughly equally.
-* All driver phone numbers must be unique within the command.
+* All driver phone numbers and names must be unique within the command (i.e., no two drivers have the same name or same phone number)
 * Any existing driver assignment on a subscriber is replaced.
 * See also: [`export`](#exporting-driver-delivery-assignments-export) to generate a shareable delivery schedule after assigning.
 
