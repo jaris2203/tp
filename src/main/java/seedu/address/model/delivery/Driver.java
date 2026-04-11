@@ -63,7 +63,7 @@ public class Driver {
         Driver otherDriver = (Driver) other;
 
         return name.equals(otherDriver.name)
-                && phone.equals(otherDriver.phone);
+                || phone.equals(otherDriver.phone);
     }
 
     @Override

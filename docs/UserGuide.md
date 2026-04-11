@@ -517,7 +517,7 @@ Format: `assign n/NAME p/PHONE [n/NAME p/PHONE]…`
 
 * Assigns drivers to **all subscribers** in Client2Door — the current view does not affect who gets assigned.
 * The number of `n/… p/…` pairs determines how many groups are created. Subscribers are divided roughly equally.
-* All driver phone numbers must be unique within the command.
+* All driver phone numbers and names must be unique within the command (i.e., no two drivers have the same name or same phone number)
 * Any existing driver assignment on a subscriber is replaced.
 * See also: [`export`](#exporting-driver-delivery-assignments-export) to generate a shareable delivery schedule after assigning.
 
@@ -644,12 +644,12 @@ A: All previous driver assignments for every subscriber are replaced. The `assig
 |--------|-----------------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
 | **Add** | `add n/NAME p/PHONE e/EMAIL a/ADDRESS b/BOX_NAME:MONTHS_SUBSCRIBED [r/REMARK] [t/TAG]…` | `add n/Sarah Tan p/91234567 e/sarah@email.com a/Blk 10 AMK Ave 4 b/box-1:2` |
 | **Edit** | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/REMARK] [t/TAG]…`               | `edit 2 p/98887777 r/prefers afternoon delivery`                            |
-| **Delete** | `delete INDEX`                                                                          | `delete 3` or `delete sarah@email.com`                                      |
+| **Delete** | `delete INDEX`                                                                          | `delete 3`                                                                  |
 | **Find** | `find KEYWORD [MORE_KEYWORDS]…`                                                         | `find Sarah Wei`                                                            |
 | **List** | `list`                                                                                  | `list`                                                                      |
 | **Mark** | `mark INDEX STATUS`                                                                     | `mark 1 delivered`                                                          |
 | **Filter** | `filter BOX_NAME [MORE_BOX_NAMES]…` or `filter d/DRIVER_NAME [d/MORE_DRIVER_NAMES]…`    | `filter box-1` or `filter d/David Lim`                                      |
-| **Remark** | `remark INDEX REMARK`                                                                   | `remark 2 leave at door`                                                    |
+| **Remark** | `remark INDEX r/REMARK`                                                                 | `remark 2 r/leave at door`                                                  |
 | **Add Box** | `addbox n/NAME b/BOX_NAME:MONTHS_SUBSCRIBED [b/BOX_NAME:MONTHS_SUBSCRIBED]…`            | `addbox n/Sarah Tan b/box-3:4`                                              |
 | **Edit Box** | `editbox n/NAME b/OLD_BOX_NAME [nb/NEW_BOX_NAME] [ex/MONTHS_SUBSCRIBED]`                | `editbox n/Sarah Tan b/box-1 nb/box-2 ex/3`                                 |
 | **Delete Box** | `deletebox n/NAME b/BOX_NAME [b/BOX_NAME]…`                                             | `deletebox n/Sarah Tan b/box-1`                                             |
