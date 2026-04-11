@@ -990,10 +990,18 @@ testers are expected to do more *exploratory* testing.
 
    1. Download the jar file and move/copy into an empty folder
 
-   2. Open a terminal and navigate to the folder using `cd`. For example:
-   ```
-   cd C:\MyBusiness\Client2Door
-   ```
+2. Open a terminal and navigate to the folder using `cd`. For example: <br>
+   **Windows (Command Prompt):**
+     ```
+     cd C:\MyBusiness\Client2Door
+     java -jar Client2Door.jar
+     ```
+        
+   **Mac / Linux (Terminal):**
+     ```
+     cd ~/Client2Door
+     java -jar Client2Door.jar
+     ```
    
    3. Run the app: <br>`java -jar Client2Door.jar`<br>**NOTE:** The window size may not be optimum. 
 
@@ -1028,7 +1036,7 @@ testers are expected to do more *exploratory* testing.
     2. Test case: `add n/John Doe p/91234567 e/johndoe@email.com a/Blk 123 Tampines St 11 #05-67 Singapore 521123 b/box-1:2`<br>
        Expected: New subscriber is added to the list. Details of the added subscriber shown in the status message.
 
-    3. Test case: `add n/John Doe p/9123456 e/johndoe@email.com a/Blk 123 Tampines St 11 #05-67 Singapore 521123 b/box-1:2`<br>
+    3. Test case: `add n/John Doe p/91234567 e/johndoe@email.com a/Blk 123 Tampines St 11 #05-67 Singapore 521123 b/box-1:2`<br>
        Expected: No subscriber is added as there is an duplicate subscriber. Error details shown in the status message. State of address book remains the same.
 
     4. Other incorrect add commands to try: `add`, `add n/John Doe`, `add n/John Doe p/91234567 e/invalid-email a/Blk 123 Tampines St 11 #05-67 Singapore 521123 b/box-1:2`, `add n/John Doe p/91234567 e/johndoe@email.com a/No postal code b/box-1:2`<br>
@@ -1059,7 +1067,7 @@ testers are expected to do more *exploratory* testing.
        Expected: A `delivery_assignments.html` file is generated at the default location (`data` folder). Success message shown in the status message with the file path.
 
     3. Test case: `export test.txt`<br>
-       Expected: No file is generated. Error details shown in the status message. State of address book remains the same.
+       Expected: No file is generated since file format is invalid. Error details shown in the status message. State of address book remains the same.
 
     4. Other incorrect export commands to try: `export invalidfile`, `export data/test`, `export /invalid/path/test.html`<br>
        Expected: Similar to previous.
@@ -1071,11 +1079,11 @@ testers are expected to do more *exploratory* testing.
    **Note:** The data is saved as `addressbook.json` in the `data` folder that is created in the same folder which the Client2Door.jar file is in
    2. Next time when user re-launches the app, the previously saved state of the address book should be reloaded.
 2. Dealing with corrupted data files
-   1. Edit the `addessbook.json` file in the `data` folder (e.g., set expiry date of box to be `null`)
+   1. Edit the `addressbook.json` file in the `data` folder (e.g., set expiry date of box to be `null`)
    2. The app should not be able to start up correctly 
-   2. User may refer to the example file format [here](#appendix-example-format-of-the-data-file) to compare against for potentially corrupt data files (i.e., missing or invalid fields)
-   3. Ensure that the formatting of fields and indentations are the same as the given example
-   4. Run the app again. The app should be able to run correctly without data loss.
+   3. User may refer to the example file format [here](#example-format-of-the-data-file) to compare against for potentially corrupt data files (i.e., missing or invalid fields)
+   4. Ensure that the formatting of fields and indentations are the same as the given example
+   5. Run the app again. The app should be able to run correctly without data loss.
 
 ### Example format of the data file
 - This example is given for debugging and correcting of potentially corrupt `addressbook.json` data files:
