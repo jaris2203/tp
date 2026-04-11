@@ -1071,10 +1071,11 @@ testers are expected to do more *exploratory* testing.
    **Note:** The data is saved as `addressbook.json` in the `data` folder that is created in the same folder which the Client2Door.jar file is in
    2. Next time when user re-launches the app, the previously saved state of the address book should be reloaded.
 2. Dealing with corrupted data files
-
-   1. The app may potentially not be able to start up correctly
-   2. User may refer to the example file format [here](#example-format-of-the-data-file) to compare against for potentially corrupt data files (i.e., missing or invalid fields)
+   1. Edit the `addessbook.json` file in the `data` folder (e.g., set expiry date of box to be `null`)
+   2. The app should not be able to start up correctly 
+   2. User may refer to the example file format [here](#appendix-example-format-of-the-data-file) to compare against for potentially corrupt data files (i.e., missing or invalid fields)
    3. Ensure that the formatting of fields and indentations are the same as the given example
+   4. Run the app again. The app should be able to run correctly without data loss.
 
 ### Example format of the data file
 - This example is given for debugging and correcting of potentially corrupt `addressbook.json` data files:
