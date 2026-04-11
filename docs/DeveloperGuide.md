@@ -451,9 +451,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1.  Startup owner requests to assign drivers to subscribers.
 2.  Startup owner enters the assign command with one or more drivers, each with a name and phone number.
 3.  Client2Door validates the command and driver details.
-4.  Client2Door groups the current subscribers into clusters based on the number of declared drivers.
-5.  Client2Door assigns one driver to each subscriber cluster.
-6.  Client2Door displays a success message and updated subscriber list.
+4.  Client2Door groups the current subscribers into clusters, with each cluster being assigned a driver.
+5.  Client2Door displays a success message and updated subscriber list.
 
     Use case ends.
 
@@ -989,18 +988,29 @@ testers are expected to do more *exploratory* testing.
 
 1. Initial launch
 
-   1. Download the jar file and copy into an empty folder
+   1. Download the jar file and move/copy into an empty folder
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+2. Open a terminal and navigate to the folder using `cd`. For example: <br>
+   **Windows (Command Prompt):**
+     ```
+     cd C:\MyBusiness\Client2Door
+     java -jar Client2Door.jar
+     ```
+        
+   **Mac / Linux (Terminal):**
+     ```
+     cd ~/Client2Door
+     java -jar Client2Door.jar
+     ```
+   
+   3. Run the app: <br>`java -jar Client2Door.jar`<br>**NOTE:** The window size may not be optimum. 
 
-1. Saving window preferences
+2. Saving window preferences
 
    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
 
-   1. Re-launch the app by double-clicking the jar file.<br>
+   1. Re-launch the app the same way as the first time.<br>
        Expected: The most recent window size and location is retained.
-
-1. _{ more test cases …​ }_
 
 ### Deleting a person
 
@@ -1009,20 +1019,157 @@ testers are expected to do more *exploratory* testing.
    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 
    1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message.
 
    1. Test case: `delete 0`<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+      Expected: No person is deleted. Error details shown in the status message. State of address book remains the same
 
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
+### Adding a subscriber
+
+1. Adding a subscriber while all persons are being shown
+
+    1. Prerequisites: List all persons using the `list` command. Ensure there is no existing subscriber with the same details.
+
+    2. Test case: `add n/John Doe p/91234567 e/johndoe@email.com a/Blk 123 Tampines St 11 #05-67 Singapore 521123 b/box-1:2`<br>
+       Expected: New subscriber is added to the list. Details of the added subscriber shown in the status message.
+
+    3. Test case: `add n/John Doe p/91234567 e/johndoe@email.com a/Blk 123 Tampines St 11 #05-67 Singapore 521123 b/box-1:2`<br>
+       Expected: No subscriber is added as there is an duplicate subscriber. Error details shown in the status message. State of address book remains the same.
+
+    4. Other incorrect add commands to try: `add`, `add n/John Doe`, `add n/John Doe p/91234567 e/invalid-email a/Blk 123 Tampines St 11 #05-67 Singapore 521123 b/box-1:2`, `add n/John Doe p/91234567 e/johndoe@email.com a/No postal code b/box-1:2`<br>
+       Expected: Similar to previous.
+
+### Assigning drivers
+
+1. Assigning drivers while all persons are being shown
+
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+
+    2. Test case: `assign n/David Lim p/91234567 n/Priya Nair p/98765432`<br>
+       Expected: All persons are assigned to one of the provided drivers. Updated driver assignments are reflected in the list. Success message shown in the status message.
+
+    3. Test case: `assign n/Patrick Loh p/87171717 n/Ali Chow p/88234567`<br>
+       Expected: Updated new driver assignments are reflected in the list. Success message shown in the status message.
+
+    4. Possible incorrect assign commands to try: `assign`, `assign n/David Lim`, `assign p/91234567`, `assign n/David Lim p/000`, `assign n/ p/91234567`<br>
+       Expected: No driver assignments are made. Error details shown in the status message. State of address book remains the same.
+
+### Exporting delivery assignments
+
+1. Exporting delivery assignments after drivers have been assigned
+
+    1. Prerequisites: Assign drivers first using the `assign` command. At least one person in the list has a driver assigned.
+
+    2. Test case: `export`<br>
+       Expected: A `delivery_assignments.html` file is generated at the default location (`data` folder). Success message shown in the status message with the file path.
+
+    3. Test case: `export test.txt`<br>
+       Expected: No file is generated since file format is invalid. Error details shown in the status message. State of address book remains the same.
+
+    4. Other incorrect export commands to try: `export invalidfile`, `export data/test`, `export /invalid/path/test.html`<br>
+       Expected: Similar to previous.
 
 ### Saving data
 
-1. Dealing with missing/corrupted data files
+1. Saving the current state of address book
+   1. Running `exit` in the app should automatically save the current state of the address book <br> 
+   **Note:** The data is saved as `addressbook.json` in the `data` folder that is created in the same folder which the Client2Door.jar file is in
+   2. Next time when user re-launches the app, the previously saved state of the address book should be reloaded.
+2. Dealing with corrupted data files
+   1. Edit the `addressbook.json` file in the `data` folder (e.g., set expiry date of box to be `null`)
+   2. The app should not be able to start up correctly 
+   3. User may refer to the example file format [here](#example-format-of-the-data-file) to compare against for potentially corrupt data files (i.e., missing or invalid fields)
+   4. Ensure that the formatting of fields and indentations are the same as the given example
+   5. Run the app again. The app should be able to run correctly without data loss.
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
-
-1. _{ more test cases …​ }_
+### Example format of the data file
+- This example is given for debugging and correcting of potentially corrupt `addressbook.json` data files:
+```
+{
+  "persons" : [ {
+    "name" : "Alex Yeoh",
+    "phone" : "87438807",
+    "email" : "alexyeoh@example.com",
+    "address" : "Blk 30 Geylang Street 29, #06-40, Singapore 123456",
+    "tags" : [ "friends" ],
+    "remark" : "2 iced coffees",
+    "deliveryStatus" : "Delivered",
+    "driver" : null,
+    "boxes" : [ {
+      "boxName" : "box-1",
+      "expiryDate" : "2026-06-30"
+    } ]
+  }, {
+    "name" : "Bernice Yu",
+    "phone" : "99272758",
+    "email" : "berniceyu@example.com",
+    "address" : "Blk 30 Lorong 3 Serangoon Gardens, Singapore 123456, #07-18",
+    "tags" : [ "colleagues", "friends" ],
+    "remark" : "3 cupcakes",
+    "deliveryStatus" : "Pending",
+    "driver" : null,
+    "boxes" : [ {
+      "boxName" : "box-1",
+      "expiryDate" : "2026-06-30"
+    }, {
+      "boxName" : "box-2",
+      "expiryDate" : "2026-07-31"
+    } ]
+  }, {
+    "name" : "Charlotte Oliveiro",
+    "phone" : "93210283",
+    "email" : "charlotte@example.com",
+    "address" : "Blk 11 Ang Mo Kio Street 74, #11-04, Singapore 123456",
+    "tags" : [ "neighbours" ],
+    "remark" : "1 vanilla cake",
+    "deliveryStatus" : "Packed",
+    "driver" : null,
+    "boxes" : [ {
+      "boxName" : "box-3",
+      "expiryDate" : "2026-08-31"
+    } ]
+  }, {
+    "name" : "David Li",
+    "phone" : "91031282",
+    "email" : "lidavid@example.com",
+    "address" : "Blk 436 Serangoon Gardens Street 26, #16-43, Singapore 123456",
+    "tags" : [ "family" ],
+    "remark" : "4 chicken pies",
+    "deliveryStatus" : "Delivered",
+    "driver" : null,
+    "boxes" : [ {
+      "boxName" : "box-4",
+      "expiryDate" : "2026-09-30"
+    } ]
+  }, {
+    "name" : "Irfan Ibrahim",
+    "phone" : "92492021",
+    "email" : "irfan@example.com",
+    "address" : "Blk 47 Tampines Street 20, #17-35, Singapore 123456",
+    "tags" : [ "classmates" ],
+    "remark" : "2 baguettes",
+    "deliveryStatus" : "Delivered",
+    "driver" : null,
+    "boxes" : [ {
+      "boxName" : "box-5",
+      "expiryDate" : "2026-10-31"
+    } ]
+  }, {
+    "name" : "Roy Balakrishnan",
+    "phone" : "92624417",
+    "email" : "royb@example.com",
+    "address" : "Blk 45 Aljunied Street 85, #11-31, Singapore 123456",
+    "tags" : [ "colleagues" ],
+    "remark" : "6 donuts",
+    "deliveryStatus" : "Pending",
+    "driver" : null,
+    "boxes" : [ {
+      "boxName" : "box-6",
+      "expiryDate" : "2026-11-30"
+    } ]
+  } ]
+}
+```
