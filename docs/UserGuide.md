@@ -91,6 +91,7 @@ Managing recurring orders in a spreadsheet gets messy fast — you lose track of
    - [Filtering subscribers — `filter`](#filtering-subscribers-filter)
    - [Assigning drivers — `assign`](#assigning-drivers-assign)
    - [Exporting assignments — `export`](#exporting-driver-delivery-assignments-export)
+   - [Importing subscribers — `import`](#importing-subscribers-import)
    - [Clearing all entries — `clear`](#clearing-all-entries-clear)
    - [Exiting — `exit`](#exiting-the-program-exit)
 4. [FAQ](#faq)
@@ -384,12 +385,18 @@ Examples:
 
 ### Marking delivery status : `mark`
 
-Updates the delivery status of a subscriber.
+Updates the delivery status of a subscriber. Delivery status tracks where a subscriber's order is in the fulfilment cycle:
+
+* `Pending` — order received but not yet prepared
+* `Packed` — boxes have been packed and are ready for dispatch
+* `Delivered` — order has been delivered to the subscriber
+
+Status does **not** reset automatically — it must be updated manually using this command.
 
 Format: `mark INDEX STATUS`
 
 * The `INDEX` refers to the number shown next to the subscriber in the current list. It **must be a positive integer** (1, 2, 3, …).
-* `STATUS` must be one of: `PENDING`, `PACKED`, or `DELIVERED` (not case-sensitive).
+* `STATUS` must be one of: `pending`, `packed`, or `delivered` (not case-sensitive).
 
 > **Tip:** Use `mark` as you progress through your fulfilment workflow — mark as `packed` once boxes are ready, then `delivered` after drop-off. This keeps your list up to date for driver coordination.
 
@@ -520,7 +527,8 @@ Format: `assign n/NAME p/PHONE [n/NAME p/PHONE]…`
 
 * Assigns drivers to **all subscribers** in Client2Door — the current view does not affect who gets assigned.
 * The number of `n/… p/…` pairs determines how many groups are created. Subscribers are divided roughly equally.
-* All driver phone numbers and names must be unique within the command (i.e., no two drivers have the same name or same phone number)
+* Driver phone numbers follow the same rules as subscriber phone numbers — digits only, at least 3 digits, must not start with 0.
+* All driver phone numbers and names must be unique within the command (i.e., no two drivers have the same name or same phone number).
 * Any existing driver assignment on a subscriber is replaced.
 * See also: [`export`](#exporting-driver-delivery-assignments-export) to generate a shareable delivery schedule after assigning.
 
@@ -574,6 +582,33 @@ Format: `import FILE_NAME.csv`
 * Invalid or duplicate rows are skipped and reported in the output panel.
 * Imported subscribers start with delivery status `Pending`.
 * Tags are not imported from the CSV file.
+
+**CSV format:**
+
+Each data row must have at least 9 columns in this order:
+
+| Column | Field | Notes |
+|--------|-------|-------|
+| 1 | Row index | Any value — not imported |
+| 2 | Name | |
+| 3 | Phone | |
+| 4 | Email | |
+| 5 | Address | Wrap in quotes if it contains commas |
+| 6 | Box 1 name | |
+| 7 | Box 1 months subscribed | Integer |
+| … | Additional box pairs | Repeat columns 6–7 for each extra box (leave blank to skip) |
+| 2nd to last | Remark | |
+| Last | Trailing column | Any value — not imported |
+
+Example row (one box):
+```
+0,Sarah Tan,91234567,sarah@email.com,Blk 10 Ang Mo Kio Ave 4,box-1,2,leave at door,extra
+```
+
+Example row (two boxes):
+```
+0,Wei Ming,98765432,wei@email.com,456 Jurong West Ave 1,box-1,3,box-2,6,no remark,extra
+```
 
 > **Tip:** Place the CSV file in the `data/` folder before running `import`. This command reads only from that folder.
 
@@ -658,6 +693,7 @@ A: All previous driver assignments for every subscriber are replaced. The `assig
 | **Delete Box** | `deletebox n/NAME b/BOX_NAME [b/BOX_NAME]…`                                             | `deletebox n/Sarah Tan b/box-1`                                             |
 | **Assign** | `assign n/NAME p/PHONE [n/NAME p/PHONE]…`                                               | `assign n/David Lim p/91234567 n/Priya Nair p/98765432`                     |
 | **Export** | `export [FILE_PATH]`                                                                    | `export data/march-delivery.html`                                           |
+| **Import** | `import FILE_NAME.csv`                                                                  | `import april-subscribers.csv`                                              |
 | **Clear** | `clear`                                                                                 | `clear`                                                                     |
 | **Help** | `help`                                                                                  | `help`                                                                      |
 | **Exit** | `exit`                                                                                  | `exit`                                                                      |
