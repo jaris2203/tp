@@ -317,16 +317,17 @@ Examples:
 
 Updates the delivery remark for a subscriber.
 
-Format: `remark INDEX REMARK`
+Format: `remark INDEX r/REMARK`
 
 * The `INDEX` refers to the number shown next to the subscriber in the current list. It **must be a positive integer** (1, 2, 3, …).
+* Only one `r/` prefix is allowed — providing multiple `r/` prefixes in the same command is an error.
 * You can also update remarks via [`edit`](#editing-a-subscriber-edit) using the `r/` prefix.
 
 > **Tip:** Use remarks for delivery-specific notes like "ring doorbell", "leave at guardhouse", or "call before arriving".
 
 Examples:
-* `remark 1 leave at door and no need to ring bell`
-* `remark 2 allergic to nuts`
+* `remark 1 r/leave at door and no need to ring bell`
+* `remark 2 r/allergic to nuts`
 
 **Expected output:** The output panel confirms the remark has been updated.
 
@@ -647,7 +648,7 @@ A: All previous driver assignments for every subscriber are replaced. The `assig
 | **List** | `list`                                                                                  | `list`                                                                      |
 | **Mark** | `mark INDEX STATUS`                                                                     | `mark 1 delivered`                                                          |
 | **Filter** | `filter BOX_NAME [MORE_BOX_NAMES]…` or `filter d/DRIVER_NAME [d/MORE_DRIVER_NAMES]…`    | `filter box-1` or `filter d/David Lim`                                      |
-| **Remark** | `remark INDEX REMARK`                                                                   | `remark 2 leave at door`                                                    |
+| **Remark** | `remark INDEX r/REMARK`                                                                 | `remark 2 r/leave at door`                                                  |
 | **Add Box** | `addbox n/NAME b/BOX_NAME:MONTHS_SUBSCRIBED [b/BOX_NAME:MONTHS_SUBSCRIBED]…`            | `addbox n/Sarah Tan b/box-3:4`                                              |
 | **Edit Box** | `editbox n/NAME b/OLD_BOX_NAME [nb/NEW_BOX_NAME] [ex/MONTHS_SUBSCRIBED]`                | `editbox n/Sarah Tan b/box-1 nb/box-2 ex/3`                                 |
 | **Delete Box** | `deletebox n/NAME b/BOX_NAME [b/BOX_NAME]…`                                             | `deletebox n/Sarah Tan b/box-1`                                             |
