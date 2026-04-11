@@ -50,9 +50,13 @@ public class RemarkCommand extends Command {
         }
 
         Person personToEdit = lastShownList.get(targetIndex.getZeroBased());
-        Person remarkedPerson = new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
-                personToEdit.getAddress(), personToEdit.getBoxes(), remark, personToEdit.getDeliveryStatus(),
-                personToEdit.getTags());
+        Person remarkedPerson = personToEdit.hasDriver()
+                ? new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
+                        personToEdit.getAddress(), personToEdit.getBoxes(), remark, personToEdit.getDeliveryStatus(),
+                        personToEdit.getTags(), personToEdit.getAssignedDriver())
+                : new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
+                        personToEdit.getAddress(), personToEdit.getBoxes(), remark, personToEdit.getDeliveryStatus(),
+                        personToEdit.getTags());
 
         model.setPerson(personToEdit, remarkedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);

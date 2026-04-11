@@ -307,7 +307,7 @@ Examples:
 * `edit 1 p/98887777 e/sarah_new@email.com` — updates the phone and email of subscriber 1.
 * `edit 2 a/50 Jurong West Ave 1 Singapore 649520 r/prefers afternoon delivery t/` — updates address and remark for subscriber 2 and removes all tags.
 
-**Expected output:** The output panel confirms the edit and shows the subscriber's updated details.
+**Expected output:** The output panel confirms the edit and shows the subscriber's updated details. The subscriber list resets to show all subscribers.
 
 ![Edit command result](../docs/images/Release1.5Edit.png)
 
@@ -320,6 +320,7 @@ Updates the delivery remark for a subscriber.
 Format: `remark INDEX r/REMARK`
 
 * The `INDEX` refers to the number shown next to the subscriber in the current list. It **must be a positive integer** (1, 2, 3, …).
+* Only one `r/` prefix is allowed — providing multiple `r/` prefixes in the same command is an error.
 * You can also update remarks via [`edit`](#editing-a-subscriber-edit) using the `r/` prefix.
 
 > **Tip:** Use remarks for delivery-specific notes like "ring doorbell", "leave at guardhouse", or "call before arriving".
@@ -328,7 +329,7 @@ Examples:
 * `remark 1 r/leave at door and no need to ring bell`
 * `remark 2 r/allergic to nuts`
 
-**Expected output:** The output panel confirms the remark has been updated.
+**Expected output:** The output panel confirms the remark has been updated. The subscriber list resets to show all subscribers.
 
 ![Remark command result](../docs/images/Release1.5Remark.png)
 
@@ -395,7 +396,7 @@ Examples:
 * `mark 2 delivered` — marks subscriber 2 as Delivered.
 * `mark 3 pending` — resets subscriber 3 back to Pending.
 
-**Expected output:** The subscriber's status updates in the list. The output panel confirms the change.
+**Expected output:** The subscriber's status updates in the list. The output panel confirms the change. The subscriber list resets to show all subscribers.
 
 ![Mark command result](../docs/images/Release1.5Mark.png)
 
@@ -481,7 +482,7 @@ Examples:
 * `editbox n/Wei Ming b/box-1 nb/box-3 ex/4` — renames box AND updates expiry to 4 months after the present date.
 > **Note:** Present date here refers to the present date in our time, not the previous expiry date before the edit.
 
-**Expected output:** The output panel confirms the update and shows the box's new details.
+**Expected output:** The output panel confirms the update and shows the box's new details. The subscriber list resets to show all subscribers.
 
 ![Editbox command result](../docs/images/Release1.5-EditBox.png)
 
@@ -503,7 +504,7 @@ Examples:
 * `deletebox n/Sarah Tan b/box-1` — removes one box from Sarah Tan.
 * `deletebox n/Wei Ming b/box-1 b/box-2` — removes two boxes. If these are Wei Ming's only boxes, Wei Ming will also be deleted.
 
-**Expected output:** The output panel confirms which boxes were removed.
+**Expected output:** The output panel confirms which boxes were removed. The subscriber list resets to show all subscribers.
 
 ![Deletebox command result](../docs/images/Release1.5-DeleteBox.png)
 
@@ -528,7 +529,7 @@ Examples:
 * `assign n/David Lim p/91234567 n/Priya Nair p/98765432` — splits all subscribers between two drivers.
 * `assign n/David Lim p/91234567 n/Priya Nair p/98765432 n/Ali Hassan p/81234567` — splits all subscribers across three drivers.
 
-**Expected output:** Every subscriber in Client2Door is tagged with their assigned driver. The output panel confirms how many subscribers were assigned and to which drivers.
+**Expected output:** Every subscriber in Client2Door is tagged with their assigned driver. The output panel confirms how many subscribers were assigned and to which drivers. The subscriber list resets to show all subscribers.
 
 ---
 
