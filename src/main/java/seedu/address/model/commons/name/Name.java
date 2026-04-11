@@ -48,9 +48,15 @@ public class Name {
         StringBuilder sb = new StringBuilder();
         for (String word : words) {
             if (!word.isEmpty()) {
-                sb.append(Character.toUpperCase(word.charAt(0)))
-                        .append(word.substring(1).toLowerCase())
-                        .append(" ");
+                String[] parts = word.toLowerCase().split("((?<=['-])|(?=['-]))");
+                for (String part : parts) {
+                    if (part.equals("'") || part.equals("-")) {
+                        sb.append(part);
+                    } else {
+                        sb.append(Character.toUpperCase(part.charAt(0))).append(part.substring(1));
+                    }
+                }
+                sb.append(" ");
             }
         }
         return sb.toString().trim();
